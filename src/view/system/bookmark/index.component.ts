@@ -3,20 +3,20 @@
 // See https://github.com/xjh22222228/nav
 
 import { Component, ViewChild, ElementRef } from '@angular/core'
-import { $t } from 'src/locale'
-import { NzNotificationService } from 'ng-zorro-antd/notification'
-import { NzMessageService } from 'ng-zorro-antd/message'
 import { NzButtonModule } from 'ng-zorro-antd/button'
-import { setNavs } from 'src/utils/web'
-import { parseBookmark } from 'src/utils/bookmark'
 import { NzInputModule } from 'ng-zorro-antd/input'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzNotificationService } from 'ng-zorro-antd/notification'
+import { $t } from 'src/locale'
+import { parseBookmark } from 'src/utils/bookmark'
+import { setNavs } from 'src/utils/web'
 
 @Component({
   standalone: true,
   imports: [NzInputModule, NzButtonModule],
   selector: 'system-bookmark',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SystemBookmarkComponent {
   @ViewChild('file', { static: false }) file!: ElementRef
@@ -25,7 +25,7 @@ export default class SystemBookmarkComponent {
 
   constructor(
     private message: NzMessageService,
-    private notification: NzNotificationService,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit() {}
@@ -48,7 +48,7 @@ export default class SystemBookmarkComponent {
         if (!Array.isArray(result)) {
           that.notification.error(
             $t('_errorBookTip'),
-            `${result?.message ?? ''}`,
+            `${result?.message ?? ''}`
           )
         } else {
           that.message.success($t('_importSuccess'))

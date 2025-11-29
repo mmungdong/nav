@@ -2,16 +2,16 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import { setAuthCode, getAuthCode, removeAuthCode } from 'src/utils/user'
-import { getUserInfo, updateUserInfo } from 'src/api'
-import { NzInputModule } from 'ng-zorro-antd/input'
 import { NzButtonModule } from 'ng-zorro-antd/button'
+import { NzInputModule } from 'ng-zorro-antd/input'
+import { NzMessageService } from 'ng-zorro-antd/message'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
+import { getUserInfo, updateUserInfo } from 'src/api'
+import { $t } from 'src/locale'
+import { setAuthCode, getAuthCode, removeAuthCode } from 'src/utils/user'
 
 @Component({
   standalone: true,
@@ -20,11 +20,11 @@ import { NzSpinModule } from 'ng-zorro-antd/spin'
     FormsModule,
     NzInputModule,
     NzButtonModule,
-    NzSpinModule,
+    NzSpinModule
   ],
   selector: 'auth',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class AuthComponent {
   readonly $t = $t
@@ -70,7 +70,7 @@ export default class AuthComponent {
   handleSave() {
     this.submitting = true
     updateUserInfo({
-      url: this.url,
+      url: this.url
     })
       .then(() => {
         this.getUserInfo()

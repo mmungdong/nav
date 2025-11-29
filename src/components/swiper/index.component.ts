@@ -2,11 +2,12 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { JumpService } from 'src/services/jump'
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 import { NzCarouselModule } from 'ng-zorro-antd/carousel'
+import { JumpService } from 'src/services/jump'
 import type { ImageProps } from 'src/types'
+
 import { SwiperItemComponent } from './swiper-item/index.component'
 
 @Component({
@@ -15,7 +16,7 @@ import { SwiperItemComponent } from './swiper-item/index.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-swiper',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class SwiperComponent {
   @Input() images: ImageProps[] = []

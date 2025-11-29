@@ -2,25 +2,25 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
+import { Component } from '@angular/core'
+import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { NzModalService } from 'ng-zorro-antd/modal'
-import { navs } from 'src/store'
-import { setAuthCode, getAuthCode } from 'src/utils/user'
-import { getUserCollect, delUserCollect, updateFileContent } from 'src/api'
-import { DB_PATH } from 'src/constants'
-import { isSelfDevelop } from 'src/utils/utils'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
-import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzTableModule } from 'ng-zorro-antd/table'
+import { getUserCollect, delUserCollect, updateFileContent } from 'src/api'
 import { LogoComponent } from 'src/components/logo/logo.component'
 import { TagListComponent } from 'src/components/tag-list/index.component'
-import { ActionType } from 'src/types'
-import { deleteWebByIds, getWebById } from 'src/utils/web'
+import { DB_PATH } from 'src/constants'
+import { $t } from 'src/locale'
 import { JumpService } from 'src/services/jump'
+import { navs } from 'src/store'
+import { ActionType } from 'src/types'
 import event from 'src/utils/mitt'
+import { setAuthCode, getAuthCode } from 'src/utils/user'
+import { isSelfDevelop } from 'src/utils/utils'
+import { deleteWebByIds, getWebById } from 'src/utils/web'
 
 @Component({
   standalone: true,
@@ -30,12 +30,12 @@ import event from 'src/utils/mitt'
     NzButtonModule,
     NzTableModule,
     LogoComponent,
-    TagListComponent,
+    TagListComponent
   ],
   providers: [NzMessageService, NzModalService],
   selector: 'user-collect',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class CollectComponent {
   readonly $t = $t
@@ -47,7 +47,7 @@ export default class CollectComponent {
   typeMap: Record<any, string> = {
     [ActionType.Create]: $t('_add'),
     [ActionType.Edit]: $t('_edit'),
-    [ActionType.Delete]: $t('_del'),
+    [ActionType.Delete]: $t('_del')
   }
   setOfCheckedId = new Set<number>()
   checked = false
@@ -55,7 +55,7 @@ export default class CollectComponent {
   constructor(
     private message: NzMessageService,
     private modal: NzModalService,
-    public readonly jumpService: JumpService,
+    public readonly jumpService: JumpService
   ) {}
 
   ngOnInit() {
@@ -95,8 +95,8 @@ export default class CollectComponent {
         this.submitting = true
         delUserCollect({
           data: this.dataList.filter((item) =>
-            this.setOfCheckedId.has(item.extra.uuid),
-          ),
+            this.setOfCheckedId.has(item.extra.uuid)
+          )
         })
           .then((res) => {
             this.checked = false
@@ -106,14 +106,14 @@ export default class CollectComponent {
           .finally(() => {
             this.submitting = false
           })
-      },
+      }
     })
   }
 
   handleDelete(idx: number) {
     this.submitting = true
     delUserCollect({
-      data: [this.dataList[idx]],
+      data: [this.dataList[idx]]
     })
       .then((res) => {
         this.dataList = res.data?.data || []
@@ -181,11 +181,11 @@ export default class CollectComponent {
             if (item.oldData) {
               item.name = this.highlightDifferences(
                 item.oldData.name,
-                item.name,
+                item.name
               )
               item.desc = this.highlightDifferences(
                 item.oldData.desc,
-                item.desc,
+                item.desc
               )
             }
           }
@@ -211,7 +211,7 @@ export default class CollectComponent {
     event.emit('CREATE_WEB', {
       parentId: data.parentId,
       detail: data,
-      isMove: true,
+      isMove: true
     })
     event.emit('SET_CREATE_WEB', {
       parentId: data.parentId,
@@ -219,7 +219,7 @@ export default class CollectComponent {
       detail: null,
       callback() {
         that.handleDelete(idx)
-      },
+      }
     })
   }
 
@@ -233,19 +233,19 @@ export default class CollectComponent {
           this.message.error('Delete failed')
         }
         this.handleDelete(idx)
-      },
+      }
     })
   }
 
   handleUpdateWeb(data: any, idx: number) {
     const that = this
     event.emit('CREATE_WEB', {
-      detail: data,
+      detail: data
     })
     event.emit('SET_CREATE_WEB', {
       callback() {
         that.handleDelete(idx)
-      },
+      }
     })
   }
 
@@ -273,7 +273,7 @@ export default class CollectComponent {
         updateFileContent({
           message: 'update db',
           content: JSON.stringify(navs()),
-          path: DB_PATH,
+          path: DB_PATH
         })
           .then(() => {
             this.message.success($t('_syncSuccessTip'))
@@ -281,7 +281,7 @@ export default class CollectComponent {
           .finally(() => {
             this.submitting = false
           })
-      },
+      }
     })
   }
 

@@ -46,7 +46,7 @@ export function userLogout() {
   const removeKeys = [
     STORAGE_KEY_MAP.TOKEN,
     STORAGE_KEY_MAP.IMAGE_TOKEN,
-    STORAGE_KEY_MAP.WEBSITE,
+    STORAGE_KEY_MAP.WEBSITE
   ]
   localforage.clear()
   Array.from({ length: globalThis.localStorage.length }, (_, i) => {
@@ -86,6 +86,6 @@ export function getPermissions(settings: ISettings) {
     create: c,
     edit: e,
     del: d,
-    ok: c || e || d,
+    ok: c || e || d
   } as const
 }

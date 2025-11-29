@@ -4,12 +4,15 @@
 
 import axios from 'axios'
 import NProgress from 'nprogress'
-import config from '../../nav.config.json'
-import event from './mitt'
 import { settings } from 'src/store'
-import { getToken, getAuthCode, removeAuthCode } from '../utils/user'
-import { isLogin } from 'src/utils/user'
 import { getIsGitee, getIsGitLab } from 'src/utils/pureUtils'
+import { isLogin } from 'src/utils/user'
+
+import config from '../../nav.config.json'
+import { getToken, getAuthCode, removeAuthCode } from '../utils/user'
+
+import event from './mitt'
+
 
 export function getAddress(): string {
   return globalThis.__ADDRESS__ || config.address || ''
@@ -44,7 +47,7 @@ export function getImageBaseUrl() {
 
 const httpInstance = axios.create({
   timeout: 60000 * 3,
-  baseURL: getBaseUrl(),
+  baseURL: getBaseUrl()
 })
 
 function startLoad() {
@@ -69,7 +72,7 @@ httpInstance.interceptors.request.use(
   function (error) {
     stopLoad()
     return Promise.reject(error)
-  },
+  }
 )
 
 httpInstance.interceptors.response.use(
@@ -86,19 +89,19 @@ httpInstance.interceptors.response.use(
       title: 'Error：' + status,
       content: errorMsg,
       config: {
-        nzDuration: document.hidden ? 0 : 5000,
-      },
+        nzDuration: document.hidden ? 0 : 5000
+      }
     })
     stopLoad()
     return Promise.reject(error)
-  },
+  }
 )
 
 export const HTTP_BASE_URL = 'https://api.nav3.cn'
 
 const httpNavInstance = axios.create({
   timeout: 15000,
-  baseURL: HTTP_BASE_URL,
+  baseURL: HTTP_BASE_URL
 })
 
 export function getDefaultRequestData(data?: any) {
@@ -113,7 +116,7 @@ export function getDefaultRequestData(data?: any) {
     ...config,
     ...data,
     email,
-    language,
+    language
   } as const
 }
 
@@ -133,7 +136,7 @@ httpNavInstance.interceptors.request.use(
   function (error) {
     stopLoad()
     return Promise.reject(error)
-  },
+  }
 )
 
 httpNavInstance.interceptors.response.use(
@@ -162,14 +165,14 @@ httpNavInstance.interceptors.response.use(
         title: 'Error：' + status,
         content: errorMsg,
         config: {
-          nzDuration: document.hidden ? 0 : 5000,
-        },
+          nzDuration: document.hidden ? 0 : 5000
+        }
       })
     }
 
     stopLoad()
     return Promise.reject(error)
-  },
+  }
 )
 
 export const httpNav = httpNavInstance

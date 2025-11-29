@@ -1,0 +1,31 @@
+<div
+  class="button-search-engine"
+  *ngIf="searchEngineList && searchEngineList.length > 0"
+>
+  <img
+    *ngIf="showLogo && logoImage"
+    class="search-logo pointer-events-none mb-4 select-none"
+    [src]="logoImage"
+    [ngClass]="{ mobile: isMobile }"
+    [ngStyle]="{ maxHeight: search.height + 'px' }"
+  />
+
+  <!-- 搜索引擎按钮网格 -->
+  <div class="search-buttons-grid">
+    <div
+      class="search-button-item"
+      *ngFor="let engine of searchEngineList; let i = index"
+      (click)="selectEngine(engine)"
+      [ngClass]="{
+        'external-engine': !engine.isInner
+      }"
+    >
+      <div
+        *ngIf="engine.icon"
+        class="engine-icon"
+        [ngStyle]="{ 'background-image': 'url(' + engine.icon + ')' }"
+      ></div>
+      <span class="engine-name">{{ engine.name }}</span>
+    </div>
+  </div>
+</div>

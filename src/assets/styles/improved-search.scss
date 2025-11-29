@@ -1,0 +1,65 @@
+// 美化后的搜索组件全局样式
+
+// 搜索引擎选择器弹出框样式
+.engine-selector-popover {
+  .ant-popover-inner {
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+// 搜索类型选择器样式
+.search-type-selector {
+  .ant-select {
+    .ant-select-selector {
+      border-radius: 50px !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+
+      &:hover {
+        border-color: #cbd5e0 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+      }
+    }
+
+    &.ant-select-focused {
+      .ant-select-selector {
+        border-color: #4361ee !important;
+        box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2) !important;
+      }
+    }
+  }
+}
+
+// 暗色主题适配
+.dark {
+  .search-type-selector {
+    .ant-select {
+      .ant-select-selector {
+        background: #1e293b !important;
+        border-color: #334155 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+
+        &:hover {
+          border-color: #475569 !important;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .ant-select-selection-item {
+          color: #f1f5f9 !important;
+        }
+      }
+
+      &.ant-select-focused {
+        .ant-select-selector {
+          border-color: #4361ee !important;
+          box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3) !important;
+        }
+      }
+
+      .ant-select-arrow {
+        color: #94a3b8 !important;
+      }
+    }
+  }
+}

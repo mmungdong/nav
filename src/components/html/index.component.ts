@@ -3,17 +3,17 @@
 // See https://github.com/xjh22222228/nav
 
 import { Component, Input, ViewChild, ElementRef } from '@angular/core'
-import type { IComponentItemProps } from 'src/types'
 import { SafeHtmlPipe } from 'src/pipe/safeHtml.pipe'
-import { parseHtmlWithContent, parseLoadingWithContent } from 'src/utils/utils'
 import { component } from 'src/store'
+import type { IComponentItemProps } from 'src/types'
+import { parseHtmlWithContent, parseLoadingWithContent } from 'src/utils/utils'
 
 @Component({
   standalone: true,
   imports: [SafeHtmlPipe],
   selector: 'app-html',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class HTMLComponent {
   @Input() data!: IComponentItemProps

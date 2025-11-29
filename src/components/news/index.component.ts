@@ -2,25 +2,26 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import {
   Component,
   Input,
   ViewChild,
   ElementRef,
   ViewChildren,
-  QueryList,
+  QueryList
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import type { IComponentItemProps } from 'src/types'
-import { newsTypeMap } from './types'
 import { getNews } from 'src/api'
-import { JumpService } from 'src/services/jump'
+import { LoadingComponent } from 'src/components/loading/index.component'
 import { STORAGE_KEY_MAP } from 'src/constants'
 import { $t } from 'src/locale'
+import { JumpService } from 'src/services/jump'
+import { component } from 'src/store'
+import type { IComponentItemProps } from 'src/types'
 import { NewsType } from 'src/types'
 import { scrollIntoViewLeft } from 'src/utils'
-import { LoadingComponent } from 'src/components/loading/index.component'
-import { component } from 'src/store'
+
+import { newsTypeMap } from './types'
 
 interface INewsItem {
   text: string
@@ -34,7 +35,7 @@ interface INewsItem {
   imports: [CommonModule, LoadingComponent],
   selector: 'app-news',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class NewsComponent {
   @ViewChild('parent') parentElement!: ElementRef
@@ -77,8 +78,8 @@ export class NewsComponent {
       this.parentElement.nativeElement,
       this.items.toArray()[this.activeIndex].nativeElement,
       {
-        behavior: 'smooth',
-      },
+        behavior: 'smooth'
+      }
     )
   }
 
@@ -105,15 +106,15 @@ export class NewsComponent {
       .then((res) => {
         this.newsListMap = {
           ...this.newsListMap,
-          ...res.data,
+          ...res.data
         }
         localStorage.setItem(
           STORAGE_KEY_MAP.NEWS,
-          JSON.stringify(this.newsListMap),
+          JSON.stringify(this.newsListMap)
         )
         localStorage.setItem(
           STORAGE_KEY_MAP.NEWS_DATE,
-          JSON.stringify(Date.now()),
+          JSON.stringify(Date.now())
         )
       })
       .finally(() => {

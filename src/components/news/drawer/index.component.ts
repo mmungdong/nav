@@ -4,18 +4,20 @@
 
 import { Component, EventEmitter, Output } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { $t } from 'src/locale'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { NzButtonModule } from 'ng-zorro-antd/button'
+import { NzCheckboxModule, NzCheckboxOption } from 'ng-zorro-antd/checkbox'
+import { NzColorPickerModule } from 'ng-zorro-antd/color-picker'
 import { NzDrawerModule } from 'ng-zorro-antd/drawer'
 import { NzFormModule } from 'ng-zorro-antd/form'
-import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzInputModule } from 'ng-zorro-antd/input'
 import { NzSliderModule } from 'ng-zorro-antd/slider'
-import { NzColorPickerModule } from 'ng-zorro-antd/color-picker'
-import { NzCheckboxModule, NzCheckboxOption } from 'ng-zorro-antd/checkbox'
-import { newsTypeMap } from '../types'
-import { NewsType } from 'src/types'
 import { STORAGE_KEY_MAP } from 'src/constants'
+import { $t } from 'src/locale'
+import { NewsType } from 'src/types'
+
+import { newsTypeMap } from '../types'
+
 
 @Component({
   standalone: true,
@@ -28,11 +30,11 @@ import { STORAGE_KEY_MAP } from 'src/constants'
     NzInputModule,
     NzSliderModule,
     NzColorPickerModule,
-    NzCheckboxModule,
+    NzCheckboxModule
   ],
   selector: 'news-drawer',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class NewsDrawerComponent {
   @Output() ok = new EventEmitter<void>()
@@ -55,14 +57,14 @@ export class NewsDrawerComponent {
     { label: newsTypeMap[NewsType.Douban], value: NewsType.Douban },
     { label: newsTypeMap[NewsType.HackerNews], value: NewsType.HackerNews },
     { label: newsTypeMap[NewsType.Zhihu], value: NewsType.Zhihu },
-    { label: newsTypeMap[NewsType.ZhihuDaily], value: NewsType.ZhihuDaily },
+    { label: newsTypeMap[NewsType.ZhihuDaily], value: NewsType.ZhihuDaily }
   ]
 
   constructor(private fb: FormBuilder) {
     this.validateForm = this.fb.group({
       types: [[]],
       count: [0],
-      bgColor: [''],
+      bgColor: ['']
     })
   }
 
@@ -83,7 +85,7 @@ export class NewsDrawerComponent {
     localStorage.removeItem(STORAGE_KEY_MAP.NEWS_DATE)
     this.ok.emit({
       ...values,
-      index: this.index,
+      index: this.index
     })
     this.handleClose()
   }

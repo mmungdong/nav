@@ -2,29 +2,29 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import {
   Component,
   ViewChild,
   ElementRef,
   ViewChildren,
-  QueryList,
+  QueryList
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
-import { CommonService } from 'src/services/common'
-import { ComponentGroupComponent } from 'src/components/component-group/index.component'
-import { WebMoreMenuComponent } from 'src/components/web-more-menu/index.component'
-import { SearchComponent } from 'src/components/search/index.component'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
 import { CardComponent } from 'src/components/card/index.component'
-import { NoDataComponent } from 'src/components/no-data/no-data.component'
-import { FooterComponent } from 'src/components/footer/footer.component'
+import { ComponentGroupComponent } from 'src/components/component-group/index.component'
 import { FixbarComponent } from 'src/components/fixbar/index.component'
-import { SideImagesComponent } from 'src/components/side-images/index.component'
-import { queryString, scrollIntoViewLeft } from 'src/utils'
+import { FooterComponent } from 'src/components/footer/footer.component'
+import { NoDataComponent } from 'src/components/no-data/no-data.component'
 import { PhoneClassComponent } from 'src/components/phone-class/index.component'
+import { ElegantSearchComponent } from 'src/components/search'
+import { SideImagesComponent } from 'src/components/side-images/index.component'
+import { WebMoreMenuComponent } from 'src/components/web-more-menu/index.component'
+import { $t } from 'src/locale'
+import { CommonService } from 'src/services/common'
 import type { INavThreeProp, INavProps, INavTwoProp } from 'src/types'
+import { queryString, scrollIntoViewLeft } from 'src/utils'
 import event from 'src/utils/mitt'
 
 @Component({
@@ -33,7 +33,7 @@ import event from 'src/utils/mitt'
     CommonModule,
     ComponentGroupComponent,
     WebMoreMenuComponent,
-    SearchComponent,
+    ElegantSearchComponent,
     NzSpinModule,
     NzToolTipModule,
     CardComponent,
@@ -41,11 +41,11 @@ import event from 'src/utils/mitt'
     FooterComponent,
     FixbarComponent,
     SideImagesComponent,
-    PhoneClassComponent,
+    PhoneClassComponent
   ],
   selector: 'app-side',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SideComponent {
   @ViewChild('parentThree') parentThreeElement!: ElementRef
@@ -69,8 +69,8 @@ export default class SideComponent {
         this.parentElement.nativeElement,
         this.items.toArray()[this.commonService.oneIndex].nativeElement,
         {
-          behavior: 'auto',
-        },
+          behavior: 'auto'
+        }
       )
     }
 
@@ -78,7 +78,7 @@ export default class SideComponent {
       this.parentThreeElement.nativeElement,
       this.itemsThree.toArray()[this.commonService.selectedThreeIndex]
         .nativeElement,
-      { behavior: 'auto' },
+      { behavior: 'auto' }
     )
   }
 
@@ -89,7 +89,7 @@ export default class SideComponent {
   openCreateWebModal() {
     const { id } = queryString()
     event.emit('CREATE_WEB', {
-      parentId: Number.parseInt(id as string),
+      parentId: Number.parseInt(id as string)
     })
   }
 

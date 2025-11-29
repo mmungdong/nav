@@ -2,10 +2,11 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import type { ImageProps } from 'src/types'
+import { Component, Input } from '@angular/core'
 import { JumpService } from 'src/services/jump'
+import type { ImageProps } from 'src/types'
+
 import { SideImageComponent } from './image/index.component'
 
 @Component({
@@ -13,7 +14,7 @@ import { SideImageComponent } from './image/index.component'
   imports: [CommonModule, SideImageComponent],
   selector: 'app-side-images',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class SideImagesComponent {
   @Input() data: ImageProps[] = []

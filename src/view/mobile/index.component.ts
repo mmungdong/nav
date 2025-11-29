@@ -2,26 +2,26 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { CommonService } from 'src/services/common'
-import { SearchComponent } from 'src/components/search/index.component'
+import { Component } from '@angular/core'
 import { CardComponent } from 'src/components/card/index.component'
 import { FooterComponent } from 'src/components/footer/footer.component'
+import { ElegantSearchComponent } from 'src/components/search'
 import { ToolbarTitleWebComponent } from 'src/components/toolbar-title/index.component'
+import { CommonService } from 'src/services/common'
 
 @Component({
   standalone: true,
   imports: [
     CommonModule,
-    SearchComponent,
+    ElegantSearchComponent,
     CardComponent,
     FooterComponent,
-    ToolbarTitleWebComponent,
+    ToolbarTitleWebComponent
   ],
   selector: 'app-mobile',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class MobileComponent {
   open: boolean = false

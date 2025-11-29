@@ -2,17 +2,17 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import type { INavProps } from 'src/types'
+import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
+import type { INavProps } from 'src/types'
 
 @Component({
   standalone: true,
   imports: [CommonModule, NzDropDownModule],
   selector: 'app-web-more-menu',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class WebMoreMenuComponent {
   @Input() index = 0

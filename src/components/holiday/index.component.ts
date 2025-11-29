@@ -2,19 +2,19 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import type { IComponentItemProps } from 'src/types'
-import { $t } from 'src/locale'
+import { Component, Input } from '@angular/core'
 import dayjs from 'dayjs'
+import { $t } from 'src/locale'
 import { component } from 'src/store'
+import type { IComponentItemProps } from 'src/types'
 
 @Component({
   standalone: true,
   imports: [CommonModule],
   selector: 'app-holiday',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class HolidayComponent {
   @Input() data!: IComponentItemProps
@@ -50,7 +50,7 @@ export class HolidayComponent {
           item.dateStr = dayjs(item.date).format('MM.DD')
           item.diffDay = dayjs(dayjs(item.date).format('YYYY-MM-DD')).diff(
             now,
-            'day',
+            'day'
           )
           item.diffDay = item.diffDay < 0 ? 0 : item.diffDay
           item.diffDay = item.diffDay > 999 ? 999 : item.diffDay

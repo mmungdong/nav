@@ -2,24 +2,24 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import type { INavThreeProp, INavProps } from 'src/types'
-import { isLogin, getPermissions } from 'src/utils/user'
-import { navs, settings } from 'src/store'
+import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { NzIconModule } from 'ng-zorro-antd/icon'
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm'
 import { $t } from 'src/locale'
-import { isSelfDevelop } from 'src/utils/utils'
 import { CommonService } from 'src/services/common'
+import { navs, settings } from 'src/store'
+import type { INavThreeProp, INavProps } from 'src/types'
 import event from 'src/utils/mitt'
+import { isLogin, getPermissions } from 'src/utils/user'
+import { isSelfDevelop } from 'src/utils/utils'
 
 @Component({
   standalone: true,
   imports: [CommonModule, NzIconModule, NzPopconfirmModule],
   selector: 'app-toolbar-title',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class ToolbarTitleWebComponent {
   @Input() dataSource!: INavThreeProp
@@ -34,7 +34,7 @@ export class ToolbarTitleWebComponent {
 
   openCreateWebModal() {
     event.emit('CREATE_WEB', {
-      parentId: this.dataSource.id,
+      parentId: this.dataSource.id
     })
   }
 
@@ -43,7 +43,7 @@ export class ToolbarTitleWebComponent {
     event.emit('MOVE_WEB', {
       id: data.id,
       data: [data],
-      level: 3,
+      level: 3
     })
   }
 
@@ -57,7 +57,7 @@ export class ToolbarTitleWebComponent {
         if (!isSelfDevelop) {
           event.emit('WEB_REFRESH')
         }
-      },
+      }
     })
   }
 

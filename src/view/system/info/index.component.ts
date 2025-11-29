@@ -2,12 +2,13 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
+import { VERSION } from 'src/constants'
 import { $t } from 'src/locale'
 import { getToken } from 'src/utils/user'
-import { VERSION } from 'src/constants'
 import { isSelfDevelop } from 'src/utils/utils'
+
 import config from '../../../../nav.config.json'
 
 @Component({
@@ -15,7 +16,7 @@ import config from '../../../../nav.config.json'
   imports: [CommonModule],
   selector: 'system-info',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SystemInfoComponent {
   readonly $t = $t

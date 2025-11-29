@@ -2,21 +2,21 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component, Input } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
+import { CardComponent } from 'src/components/card/index.component'
+import { DEFAULT_SORT_INDEX } from 'src/constants/symbol'
+import { CommonService } from 'src/services/common'
+import { JumpService } from 'src/services/jump'
 import { navs } from 'src/store'
 import type { IWebProps } from 'src/types'
 import { TopType } from 'src/types'
 import { queryString, fuzzySearch, isMobile, getDefaultTheme } from 'src/utils'
+import event from 'src/utils/mitt'
 import { isNumber } from 'src/utils/pureUtils'
 import { isLogin } from 'src/utils/user'
-import { ActivatedRoute, Router } from '@angular/router'
-import { CommonService } from 'src/services/common'
-import { JumpService } from 'src/services/jump'
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
-import { DEFAULT_SORT_INDEX } from 'src/constants/symbol'
-import { CardComponent } from 'src/components/card/index.component'
-import event from 'src/utils/mitt'
 
 let DEFAULT_WEBSITE: Array<IWebProps> = []
 
@@ -25,7 +25,7 @@ let DEFAULT_WEBSITE: Array<IWebProps> = []
   imports: [CommonModule, NzToolTipModule, CardComponent],
   selector: 'app-web-list',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class WebListComponent {
   @Input() type: 'dock' | '' = ''
@@ -41,7 +41,7 @@ export class WebListComponent {
     private router: Router,
     public jumpService: JumpService,
     private activatedRoute: ActivatedRoute,
-    public commonService: CommonService,
+    public commonService: CommonService
   ) {}
 
   ngOnInit() {
@@ -94,7 +94,7 @@ export class WebListComponent {
         if (item.url) {
           if (item.top && (isLogin || !item.ownVisible)) {
             const isMatch = (item.topTypes || []).some(
-              (v: number) => path === TopType[v],
+              (v: number) => path === TopType[v]
             )
             if (isMatch) {
               dataList.push(item)

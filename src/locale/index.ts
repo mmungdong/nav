@@ -1,12 +1,13 @@
 // 开源项目，未经作者同意，不得以抄袭/复制代码/修改源代码版权信息。
-import english from './english'
-import zh_CN from './zh_CN'
 import { STORAGE_KEY_MAP } from 'src/constants'
 import { settings } from 'src/store'
 
+import english from './english'
+import zh_CN from './zh_CN'
+
 const o = {
   en: english,
-  cn: zh_CN,
+  cn: zh_CN
 }
 
 export function getLocale(): string {

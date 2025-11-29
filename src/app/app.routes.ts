@@ -1,46 +1,46 @@
 import { Routes } from '@angular/router'
-import LightComponent from 'src/view/light/index.component'
-import SuperComponent from 'src/view/super/index.component'
-import SimComponent from 'src/view/sim/index.component'
-import SideComponent from 'src/view/side/index.component'
-import ShortcutComponent from 'src/view/shortcut/index.component'
-import MobileComponent from 'src/view/mobile/index.component'
-import { isSelfDevelop } from 'src/utils/utils'
 import { getDefaultTheme } from 'src/utils'
+import { isSelfDevelop } from 'src/utils/utils'
+import LightComponent from 'src/view/light/index.component'
+import MobileComponent from 'src/view/mobile/index.component'
+import ShortcutComponent from 'src/view/shortcut/index.component'
+import SideComponent from 'src/view/side/index.component'
+import SimComponent from 'src/view/sim/index.component'
+import SuperComponent from 'src/view/super/index.component'
 
 export const routes: Routes = [
   {
     path: 'sim',
     component: SimComponent,
-    data: {},
+    data: {}
   },
   {
     path: 'super',
     component: SuperComponent,
-    data: {},
+    data: {}
   },
   {
     path: 'side',
     component: SideComponent,
-    data: {},
+    data: {}
   },
   {
     path: 'shortcut',
     component: ShortcutComponent,
-    data: {},
+    data: {}
   },
 
   {
     path: 'light',
     component: LightComponent,
     data: {
-      data: {},
-    },
+      data: {}
+    }
   },
   {
     path: 'app',
     component: MobileComponent,
-    data: {},
+    data: {}
   },
   {
     path: 'system',
@@ -48,56 +48,56 @@ export const routes: Routes = [
     children: [
       {
         path: 'info',
-        loadComponent: () => import('src/view/system/info/index.component'),
+        loadComponent: () => import('src/view/system/info/index.component')
       },
       {
         path: 'bookmark',
-        loadComponent: () => import('src/view/system/bookmark/index.component'),
+        loadComponent: () => import('src/view/system/bookmark/index.component')
       },
       {
         path: 'bookmarkExport',
         loadComponent: () =>
-          import('src/view/system/bookmark-export/index.component'),
+          import('src/view/system/bookmark-export/index.component')
       },
       {
         path: 'collect',
-        loadComponent: () => import('src/view/system/collect/index.component'),
+        loadComponent: () => import('src/view/system/collect/index.component')
       },
       {
         path: 'auth',
-        loadComponent: () => import('src/view/system/auth/index.component'),
+        loadComponent: () => import('src/view/system/auth/index.component')
       },
       {
         path: 'tag',
-        loadComponent: () => import('src/view/system/tag/index.component'),
+        loadComponent: () => import('src/view/system/tag/index.component')
       },
       {
         path: 'search',
-        loadComponent: () => import('src/view/system/search/index.component'),
+        loadComponent: () => import('src/view/system/search/index.component')
       },
       {
         path: 'setting',
-        loadComponent: () => import('src/view/system/setting/index.component'),
+        loadComponent: () => import('src/view/system/setting/index.component')
       },
       {
         path: 'component',
         loadComponent: () =>
-          import('src/view/system/component/index.component'),
+          import('src/view/system/component/index.component')
       },
       {
         path: 'web',
-        loadComponent: () => import('src/view/system/web/index.component'),
+        loadComponent: () => import('src/view/system/web/index.component')
       },
       {
         path: 'config',
-        loadComponent: () => import('src/view/system/config/index.component'),
+        loadComponent: () => import('src/view/system/config/index.component')
       },
       {
         path: '**',
-        redirectTo: '/system/web',
-      },
-    ],
-  },
+        redirectTo: '/system/web'
+      }
+    ]
+  }
 ]
 
 // 自有部署异步
@@ -107,12 +107,12 @@ if (!isSelfDevelop) {
   if (hasDefault) {
     routes.push({
       ...hasDefault,
-      path: '**',
+      path: '**'
     })
   } else {
     routes.push({
       path: '**',
-      redirectTo: '/' + defaultTheme,
+      redirectTo: '/' + defaultTheme
     })
   }
 }

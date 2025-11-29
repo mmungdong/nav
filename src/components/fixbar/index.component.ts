@@ -2,25 +2,25 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Output, EventEmitter, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { isDark as isDarkFn } from 'src/utils'
-import { NzModalService } from 'ng-zorro-antd/modal'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import { isLogin } from 'src/utils/user'
-import { updateFileContent } from 'src/api'
-import { navs, settings } from 'src/store'
-import { DB_PATH, STORAGE_KEY_MAP } from 'src/constants'
+import { Component, Output, EventEmitter, Input } from '@angular/core'
 import { Router } from '@angular/router'
-import { $t, getLocale } from 'src/locale'
-import { addDark, removeDark, isSelfDevelop } from 'src/utils/utils'
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalService } from 'ng-zorro-antd/modal'
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
-import { cleanWebAttrs } from 'src/utils/pureUtils'
-import mitt from 'src/utils/mitt'
 import { fromEvent, Subscription } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
+import { updateFileContent } from 'src/api'
+import { DB_PATH, STORAGE_KEY_MAP } from 'src/constants'
+import { $t, getLocale } from 'src/locale'
+import { navs, settings } from 'src/store'
+import { isDark as isDarkFn } from 'src/utils'
+import mitt from 'src/utils/mitt'
+import { cleanWebAttrs } from 'src/utils/pureUtils'
 import { unregisterServiceWorkers, isPwaMode } from 'src/utils/sw'
+import { isLogin } from 'src/utils/user'
+import { addDark, removeDark, isSelfDevelop } from 'src/utils/utils'
 
 @Component({
   standalone: true,
@@ -28,7 +28,7 @@ import { unregisterServiceWorkers, isPwaMode } from 'src/utils/sw'
   selector: 'app-fixbar',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
-  providers: [NzModalService, NzMessageService],
+  providers: [NzModalService, NzMessageService]
 })
 export class FixbarComponent {
   @Input() showTop: boolean = true
@@ -53,34 +53,34 @@ export class FixbarComponent {
   themeList = [
     {
       name: $t('_switchTo') + ' Super',
-      url: '/super',
+      url: '/super'
     },
     {
       name: $t('_switchTo') + ' Light',
-      url: '/light',
+      url: '/light'
     },
     {
       name: $t('_switchTo') + ' Sim',
-      url: '/sim',
+      url: '/sim'
     },
     {
       name: $t('_switchTo') + ' Side',
-      url: '/side',
+      url: '/side'
     },
     {
       name: $t('_switchTo') + ' Shortcut',
-      url: '/shortcut',
+      url: '/shortcut'
     },
     {
       name: $t('_switchTo') + ' App',
-      url: '/app',
-    },
+      url: '/app'
+    }
   ]
 
   constructor(
     private message: NzMessageService,
     private modal: NzModalService,
-    private router: Router,
+    private router: Router
   ) {
     if (this.isDark) {
       addDark()
@@ -114,7 +114,7 @@ export class FixbarComponent {
     if (!isLogin) {
       const isShowFace =
         [this.settings.showLanguage, this.settings.showThemeToggle].filter(
-          Boolean,
+          Boolean
         ).length === 0
       if (isShowFace) {
         this.open = true
@@ -149,16 +149,16 @@ export class FixbarComponent {
   toggleTheme(theme: any) {
     this.router.navigate([theme.url], {
       queryParams: {
-        _: Date.now(),
+        _: Date.now()
       },
-      queryParamsHandling: 'merge',
+      queryParamsHandling: 'merge'
     })
   }
 
   goTop() {
     const config: ScrollToOptions = {
       top: 0,
-      behavior: 'smooth',
+      behavior: 'smooth'
     }
     if (this.selector) {
       const el = document.querySelector(this.selector)
@@ -180,7 +180,7 @@ export class FixbarComponent {
     mitt.emit('EVENT_DARK', this.isDark)
     window.localStorage.setItem(
       STORAGE_KEY_MAP.IS_DARK,
-      String(Number(this.isDark)),
+      String(Number(this.isDark))
     )
 
     if (this.isDark) {
@@ -229,12 +229,12 @@ export class FixbarComponent {
         await updateFileContent({
           message: 'update db',
           content: JSON.stringify(
-            cleanWebAttrs(JSON.parse(JSON.stringify(navs()))),
+            cleanWebAttrs(JSON.parse(JSON.stringify(navs())))
           ),
-          path: DB_PATH,
+          path: DB_PATH
         })
         this.message.success($t('_syncSuccessTip'))
-      },
+      }
     })
   }
 

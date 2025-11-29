@@ -1,10 +1,10 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'
 import { registerLocaleData } from '@angular/common'
 import zh from '@angular/common/locales/zh'
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'
+import { provideAnimations } from '@angular/platform-browser/animations'
 import { provideRouter, withHashLocation } from '@angular/router'
-import { provideNzIcons } from 'ng-zorro-antd/icon'
+import { provideServiceWorker } from '@angular/service-worker'
 import { IconDefinition } from '@ant-design/icons-angular'
-import { routes } from './app.routes'
 import {
   CheckOutline,
   CopyOutline,
@@ -18,15 +18,17 @@ import {
   MenuFoldOutline,
   MenuUnfoldOutline,
   DoubleRightOutline,
-  DoubleLeftOutline,
+  DoubleLeftOutline
 } from '@ant-design/icons-angular/icons'
-import { provideAnimations } from '@angular/platform-browser/animations'
 import { NZ_I18N } from 'ng-zorro-antd/i18n'
 import { zh_CN } from 'ng-zorro-antd/i18n'
-import config from '../../nav.config.json'
-import { provideServiceWorker } from '@angular/service-worker'
+import { provideNzIcons } from 'ng-zorro-antd/icon'
 import { isMobile } from 'src/utils'
 import { unregisterServiceWorkers } from 'src/utils/sw'
+
+import config from '../../nav.config.json'
+
+import { routes } from './app.routes'
 
 registerLocaleData(zh)
 
@@ -43,7 +45,7 @@ const icons: IconDefinition[] = [
   MenuFoldOutline,
   MenuUnfoldOutline,
   DoubleRightOutline,
-  DoubleLeftOutline,
+  DoubleLeftOutline
 ]
 
 const isPhone = isMobile()
@@ -66,7 +68,7 @@ export const appConfig: ApplicationConfig = {
     { provide: NZ_I18N, useValue: zh_CN },
     provideServiceWorker('ngsw-worker.js', {
       enabled: pwaEnable,
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
-  ],
+      registrationStrategy: 'registerWhenStable:30000'
+    })
+  ]
 }

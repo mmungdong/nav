@@ -2,14 +2,14 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import {
   Component,
   ViewChild,
   ElementRef,
   ViewChildren,
-  QueryList,
+  QueryList
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { CommonService } from 'src/services/common'
 import type { INavTwoProp } from 'src/types'
 import { scrollIntoViewLeft } from 'src/utils'
@@ -19,7 +19,7 @@ import { scrollIntoViewLeft } from 'src/utils'
   imports: [CommonModule],
   selector: 'app-phone-class',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class PhoneClassComponent {
   @ViewChild('parent') parentRef!: ElementRef
@@ -34,7 +34,7 @@ export class PhoneClassComponent {
     scrollIntoViewLeft(
       this.parentRef.nativeElement,
       this.itemsRef.toArray()[this.commonService.twoIndex].nativeElement,
-      { behavior: 'auto' },
+      { behavior: 'auto' }
     )
   }
 

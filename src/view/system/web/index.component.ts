@@ -2,26 +2,9 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import type { INavTwoProp, INavThreeProp, IWebProps } from 'src/types'
-import { navs, settings, search, tagList, internal, component } from 'src/store'
-import { isLogin, removeWebsite } from 'src/utils/user'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import { NzModalService } from 'ng-zorro-antd/modal'
-import { NzNotificationService } from 'ng-zorro-antd/notification'
-import { setNavs } from 'src/utils/web'
-import { updateFileContent } from 'src/api'
-import {
-  DB_PATH,
-  TAG_PATH,
-  SETTING_PATH,
-  SEARCH_PATH,
-  COMPONENT_PATH,
-  STORAGE_KEY_MAP,
-} from 'src/constants'
-import { $t } from 'src/locale'
 import { saveAs } from 'file-saver'
 import { isSelfDevelop } from 'src/utils/utils'
 import { NzInputModule } from 'ng-zorro-antd/input'
@@ -34,14 +17,32 @@ import { NzSelectModule } from 'ng-zorro-antd/select'
 import { NzIconModule } from 'ng-zorro-antd/icon'
 import { NzModalModule } from 'ng-zorro-antd/modal'
 import { NzFormModule } from 'ng-zorro-antd/form'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalService } from 'ng-zorro-antd/modal'
+import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { NzSwitchModule } from 'ng-zorro-antd/switch'
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
+import { updateFileContent } from 'src/api'
 import { LogoComponent } from 'src/components/logo/logo.component'
 import { TagListComponent } from 'src/components/tag-list/index.component'
+import {
+  DB_PATH,
+  TAG_PATH,
+  SETTING_PATH,
+  SEARCH_PATH,
+  COMPONENT_PATH,
+  STORAGE_KEY_MAP,
+} from 'src/constants'
+import { $t } from 'src/locale'
 import { CommonService } from 'src/services/common'
+import { navs, settings, search, tagList, internal, component } from 'src/store'
+import type { INavTwoProp, INavThreeProp, IWebProps } from 'src/types'
 import event from 'src/utils/mitt'
-import config from '../../../../nav.config.json'
 import { cleanWebAttrs } from 'src/utils/pureUtils'
+import { isLogin, removeWebsite } from 'src/utils/user'
+import { setNavs } from 'src/utils/web'
+
+import config from '../../../../nav.config.json'
 
 @Component({
   standalone: true,
@@ -62,11 +63,11 @@ import { cleanWebAttrs } from 'src/utils/pureUtils'
     NzModalModule,
     NzFormModule,
     NzSwitchModule,
-    TagListComponent,
+    TagListComponent
   ],
   selector: 'app-web',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class WebpComponent {
   readonly $t = $t
@@ -91,7 +92,7 @@ export default class WebpComponent {
     private modal: NzModalService,
     private notification: NzNotificationService,
     private message: NzMessageService,
-    public commonService: CommonService,
+    public commonService: CommonService
   ) {}
 
   ngOnInit() {}
@@ -111,7 +112,7 @@ export default class WebpComponent {
   get threeIndex() {
     try {
       return this.threeTableData.findIndex(
-        (item) => item.id === this.threeSelect,
+        (item) => item.id === this.threeSelect
       )
     } catch {
       return -1
@@ -139,7 +140,7 @@ export default class WebpComponent {
   get websiteTableData(): IWebProps[] {
     try {
       const data = this.threeTableData.find(
-        (item) => item.id === this.threeSelect,
+        (item) => item.id === this.threeSelect
       )
       if (data) {
         return data.nav
@@ -184,7 +185,7 @@ export default class WebpComponent {
       this.navs(),
       this.twoTableData,
       this.threeTableData,
-      this.websiteTableData,
+      this.websiteTableData
     ]
     data[this.tabActive].forEach((item) => {
       if (checked) {
@@ -205,31 +206,31 @@ export default class WebpComponent {
 
   async onBatchDelete() {
     switch (this.tabActive) {
-      case 0:
-      case 1:
-      case 2:
-        event.emit('DELETE_MODAL', {
-          ids: [...this.setOfCheckedId],
-          isClass: true,
-          onComplete: () => {
-            this.onTabChange()
-          },
-        })
-        break
+    case 0:
+    case 1:
+    case 2:
+      event.emit('DELETE_MODAL', {
+        ids: [...this.setOfCheckedId],
+        isClass: true,
+        onComplete: () => {
+          this.onTabChange()
+        }
+      })
+      break
 
-      case 3:
-        event.emit('DELETE_MODAL', {
-          ids: [...this.setOfCheckedId],
-          ok: () => {
-            if (this.errorWebs.length) {
-              this.getErrorWebs()
-            }
-          },
-          onComplete: () => {
-            this.onTabChange()
-          },
-        })
-        break
+    case 3:
+      event.emit('DELETE_MODAL', {
+        ids: [...this.setOfCheckedId],
+        ok: () => {
+          if (this.errorWebs.length) {
+            this.getErrorWebs()
+          }
+        },
+        onComplete: () => {
+          this.onTabChange()
+        }
+      })
+      break
     }
   }
 
@@ -243,7 +244,7 @@ export default class WebpComponent {
         removeWebsite().finally(() => {
           window.location.reload()
         })
-      },
+      }
     })
   }
 
@@ -253,13 +254,13 @@ export default class WebpComponent {
       settings: settings(),
       tag: tagList(),
       search: search(),
-      component: component(),
+      component: component()
     }
     saveAs(
       new Blob([JSON.stringify(params)], {
-        type: 'text/plain;charset=utf-8',
+        type: 'text/plain;charset=utf-8'
       }),
-      'nav.json',
+      'nav.json'
     )
   }
 
@@ -282,12 +283,12 @@ export default class WebpComponent {
             message: 'import db',
             content: JSON.stringify(data.db),
             path: DB_PATH,
-            refresh: false,
+            refresh: false
           })
           that.notification.success('OK', 'DB import successful')
         } catch {
           that.notification.error('Error', 'DB import failed', {
-            nzDuration: 0,
+            nzDuration: 0
           })
         }
         try {
@@ -295,15 +296,15 @@ export default class WebpComponent {
             message: 'import settings',
             content: JSON.stringify({
               ...settings,
-              ...data.settings,
+              ...data.settings
             }),
             path: SETTING_PATH,
-            refresh: false,
+            refresh: false
           })
           that.notification.success('OK', 'settings import successful')
         } catch {
           that.notification.error('Error', 'settings import failed', {
-            nzDuration: 0,
+            nzDuration: 0
           })
         }
         try {
@@ -311,12 +312,12 @@ export default class WebpComponent {
             message: 'import tag',
             content: JSON.stringify(data.tag),
             path: TAG_PATH,
-            refresh: false,
+            refresh: false
           })
           that.notification.success('OK', 'tag import successful')
         } catch {
           that.notification.error('Error', 'tag import failed', {
-            nzDuration: 0,
+            nzDuration: 0
           })
         }
         try {
@@ -324,15 +325,15 @@ export default class WebpComponent {
             message: 'import search',
             content: JSON.stringify({
               ...search(),
-              ...data.search,
+              ...data.search
             }),
             path: SEARCH_PATH,
-            refresh: false,
+            refresh: false
           })
           that.notification.success('OK', 'search import successful')
         } catch {
           that.notification.error('Error', 'search import failed', {
-            nzDuration: 0,
+            nzDuration: 0
           })
         }
         try {
@@ -340,15 +341,15 @@ export default class WebpComponent {
             message: 'import component',
             content: JSON.stringify({
               ...component,
-              ...data.component,
+              ...data.component
             }),
             path: COMPONENT_PATH,
-            refresh: false,
+            refresh: false
           })
           that.notification.success('OK', 'component import successful')
         } catch {
           that.notification.error('Error', 'component import failed', {
-            nzDuration: 0,
+            nzDuration: 0
           })
         }
 
@@ -375,7 +376,7 @@ export default class WebpComponent {
     event.emit('MOVE_WEB', {
       id: data.id,
       data: [data],
-      level,
+      level
     })
   }
 
@@ -384,13 +385,13 @@ export default class WebpComponent {
       return this.message.error($t('_sel3'))
     }
     event.emit('CREATE_WEB', {
-      parentId: this.threeSelect,
+      parentId: this.threeSelect
     })
   }
 
   openEditWebModal(detail: IWebProps) {
     event.emit('CREATE_WEB', {
-      detail,
+      detail
     })
   }
 
@@ -605,13 +606,13 @@ export default class WebpComponent {
     }
     const ids = [-1, this.oneSelect, this.twoSelect]
     event.emit('EDIT_CLASS_OPEN', {
-      id: ids[this.tabActive],
+      id: ids[this.tabActive]
     })
   }
 
   openEditClass(data: any) {
     event.emit('EDIT_CLASS_OPEN', {
-      ...data,
+      ...data
     })
   }
 
@@ -626,9 +627,9 @@ export default class WebpComponent {
         updateFileContent({
           message: 'update db',
           content: JSON.stringify(
-            cleanWebAttrs(JSON.parse(JSON.stringify(this.navs()))),
+            cleanWebAttrs(JSON.parse(JSON.stringify(this.navs())))
           ),
-          path: DB_PATH,
+          path: DB_PATH
         })
           .then(() => {
             this.message.success($t('_syncSuccessTip'))
@@ -636,7 +637,7 @@ export default class WebpComponent {
           .finally(() => {
             this.syncLoading = false
           })
-      },
+      }
     })
   }
 }

@@ -3,15 +3,15 @@
 // See https://github.com/xjh22222228/nav
 
 import { Component, Input } from '@angular/core'
-import type { IComponentItemProps } from 'src/types'
 import { JumpService } from 'src/services/jump'
 import { component } from 'src/store'
+import type { IComponentItemProps } from 'src/types'
 
 @Component({
   standalone: true,
   selector: 'app-image',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class ImageComponent {
   @Input() data!: IComponentItemProps

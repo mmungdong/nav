@@ -4,14 +4,14 @@
 
 import { Component, EventEmitter, Output } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { $t } from 'src/locale'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { NzButtonModule } from 'ng-zorro-antd/button'
+import { NzColorPickerModule } from 'ng-zorro-antd/color-picker'
 import { NzDrawerModule } from 'ng-zorro-antd/drawer'
 import { NzFormModule } from 'ng-zorro-antd/form'
-import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzInputModule } from 'ng-zorro-antd/input'
 import { NzSliderModule } from 'ng-zorro-antd/slider'
-import { NzColorPickerModule } from 'ng-zorro-antd/color-picker'
+import { $t } from 'src/locale'
 
 @Component({
   standalone: true,
@@ -23,11 +23,11 @@ import { NzColorPickerModule } from 'ng-zorro-antd/color-picker'
     NzButtonModule,
     NzInputModule,
     NzSliderModule,
-    NzColorPickerModule,
+    NzColorPickerModule
   ],
   selector: 'html-drawer',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class HTMLDrawerComponent {
   @Output() ok = new EventEmitter<void>()
@@ -41,7 +41,7 @@ export class HTMLDrawerComponent {
     this.validateForm = this.fb.group({
       html: [''],
       width: [0],
-      bgColor: [''],
+      bgColor: ['']
     })
   }
 
@@ -61,7 +61,7 @@ export class HTMLDrawerComponent {
     const values = this.validateForm.value
     this.ok.emit({
       ...values,
-      index: this.index,
+      index: this.index
     })
     this.handleClose()
   }

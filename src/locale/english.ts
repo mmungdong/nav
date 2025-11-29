@@ -24,7 +24,7 @@ const english: Record<string, any> = {
   _desc: 'Description',
   _link: 'Link',
   _current: 'Current',
-  _empty: `Sorry, we didn't find the result you want~`,
+  _empty: 'Sorry, we didn\'t find the result you want~',
   _goBack: 'Go Back',
   _viewInfo: 'View Info',
   _syncData: 'Sync Data',
@@ -58,7 +58,7 @@ const english: Record<string, any> = {
   _inputTokenMsg: isSelfDevelop
     ? 'Please input a password'
     : 'Please enter your token below for login verification',
-  _getToken: `I don't know how to get the token?`,
+  _getToken: 'I don\'t know how to get the token?',
   _readDoc: 'Please read our guide first',
   _authLogin: 'Please authorize login',
   _pleaseInputToken: 'Please fill in the correct token',
@@ -176,7 +176,7 @@ const english: Record<string, any> = {
     'Last time, {count} website links were detected to be invalid. Please refer to the management website for details. If you need to check the status again, simply click Save to trigger the event.',
   _enableSEO: 'Enable SEO (loading slightly slower)',
   _allowUser: 'Allow users to submit',
-  _collectMenuView: `Please refer to the user's inclusion menu for specific details`,
+  _collectMenuView: 'Please refer to the user\'s inclusion menu for specific details',
   _displaySwitchTheme: 'Display Switch Theme',
   _requestAddress: 'Request Address',
   _requestTip:
@@ -227,9 +227,9 @@ const english: Record<string, any> = {
     'Crawl the website for a specified number of seconds with no response, skip, The larger the number, the higher the success rate, but the slower it is',
   _imageCDN: 'Image CDN',
   _docTitle: 'Document title',
-  _importEnter: `Enter in browser <a href="chrome://bookmarks/" target="_blank">chrome://bookmarks/</a> Find the export bookmark, export the HTML file, click import below`,
+  _importEnter: 'Enter in browser <a href="chrome://bookmarks/" target="_blank">chrome://bookmarks/</a> Find the export bookmark, export the HTML file, click import below',
   _buildSuccess: 'Build succeed',
-  _bindDomain: `Bind domain names, multiple separated by commas, without including protocols such as "example.com,xjh22222228.github.io"`,
+  _bindDomain: 'Bind domain names, multiple separated by commas, without including protocols such as "example.com,xjh22222228.github.io"',
   _clickExport: 'Click on me to export',
   _exportIcons: 'Simultaneously exporting website icons takes a long time',
   _errorIcons: 'The following icons cannot be processed properly:',
@@ -241,7 +241,7 @@ const english: Record<string, any> = {
     'Wednesday',
     'Thursday',
     'Friday',
-    'Saturday',
+    'Saturday'
   ],
   _shortMonth: ' / ',
   _shortDay: '',
@@ -252,7 +252,7 @@ const english: Record<string, any> = {
   _footTemplate: 'Template',
   _footTemplateDesc:
     'All bottom HTML is universal, copy the obtained template code to the desired theme or global setting, existing variable: ${total} = Number of websites; ${hostname} = Domain name; ${year} = This year; class="applyweb" = Add web',
-  _builtTailwind: `System is already built-in <a href="https://play.tailwindcss.com" target="_blank">https://play.tailwindcss.com</a> You don't need to write`,
+  _builtTailwind: 'System is already built-in <a href="https://play.tailwindcss.com" target="_blank">https://play.tailwindcss.com</a> You don\'t need to write',
   _quick: 'Quick',
   _components: 'Components',
   _calendar: 'Calendar',
@@ -280,7 +280,7 @@ const english: Record<string, any> = {
   _calendarDate: '{year}.{month}',
   _dayOfYear: 'Day {day}',
   _errCountTip:
-    "Last time, {count} website links were detected to be invalid. Please refer to the management website for details. If you need to check the status again, simply click on 'Save' to trigger the event.",
+    'Last time, {count} website links were detected to be invalid. Please refer to the management website for details. If you need to check the status again, simply click on \'Save\' to trigger the event.',
   _getErrorWeb: 'Get error web',
   _categoryName: 'Name',
   _dayIs: 'Today is',
@@ -340,7 +340,7 @@ const english: Record<string, any> = {
   _nowUpdate: 'Immediate Updating',
   _later: 'Later',
   _avaUpdate: 'Application updates available',
-  _updateFailed: 'UpdateFailed',
+  _updateFailed: 'UpdateFailed'
 }
 
 export default english

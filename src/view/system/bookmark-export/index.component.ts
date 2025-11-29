@@ -2,20 +2,20 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { $t } from 'src/locale'
-import { NzNotificationService } from 'ng-zorro-antd/notification'
-import { NzButtonModule } from 'ng-zorro-antd/button'
-import type { INavProps } from 'src/types'
-import { navs } from 'src/store'
-import { bookmarksExport } from 'src/api'
 import { saveAs } from 'file-saver'
-import { getAuthCode } from 'src/utils/user'
-import { NzSwitchModule } from 'ng-zorro-antd/switch'
-import { NzSpinModule } from 'ng-zorro-antd/spin'
 import LZString from 'lz-string'
+import { NzButtonModule } from 'ng-zorro-antd/button'
+import { NzNotificationService } from 'ng-zorro-antd/notification'
+import { NzSpinModule } from 'ng-zorro-antd/spin'
+import { NzSwitchModule } from 'ng-zorro-antd/switch'
+import { bookmarksExport } from 'src/api'
+import { $t } from 'src/locale'
+import { navs } from 'src/store'
+import type { INavProps } from 'src/types'
+import { getAuthCode } from 'src/utils/user'
 
 @Component({
   standalone: true,
@@ -24,11 +24,11 @@ import LZString from 'lz-string'
     NzSwitchModule,
     NzSpinModule,
     FormsModule,
-    NzButtonModule,
+    NzButtonModule
   ],
   selector: 'system-bookmark-export',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SystemBookmarkExportComponent {
   readonly $t = $t
@@ -78,11 +78,11 @@ export default class SystemBookmarkExportComponent {
       .then((res) => {
         const fileName = 'bookmarks.html'
         const blob = new Blob([res.data.data], {
-          type: 'text/html;charset=utf-8',
+          type: 'text/html;charset=utf-8'
         })
         saveAs(blob, fileName)
         this.notification.success('OK', fileName, {
-          nzDuration: 0,
+          nzDuration: 0
         })
       })
       .finally(() => {

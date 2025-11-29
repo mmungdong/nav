@@ -2,34 +2,34 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import {
   Component,
   Output,
   EventEmitter,
   ViewChild,
-  ElementRef,
+  ElementRef
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import {
   FormsModule,
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms'
-import { NzModalModule } from 'ng-zorro-antd/modal'
 import { NzFormModule } from 'ng-zorro-antd/form'
 import { NzInputModule } from 'ng-zorro-antd/input'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalModule } from 'ng-zorro-antd/modal'
 import { NzSwitchModule } from 'ng-zorro-antd/switch'
 import { LogoComponent } from 'src/components/logo/logo.component'
 import { UploadImageComponent } from 'src/components/upload-image/index.component'
 import { $t } from 'src/locale'
-import { NzMessageService } from 'ng-zorro-antd/message'
 import { navs } from 'src/store'
-import { setNavs, updateByClass, pushDataByAny } from 'src/utils/web'
 import { getClassById } from 'src/utils/index'
-import { getTempId, isSelfDevelop } from 'src/utils/utils'
 import event from 'src/utils/mitt'
+import { getTempId, isSelfDevelop } from 'src/utils/utils'
+import { setNavs, updateByClass, pushDataByAny } from 'src/utils/web'
 
 @Component({
   standalone: true,
@@ -42,11 +42,11 @@ import event from 'src/utils/mitt'
     LogoComponent,
     UploadImageComponent,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   selector: 'edit-class',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class EditClassComponent {
   @Output() onOk = new EventEmitter()
@@ -60,13 +60,13 @@ export class EditClassComponent {
 
   constructor(
     private fb: FormBuilder,
-    private message: NzMessageService,
+    private message: NzMessageService
   ) {
     this.validateForm = this.fb.group({
       title: ['', [Validators.required]],
       icon: [''],
       ownVisible: [false],
-      id: [-1],
+      id: [-1]
     })
     const handleOpen = (props: any = {}) => {
       this.isEdit = !!props['title']
@@ -110,7 +110,7 @@ export class EditClassComponent {
       id,
       title,
       icon,
-      ownVisible,
+      ownVisible
     }
 
     try {

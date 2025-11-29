@@ -4,14 +4,14 @@
 
 import { Component, EventEmitter, Output } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { $t } from 'src/locale'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzDrawerModule } from 'ng-zorro-antd/drawer'
 import { NzFormModule } from 'ng-zorro-antd/form'
-import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzInputModule } from 'ng-zorro-antd/input'
+import { NzMessageService } from 'ng-zorro-antd/message'
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker'
+import { $t } from 'src/locale'
 
 @Component({
   standalone: true,
@@ -22,11 +22,11 @@ import { NzTimePickerModule } from 'ng-zorro-antd/time-picker'
     NzDrawerModule,
     NzFormModule,
     NzButtonModule,
-    NzInputModule,
+    NzInputModule
   ],
   selector: 'offwork-drawer',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class OffWorkDrawerComponent {
   @Output() ok = new EventEmitter<void>()
@@ -38,13 +38,13 @@ export class OffWorkDrawerComponent {
 
   constructor(
     private fb: FormBuilder,
-    private message: NzMessageService,
+    private message: NzMessageService
   ) {
     this.validateForm = this.fb.group({
       workTitle: [''],
       restTitle: [''],
       startDate: [null],
-      date: [null],
+      date: [null]
     })
   }
 
@@ -71,7 +71,7 @@ export class OffWorkDrawerComponent {
       ...values,
       startDate,
       date,
-      index: this.index,
+      index: this.index
     })
     this.handleClose()
   }

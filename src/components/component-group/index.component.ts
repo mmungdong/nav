@@ -2,24 +2,24 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component, Input } from '@angular/core'
+import { NzIconModule } from 'ng-zorro-antd/icon'
+import { fromEvent, Subscription } from 'rxjs'
+import { debounceTime } from 'rxjs/operators'
+import { CalendarComponent } from 'src/components/calendar/index.component'
+import { CountdownComponent } from 'src/components/countdown/index.component'
+import { HTMLComponent } from 'src/components/html/index.component'
+import { ImageComponent } from 'src/components/image/index.component'
+import { OffWorkComponent } from 'src/components/off-work/index.component'
+import { RuntimeComponent } from 'src/components/runtime/index.component'
 import { settings, component } from 'src/store'
 import { ComponentType } from 'src/types'
 import type { IComponentItemProps } from 'src/types'
-import { CalendarComponent } from 'src/components/calendar/index.component'
-import { RuntimeComponent } from 'src/components/runtime/index.component'
-import { OffWorkComponent } from 'src/components/off-work/index.component'
-import { ImageComponent } from 'src/components/image/index.component'
-import { CountdownComponent } from 'src/components/countdown/index.component'
-import { HTMLComponent } from 'src/components/html/index.component'
 import { HolidayComponent } from 'src/components/holiday/index.component'
 import { NewsComponent } from 'src/components/news/index.component'
-import { fromEvent, Subscription } from 'rxjs'
-import { debounceTime } from 'rxjs/operators'
-import { NzIconModule } from 'ng-zorro-antd/icon'
-import event from 'src/utils/mitt'
 import { isMobile } from 'src/utils'
+import event from 'src/utils/mitt'
 import { STORAGE_KEY_MAP } from 'src/constants'
 
 @Component({
@@ -34,11 +34,11 @@ import { STORAGE_KEY_MAP } from 'src/constants'
     HTMLComponent,
     HolidayComponent,
     NzIconModule,
-    NewsComponent,
+    NewsComponent
   ],
   selector: 'component-group',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class ComponentGroupComponent {
   @Input() direction: 'column' | '' = ''
@@ -50,7 +50,7 @@ export class ComponentGroupComponent {
   componentsLength: number = settings().components.length
   widths: number[] = []
   isShowAll = !!Number(
-    localStorage.getItem(STORAGE_KEY_MAP.COMPONENT_COLLAPSED),
+    localStorage.getItem(STORAGE_KEY_MAP.COMPONENT_COLLAPSED)
   )
   isOver = false
 
@@ -63,12 +63,12 @@ export class ComponentGroupComponent {
     // 按照系统设置顺序排序显示
     component().components.forEach((item) => {
       const has = settings().components.find(
-        (c) => c.type === item.type && c.id === item.id,
+        (c) => c.type === item.type && c.id === item.id
       )
       if (has) {
         c.push({
           ...item,
-          ...has,
+          ...has
         })
       }
     })
@@ -124,7 +124,7 @@ export class ComponentGroupComponent {
     this.isShowAll = !this.isShowAll
     localStorage.setItem(
       STORAGE_KEY_MAP.COMPONENT_COLLAPSED,
-      String(Number(this.isShowAll)),
+      String(Number(this.isShowAll))
     )
     if (!this.isShowAll) {
       this.checkOver()

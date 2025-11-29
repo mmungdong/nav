@@ -1,0 +1,490 @@
+// 现代化搜索组件样式
+.modern-search-engine {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+
+  .search-logo {
+    margin-bottom: 20px;
+    max-height: 60px;
+    transition: all 0.3s ease;
+
+    &.mobile {
+      max-height: 40px;
+      margin-bottom: 15px;
+    }
+  }
+
+  // 搜索引擎按钮网格容器
+  .search-buttons-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .search-buttons-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+
+      .search-button-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border: 2px solid transparent;
+
+        // 外部搜索引擎按钮样式
+        &.external-engine {
+          background: #ffffff;
+          color: #334155;
+          border-color: #e2e8f0;
+
+          &:hover {
+            background: #f8fafc;
+            border-color: #cbd5e0;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+          }
+
+          .engine-icon {
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 8px;
+          }
+
+          .engine-name {
+            font-size: 15px;
+          }
+        }
+
+        // 站内搜索引擎按钮样式
+        &.inner-engine {
+          background: linear-gradient(135deg, #4361ee, #3f37c9);
+          color: white;
+          box-shadow: 0 4px 16px rgba(67, 97, 238, 0.3);
+
+          &:hover {
+            background: linear-gradient(135deg, #3f37c9, #4361ee);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+            transform: translateY(-2px);
+          }
+
+          .engine-name {
+            font-size: 15px;
+          }
+        }
+
+        // 选中状态
+        &.active {
+          &.external-engine {
+            border-color: #4361ee;
+            box-shadow: 0 6px 16px rgba(67, 97, 238, 0.2);
+          }
+
+          &.inner-engine {
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.5);
+          }
+        }
+      }
+    }
+
+    // 选中引擎的搜索框
+    .selected-engine-search {
+      width: 100%;
+      max-width: 700px;
+
+      .search-input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: #ffffff;
+        border-radius: 50px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 2px solid #e2e8f0;
+        overflow: hidden;
+
+        &:hover {
+          box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+          border-color: #cbd5e0;
+        }
+
+        .selected-engine-info {
+          display: flex;
+          align-items: center;
+          padding: 0 15px;
+          height: 50px;
+          cursor: pointer;
+          border-right: 1px solid #e2e8f0;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #f8fafc;
+          }
+
+          .selected-engine-icon {
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+
+          .selected-engine-name {
+            margin: 0 8px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #334155;
+          }
+
+          .dropdown-arrow {
+            font-size: 12px;
+            color: #94a3b8;
+            transition: transform 0.2s ease;
+          }
+        }
+
+        .search-input {
+          flex: 1;
+          padding: 15px 20px;
+          font-size: 16px;
+          border: none;
+          outline: none;
+          background: transparent;
+          color: #334155;
+
+          &::placeholder {
+            color: #94a3b8;
+          }
+        }
+
+        .search-action {
+          display: flex;
+          align-items: center;
+          padding: 0 15px;
+          height: 50px;
+          cursor: pointer;
+          background: linear-gradient(135deg, #4361ee, #3f37c9);
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: linear-gradient(135deg, #3f37c9, #4361ee);
+            transform: scale(1.05);
+          }
+
+          .search-icon {
+            color: white;
+            font-size: 20px;
+          }
+        }
+      }
+
+      // 站内搜索类型选择器
+      .search-type-selector {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+
+        ::ng-deep .ant-select {
+          min-width: 150px;
+
+          .ant-select-selector {
+            border-radius: 50px !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+            transition: all 0.3s ease !important;
+            background: #ffffff !important;
+
+            &:hover {
+              border-color: #cbd5e0 !important;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+            }
+
+            .ant-select-selection-item {
+              line-height: 32px !important;
+              color: #334155 !important;
+            }
+          }
+
+          &.ant-select-focused {
+            .ant-select-selector {
+              border-color: #4361ee !important;
+              box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2) !important;
+            }
+          }
+
+          .ant-select-arrow {
+            color: #94a3b8 !important;
+          }
+        }
+      }
+
+      // 站内搜索样式
+      &.inner-search {
+        .search-input-container {
+          border-radius: 12px;
+
+          .selected-engine-info {
+            border-radius: 10px 0 0 10px;
+          }
+
+          .search-action {
+            border-radius: 0 10px 10px 0;
+          }
+        }
+      }
+    }
+  }
+
+  // 弹出引擎选择器样式
+  ::ng-deep .engine-selector-popover {
+    .ant-popover-inner {
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e2e8f0;
+      padding: 15px;
+      background: #ffffff;
+    }
+
+    .ant-popover-arrow {
+      display: none;
+    }
+
+    .engine-selector-content {
+      .engine-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        max-width: 320px;
+
+        @media (max-width: 768px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .engine-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 15px 10px;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+
+          &:hover {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+          }
+
+          &.active {
+            background: linear-gradient(135deg, #4361ee, #3f37c9);
+            border-color: #4361ee;
+            color: white;
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.2);
+
+            .engine-icon {
+              filter: brightness(0) invert(1);
+            }
+
+            .engine-name {
+              color: white;
+            }
+          }
+
+          .engine-icon {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+
+          .engine-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #334155;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 暗色主题适配
+.dark {
+  .modern-search-engine {
+    .search-container {
+      .search-input-wrapper {
+        background: #1e293b;
+        border-color: #334155;
+
+        &:hover {
+          border-color: #475569;
+          box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        &.focused {
+          border-color: #4361ee;
+          box-shadow: 0 6px 25px rgba(67, 97, 238, 0.3);
+        }
+
+        .search-prefix {
+          border-right-color: #334155;
+
+          &:hover {
+            background: #334155;
+          }
+        }
+
+        .search-input {
+          color: #f1f5f9;
+          background: transparent;
+
+          &::placeholder {
+            color: #94a3b8;
+          }
+        }
+      }
+
+      .search-type-selector {
+        ::ng-deep .ant-select {
+          .ant-select-selector {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+
+            &:hover {
+              border-color: #475569 !important;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+            }
+
+            .ant-select-selection-item {
+              color: #f1f5f9 !important;
+            }
+          }
+
+          &.ant-select-focused {
+            .ant-select-selector {
+              border-color: #4361ee !important;
+              box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3) !important;
+            }
+          }
+
+          .ant-select-arrow {
+            color: #94a3b8 !important;
+          }
+        }
+      }
+    }
+
+    // 弹出引擎选择器暗色主题
+    ::ng-deep .engine-selector-popover {
+      .ant-popover-inner {
+        background: #1e293b;
+        border-color: #334155;
+      }
+
+      .engine-selector-content {
+        .engine-grid {
+          .engine-item {
+            background: #334155;
+            border-color: #475569;
+
+            &:hover {
+              background: #475569;
+              border-color: #64748b;
+            }
+
+            &.active {
+              background: linear-gradient(135deg, #4361ee, #3f37c9);
+              border-color: #4361ee;
+            }
+
+            .engine-name {
+              color: #e2e8f0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .modern-search-engine {
+    padding: 15px 0;
+
+    .search-container {
+      width: 95%;
+
+      .search-input-wrapper {
+        .search-prefix {
+          padding: 0 12px;
+          height: 45px;
+
+          .search-engine-icon {
+            width: 20px;
+            height: 20px;
+          }
+
+          .dropdown-arrow {
+            font-size: 10px;
+          }
+        }
+
+        .search-input {
+          padding: 12px 15px;
+          font-size: 14px;
+          height: 45px;
+        }
+
+        .search-suffix {
+          padding: 0 12px;
+          height: 45px;
+
+          .search-icon {
+            font-size: 18px;
+          }
+        }
+      }
+
+      .search-type-selector {
+        ::ng-deep .ant-select {
+          min-width: 120px;
+
+          .ant-select-selector {
+            .ant-select-selection-item {
+              line-height: 28px !important;
+              font-size: 14px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

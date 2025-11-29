@@ -19,5 +19,5 @@ export const newsTypeMap = {
   [NewsType.Douban]: $t('_douban'),
   [NewsType.HackerNews]: 'Hacker News',
   [NewsType.Zhihu]: $t('_zhihu'),
-  [NewsType.ZhihuDaily]: $t('_zhihuDaily'),
+  [NewsType.ZhihuDaily]: $t('_zhihuDaily')
 } as const

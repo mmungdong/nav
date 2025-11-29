@@ -2,11 +2,12 @@
 // Copyright @ 2018-present xie.jiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import type { INavProps, IWebProps, INavTwoProp, INavThreeProp } from '../types'
-import { navs } from '../store'
 import { $t } from '../locale'
-import { getTempId } from './utils'
+import { navs } from '../store'
+import type { INavProps, IWebProps, INavTwoProp, INavThreeProp } from '../types'
+
 import { removeTrailingSlashes } from './pureUtils'
+import { getTempId } from './utils'
 
 let id = getTempId()
 
@@ -30,7 +31,7 @@ function findUnclassifiedData(roolDL: Element): IWebProps[] {
           desc: '',
           rate: 5,
           id: (id += 1),
-          breadcrumb: [],
+          breadcrumb: []
         })
       }
     }
@@ -44,7 +45,7 @@ interface BookmarkParseResult {
 }
 
 export function parseBookmark(
-  htmlStr: string,
+  htmlStr: string
 ): BookmarkParseResult | INavProps[] {
   const copyWebList = JSON.parse(JSON.stringify(navs()))
   const data: INavProps[] = []
@@ -57,7 +58,7 @@ export function parseBookmark(
 
   if (!roolDL) {
     return {
-      message: '未找到dl dl节点',
+      message: '未找到dl dl节点'
     }
   }
 
@@ -76,7 +77,7 @@ export function parseBookmark(
               top: false,
               icon: getIcon(titleEl),
               id: (id += 1),
-              breadcrumb: [],
+              breadcrumb: []
             })
           }
         }
@@ -97,7 +98,7 @@ export function parseBookmark(
               id: (id += 1),
               title,
               nav: [],
-              icon: '',
+              icon: ''
             }
             parentNav.nav.push(threeLevel)
 
@@ -124,7 +125,7 @@ export function parseBookmark(
               id: (id += 1),
               title,
               icon: getIcon(titleEl),
-              nav: [],
+              nav: []
             }
             parentData.nav.push(twoLevel)
 
@@ -136,7 +137,7 @@ export function parseBookmark(
                   id: (id += 1),
                   title,
                   icon: '',
-                  nav: unclassifiedData,
+                  nav: unclassifiedData
                 })
               }
               processThreeLevel(DL3, twoLevel)
@@ -160,7 +161,7 @@ export function parseBookmark(
             id: (id += 1),
             title,
             icon: getIcon(titleEl),
-            nav: [],
+            nav: []
           }
           data.push(oneLevel)
 
@@ -177,9 +178,9 @@ export function parseBookmark(
                     id: (id += 1),
                     title,
                     icon: '',
-                    nav: unclassifiedData,
-                  },
-                ],
+                    nav: unclassifiedData
+                  }
+                ]
               })
             }
             processTwoLevel(DL, oneLevel)
@@ -204,11 +205,11 @@ export function parseBookmark(
                 id: (id += 1),
                 title: $t('_uncategorized'),
                 icon: '',
-                nav: unclassifiedData,
-              },
-            ],
-          },
-        ],
+                nav: unclassifiedData
+              }
+            ]
+          }
+        ]
       })
     }
   } catch (error) {
@@ -223,7 +224,7 @@ export function parseBookmark(
       const title = (item.title || removeTrailingSlashes(item.url)).trim()
       const idx = list.findIndex(
         (item) =>
-          (item.title || removeTrailingSlashes(item.url)).trim() === title,
+          (item.title || removeTrailingSlashes(item.url)).trim() === title
       )
 
       if (idx !== -1) {
@@ -234,7 +235,7 @@ export function parseBookmark(
         const url = removeTrailingSlashes((item.url || '').trim())
         if (item.url) {
           const has = list.some(
-            (e) => removeTrailingSlashes(e.url).trim() === url,
+            (e) => removeTrailingSlashes(e.url).trim() === url
           )
           if (!has) {
             list.push(item)

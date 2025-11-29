@@ -4,13 +4,13 @@
 
 import { Component, EventEmitter, Output } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { $t } from 'src/locale'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzDrawerModule } from 'ng-zorro-antd/drawer'
 import { NzFormModule } from 'ng-zorro-antd/form'
-import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzInputModule } from 'ng-zorro-antd/input'
 import { UploadImageComponent } from 'src/components/upload-image/index.component'
+import { $t } from 'src/locale'
 
 @Component({
   standalone: true,
@@ -21,11 +21,11 @@ import { UploadImageComponent } from 'src/components/upload-image/index.componen
     NzDrawerModule,
     NzFormModule,
     NzButtonModule,
-    NzInputModule,
+    NzInputModule
   ],
   selector: 'image-drawer',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class ImageDrawerComponent {
   @Output() ok = new EventEmitter<void>()
@@ -39,7 +39,7 @@ export class ImageDrawerComponent {
     this.validateForm = this.fb.group({
       url: [''],
       text: [''],
-      go: [''],
+      go: ['']
     })
   }
 
@@ -63,7 +63,7 @@ export class ImageDrawerComponent {
     const values = this.validateForm.value
     this.ok.emit({
       ...values,
-      index: this.index,
+      index: this.index
     })
     this.handleClose()
   }

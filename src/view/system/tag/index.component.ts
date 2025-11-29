@@ -2,21 +2,21 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import { NzModalService } from 'ng-zorro-antd/modal'
-import type { ITagPropValues } from 'src/types'
-import { updateFileContent } from 'src/api'
-import { TAG_PATH } from 'src/constants'
-import { tagList } from 'src/store'
 import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzInputModule } from 'ng-zorro-antd/input'
-import { NzTableModule } from 'ng-zorro-antd/table'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalService } from 'ng-zorro-antd/modal'
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm'
 import { NzSwitchModule } from 'ng-zorro-antd/switch'
+import { NzTableModule } from 'ng-zorro-antd/table'
+import { updateFileContent } from 'src/api'
+import { TAG_PATH } from 'src/constants'
+import { $t } from 'src/locale'
+import { tagList } from 'src/store'
+import type { ITagPropValues } from 'src/types'
 
 @Component({
   standalone: true,
@@ -27,12 +27,12 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch'
     NzInputModule,
     NzTableModule,
     NzPopconfirmModule,
-    NzSwitchModule,
+    NzSwitchModule
   ],
   providers: [NzModalService, NzMessageService],
   selector: 'system-tag',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SystemTagComponent {
   readonly $t = $t
@@ -42,7 +42,7 @@ export default class SystemTagComponent {
 
   constructor(
     private message: NzMessageService,
-    private modal: NzModalService,
+    private modal: NzModalService
   ) {}
 
   ngOnInit() {}
@@ -85,7 +85,7 @@ export default class SystemTagComponent {
       name: '',
       color: '#f50000',
       desc: '',
-      isInner: false,
+      isInner: false
     })
   }
 
@@ -104,7 +104,7 @@ export default class SystemTagComponent {
       if (item.name?.trim?.()) {
         o[item.name] = {
           ...item,
-          name: undefined,
+          name: undefined
         }
       }
     })
@@ -128,7 +128,7 @@ export default class SystemTagComponent {
         item.sort = Number(item.sort)
       }
       return {
-        ...item,
+        ...item
       }
     })
     this.modal.info({
@@ -140,7 +140,7 @@ export default class SystemTagComponent {
         updateFileContent({
           message: 'update tag',
           content: JSON.stringify(tagList),
-          path: TAG_PATH,
+          path: TAG_PATH
         })
           .then(() => {
             this.message.success($t('_syncSuccessTip'))
@@ -148,7 +148,7 @@ export default class SystemTagComponent {
           .finally(() => {
             this.submitting = false
           })
-      },
+      }
     })
   }
 

@@ -1,16 +1,16 @@
 // 开源项目，未经作者同意，不得以抄袭/复制代码/修改源代码版权信息。
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import type { IWebProps, INavProps } from 'src/types'
 import { NzButtonModule } from 'ng-zorro-antd/button'
-import { NzModalModule } from 'ng-zorro-antd/modal'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import event from 'src/utils/mitt'
-import { $t } from 'src/locale'
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalModule } from 'ng-zorro-antd/modal'
+import { $t } from 'src/locale'
+import type { IWebProps, INavProps } from 'src/types'
+import event from 'src/utils/mitt'
 import { deleteWebByIds, deleteClassByIds } from 'src/utils/web'
 
 interface Props {
@@ -28,11 +28,11 @@ interface Props {
     NzModalModule,
     NzButtonModule,
     NzCheckboxModule,
-    FormsModule,
+    FormsModule
   ],
   selector: 'app-delete-modal',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class DeleteModalComponent {
   readonly $t = $t

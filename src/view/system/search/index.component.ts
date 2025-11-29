@@ -2,28 +2,28 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import {
   FormsModule,
   ReactiveFormsModule,
   FormBuilder,
-  FormGroup,
+  FormGroup
 } from '@angular/forms'
-import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import type { ISearchItemProps, ISearchProps } from 'src/types'
-import { updateFileContent } from 'src/api'
-import { NzModalService } from 'ng-zorro-antd/modal'
-import { SEARCH_PATH } from 'src/constants'
-import { search } from 'src/store'
 import { NzButtonModule } from 'ng-zorro-antd/button'
-import { NzTableModule } from 'ng-zorro-antd/table'
-import { NzInputModule } from 'ng-zorro-antd/input'
-import { NzSwitchModule } from 'ng-zorro-antd/switch'
-import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm'
-import { UploadImageComponent } from 'src/components/upload-image/index.component'
 import { NzFormModule } from 'ng-zorro-antd/form'
+import { NzInputModule } from 'ng-zorro-antd/input'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalService } from 'ng-zorro-antd/modal'
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm'
+import { NzSwitchModule } from 'ng-zorro-antd/switch'
+import { NzTableModule } from 'ng-zorro-antd/table'
+import { updateFileContent } from 'src/api'
+import { $t } from 'src/locale'
+import { search } from 'src/store'
+import type { ISearchItemProps, ISearchProps } from 'src/types'
+import { SEARCH_PATH } from 'src/constants'
+import { UploadImageComponent } from 'src/components/upload-image/index.component'
 import { NzSliderModule } from 'ng-zorro-antd/slider'
 import { isValidImg } from 'src/utils'
 
@@ -40,12 +40,12 @@ import { isValidImg } from 'src/utils'
     NzSwitchModule,
     NzPopconfirmModule,
     NzFormModule,
-    NzSliderModule,
+    NzSliderModule
   ],
   providers: [NzModalService, NzMessageService],
   selector: 'system-tag',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SystemSearchComponent {
   readonly $t = $t
@@ -56,11 +56,11 @@ export default class SystemSearchComponent {
   constructor(
     private fb: FormBuilder,
     private message: NzMessageService,
-    private modal: NzModalService,
+    private modal: NzModalService
   ) {
     const group: any = {
       ...search(),
-      list: null,
+      list: null
     }
     const groupPayload: any = {}
     for (const k in group) {
@@ -86,7 +86,7 @@ export default class SystemSearchComponent {
       icon: '',
       placeholder: '',
       blocked: false,
-      isInner: false,
+      isInner: false
     })
   }
 
@@ -148,12 +148,12 @@ export default class SystemSearchComponent {
         this.submitting = true
         const params: ISearchProps = {
           ...values,
-          list: this.searchList.filter((item) => item.name.trim()),
+          list: this.searchList.filter((item) => item.name.trim())
         }
         updateFileContent({
           message: 'update search',
           content: JSON.stringify(params),
-          path: SEARCH_PATH,
+          path: SEARCH_PATH
         })
           .then(() => {
             this.message.success($t('_syncSuccessTip'))
@@ -161,7 +161,7 @@ export default class SystemSearchComponent {
           .finally(() => {
             this.submitting = false
           })
-      },
+      }
     })
   }
 

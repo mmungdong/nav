@@ -2,19 +2,19 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, EventEmitter, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
+import { Component, EventEmitter, Output } from '@angular/core'
+import { NzIconModule } from 'ng-zorro-antd/icon'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { createFile } from 'src/api'
-import { NzIconModule } from 'ng-zorro-antd/icon'
+import { $t } from 'src/locale'
 
 @Component({
   standalone: true,
   imports: [CommonModule, NzIconModule],
   selector: 'app-upload-file',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class UploadFileComponent {
   @Output() onChange = new EventEmitter()
@@ -55,11 +55,11 @@ export class UploadFileComponent {
         createFile({
           message: `create ${path}`,
           content: url,
-          path,
+          path
         })
           .then((res) => {
             const params = {
-              cdn: res?.data.filePath,
+              cdn: res?.data.filePath
             }
             window.open(params.cdn)
             that.onChange.emit(params)

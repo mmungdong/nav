@@ -1,0 +1,143 @@
+<div
+  class="modern-search-engine"
+  *ngIf="searchEngineList && searchEngineList.length > 0"
+>
+  <img
+    *ngIf="showLogo && logoImage"
+    class="search-logo pointer-events-none mb-4 select-none"
+    [src]="logoImage"
+    [ngClass]="{ mobile: isMobile }"
+    [ngStyle]="{ maxHeight: search.height + 'px' }"
+  />
+
+  <!-- 搜索引擎按钮网格 -->
+  <div class="search-buttons-container">
+    <div class="search-buttons-grid">
+      <div
+        class="search-button-item"
+        *ngFor="let engine of searchEngineList; let i = index"
+        (click)="selectEngineAndFocus(engine, i)"
+        [ngClass]="{
+          'inner-engine': engine.isInner,
+          'external-engine': !engine.isInner,
+          'active': currentEngine.name === engine.name
+        }"
+      >
+        <!-- 不显示站内搜索的图标 -->
+        <div
+          *ngIf="!engine.isInner && engine.icon"
+          class="engine-icon"
+          [ngStyle]="{ 'background-image': 'url(' + engine.icon + ')' }"
+        ></div>
+        <span class="engine-name">{{ engine.name }}</span>
+      </div>
+    </div>
+
+    <!-- 显示选中引擎的搜索框 -->
+    <div
+      class="selected-engine-search"
+      *ngIf="currentEngine"
+      [ngClass]="{ 'inner-search': currentEngine.isInner }"
+    >
+      <div class="search-input-container">
+        <div
+          class="selected-engine-info"
+          nz-popover
+          [nzPopoverTrigger]="searchEngineList.length > 1 ? 'click' : null"
+          nzPopoverPlacement="bottomLeft"
+          nzPopoverOverlayClassName="engine-selector-popover"
+          [nzPopoverContent]="engineSelectorTemplate"
+        >
+          <div
+            *ngIf="!currentEngine.isInner && currentEngine.icon"
+            class="selected-engine-icon"
+            [ngStyle]="{ 'background-image': 'url(' + currentEngine.icon + ')' }"
+          ></div>
+          <span class="selected-engine-name">{{ currentEngine.name }}</span>
+          <i class="dropdown-arrow iconfont iconarrow-down"></i>
+        </div>
+
+        <input
+          type="text"
+          class="search-input"
+          [placeholder]="currentEngine.placeholder || '请输入搜索关键词'"
+          [(ngModel)]="keyword"
+          (keyup)="onKey($event)"
+          autocomplete="off"
+          #input
+        />
+
+        <div class="search-action" (click)="triggerSearch()">
+          <i class="search-icon iconfont iconsousuo"></i>
+        </div>
+      </div>
+
+      <!-- 搜索类型选择器 (仅对站内搜索引擎显示) -->
+      <div class="search-type-selector" *ngIf="currentEngine.isInner">
+        <nz-select
+          [(ngModel)]="searchTypeValue"
+          (ngModelChange)="onSelectChange()"
+        >
+          <nz-option
+            [nzLabel]="$t('_default')"
+            [nzValue]="SearchType.All"
+          ></nz-option>
+          <nz-option
+            [nzLabel]="$t('_class')"
+            [nzValue]="SearchType.Class"
+          ></nz-option>
+          <nz-option
+            [nzLabel]="$t('_tag')"
+            [nzValue]="SearchType.Tag"
+          ></nz-option>
+          <nz-option
+            [nzLabel]="$t('_title')"
+            [nzValue]="SearchType.Title"
+          ></nz-option>
+          <nz-option
+            [nzLabel]="$t('_desc')"
+            [nzValue]="SearchType.Desc"
+          ></nz-option>
+          <nz-option
+            [nzLabel]="$t('_link')"
+            [nzValue]="SearchType.Url"
+          ></nz-option>
+          <nz-option
+            [nzLabel]="$t('_current')"
+            [nzValue]="SearchType.Current"
+          ></nz-option>
+          <nz-option
+            [nzLabel]="$t('_quick')"
+            [nzValue]="SearchType.Quick"
+          ></nz-option>
+          <nz-option
+            *ngIf="isLogin"
+            nzLabel="ID"
+            [nzValue]="SearchType.Id"
+          ></nz-option>
+        </nz-select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 引擎选择器模板 -->
+  <ng-template #engineSelectorTemplate>
+    <div class="engine-selector-content">
+      <div class="engine-grid">
+        <div
+          class="engine-item"
+          *ngFor="let item of searchEngineList; let i = index"
+          [ngClass]="{ active: currentEngine.name === item.name }"
+          (click)="clickEngineItem(i)"
+        >
+          <div
+            *ngIf="!item.isInner && item.icon"
+            class="engine-icon"
+            [ngStyle]="{ 'background-image': 'url(' + item.icon + ')' }"
+          ></div>
+          <div class="engine-name ellipsis">{{ item.name }}</div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

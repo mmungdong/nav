@@ -3,11 +3,24 @@
 // See https://github.com/xjh22222228/nav
 
 import fs from 'fs'
+
 import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc.js'
 import timezone from 'dayjs/plugin/timezone.js'
-import defaultDb from './db'
+import utc from 'dayjs/plugin/utc.js'
 import LZString from 'lz-string'
+
+import type {
+  ITagPropValues,
+  ISettings,
+  INavProps,
+  InternalProps,
+  IComponentProps,
+  ISearchProps
+} from '../src/types/index'
+import { ComponentType } from '../src/types/index'
+import { replaceJsdelivrCDN } from '../src/utils/pureUtils'
+
+import defaultDb from './db'
 import {
   TAG_ID1,
   TAG_ID2,
@@ -20,18 +33,8 @@ import {
   PATHS,
   getConfig,
   fileWriteStream,
-  writePWA,
+  writePWA
 } from './utils'
-import { replaceJsdelivrCDN } from '../src/utils/pureUtils'
-import type {
-  ITagPropValues,
-  ISettings,
-  INavProps,
-  InternalProps,
-  IComponentProps,
-  ISearchProps,
-} from '../src/types/index'
-import { ComponentType } from '../src/types/index'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -80,7 +83,7 @@ const main = async () => {
     if (Array.isArray(s)) {
       // @ts-ignore
       search = {
-        list: s,
+        list: s
       }
     } else {
       search = s
@@ -96,15 +99,15 @@ const main = async () => {
             'https://gcore.jsdelivr.net/gh/xjh22222228/public@gh-pages/nav/logo.svg',
           placeholder: '站内搜索',
           blocked: false,
-          isInner: true,
+          isInner: true
         },
         {
           name: 'Google',
           url: 'https://www.google.com/search?q=',
           icon: 'https://www.google.com/favicon.ico',
           blocked: false,
-          isInner: false,
-        },
+          isInner: false
+        }
       ]
     }
     search.logo ||= ''
@@ -115,7 +118,7 @@ const main = async () => {
       return item
     })
     fs.writeFileSync(PATHS.search, JSON.stringify(search), {
-      encoding: 'utf-8',
+      encoding: 'utf-8'
     })
   }
 
@@ -125,7 +128,7 @@ const main = async () => {
     if (Array.isArray(components)) {
       component = {
         zoom: 1,
-        components,
+        components
       }
     } else {
       component = components
@@ -133,25 +136,25 @@ const main = async () => {
   } catch {
   } finally {
     let idx = component.components.findIndex(
-      (item) => item['type'] === ComponentType.Calendar,
+      (item) => item['type'] === ComponentType.Calendar
     )
     const calendar = {
       type: ComponentType.Calendar,
       id: -ComponentType.Calendar,
       topColor: '#ff5a5d',
-      bgColor: '#1d1d1d',
+      bgColor: '#1d1d1d'
     }
     if (idx >= 0) {
       component.components[idx] = {
         ...calendar,
-        ...component.components[idx],
+        ...component.components[idx]
       }
     } else {
       component.components.push(calendar)
     }
     //
     idx = component.components.findIndex(
-      (item) => item['type'] === ComponentType.OffWork,
+      (item) => item['type'] === ComponentType.OffWork
     )
     const offWork = {
       type: ComponentType.OffWork,
@@ -159,42 +162,42 @@ const main = async () => {
       workTitle: '距离下班还有',
       restTitle: '休息啦',
       startDate: new Date(2018, 3, 26, 9, 0, 0).getTime(),
-      date: new Date(2018, 3, 26, 18, 0, 0).getTime(),
+      date: new Date(2018, 3, 26, 18, 0, 0).getTime()
     }
     if (idx >= 0) {
       component.components[idx] = {
         ...offWork,
-        ...component.components[idx],
+        ...component.components[idx]
       }
     } else {
       component.components.push(offWork)
     }
     //
     idx = component.components.findIndex(
-      (item) => item['type'] === ComponentType.Image,
+      (item) => item['type'] === ComponentType.Image
     )
     const image = {
       type: ComponentType.Image,
       id: -ComponentType.Image,
       url: 'https://gcore.jsdelivr.net/gh/xjh22222228/public@gh-pages/nav/component1.jpg',
       go: '',
-      text: '只有认可，才能强大',
+      text: '只有认可，才能强大'
     }
     if (idx >= 0) {
       component.components[idx] = {
         ...image,
-        ...component.components[idx],
+        ...component.components[idx]
       }
       component.components[idx]['url'] = replaceJsdelivrCDN(
         component.components[idx]['url'],
-        settings,
+        settings
       )
     } else {
       component.components.push(image)
     }
     //
     idx = component.components.findIndex(
-      (item) => item['type'] === ComponentType.Countdown,
+      (item) => item['type'] === ComponentType.Countdown
     )
     const countdown = {
       type: ComponentType.Countdown,
@@ -205,88 +208,88 @@ const main = async () => {
       title: '距离春节还有',
       dateColor: '#fff',
       dayColor: '#fff',
-      date: '2026-02-17',
+      date: '2026-02-17'
     }
     if (idx >= 0) {
       component.components[idx] = {
         ...countdown,
-        ...component.components[idx],
+        ...component.components[idx]
       }
       component.components[idx]['url'] = replaceJsdelivrCDN(
         component.components[idx]['url'],
-        settings,
+        settings
       )
     } else {
       component.components.push(countdown)
     }
     //
     idx = component.components.findIndex(
-      (item) => item['type'] === ComponentType.Runtime,
+      (item) => item['type'] === ComponentType.Runtime
     )
     const runtime = {
       type: ComponentType.Runtime,
       id: -ComponentType.Runtime,
-      title: '已稳定运行',
+      title: '已稳定运行'
     }
     if (idx >= 0) {
       component.components[idx] = {
         ...runtime,
-        ...component.components[idx],
+        ...component.components[idx]
       }
     } else {
       component.components.push(runtime)
     }
     //
     idx = component.components.findIndex(
-      (item) => item['type'] === ComponentType.HTML,
+      (item) => item['type'] === ComponentType.HTML
     )
     const html = {
       type: ComponentType.HTML,
       id: -ComponentType.HTML,
       html: '你好，发现导航',
       width: 160,
-      bgColor: '#fff',
+      bgColor: '#fff'
     }
     if (idx >= 0) {
       component.components[idx] = {
         ...html,
-        ...component.components[idx],
+        ...component.components[idx]
       }
     } else {
       component.components.push(html)
     }
     //
     idx = component.components.findIndex(
-      (item) => item['type'] === ComponentType.Holiday,
+      (item) => item['type'] === ComponentType.Holiday
     )
     const holiday = {
       type: ComponentType.Holiday,
       id: -ComponentType.Holiday,
-      items: [],
+      items: []
     }
     if (idx >= 0) {
       component.components[idx] = {
         ...holiday,
-        ...component.components[idx],
+        ...component.components[idx]
       }
     } else {
       component.components.push(holiday)
     }
     //
     idx = component.components.findIndex(
-      (item) => item['type'] === ComponentType.News,
+      (item) => item['type'] === ComponentType.News
     )
     const news = {
       type: ComponentType.News,
       id: -ComponentType.News,
       bgColor: 'linear-gradient(100deg,#2a2d38, rgb(35, 39, 54))',
       types: [],
-      count: 0,
+      count: 0
     }
     if (idx >= 0) {
       component.components[idx] = {
         ...news,
-        ...component.components[idx],
+        ...component.components[idx]
       }
     } else {
       component.components.push(news)
@@ -307,7 +310,7 @@ const main = async () => {
         name: isEn ? 'Chinese' : TAG_ID_NAME1,
         color: '#2db7f5',
         desc,
-        isInner: true,
+        isInner: true
       })
     }
     const b = tags.some((item) => item.id === TAG_ID2)
@@ -317,7 +320,7 @@ const main = async () => {
         name: isEn ? 'English' : TAG_ID_NAME2,
         color: '#f50',
         desc,
-        isInner: true,
+        isInner: true
       })
     }
     const c = tags.some((item) => item.id === TAG_ID3)
@@ -327,12 +330,12 @@ const main = async () => {
         name: TAG_ID_NAME3,
         color: '#108ee9',
         desc,
-        isInner: true,
+        isInner: true
       })
     }
     tags = tags.filter((item) => item.name && item.id)
     fs.writeFileSync(PATHS.tag, JSON.stringify(tags), {
-      encoding: 'utf-8',
+      encoding: 'utf-8'
     })
   }
 
@@ -381,12 +384,12 @@ const main = async () => {
     settings.simThemeImages ||= [
       {
         src: banner1,
-        url: 'https://github.com/xjh22222228/nav',
+        url: 'https://github.com/xjh22222228/nav'
       },
       {
         src: banner2,
-        url: 'https://github.com/xjh22222228/nav',
-      },
+        url: 'https://github.com/xjh22222228/nav'
+      }
     ]
     settings.simThemeDesc ??=
       '这里收录多达 <b>${total}</b> 个优质网站， 助您工作、学习和生活'
@@ -406,12 +409,12 @@ const main = async () => {
     const defImgs = [
       {
         src: 'https://gcore.jsdelivr.net/gh/xjh22222228/nav-image@image/nav-1717494364392-ad.jpg',
-        url: 'https://haokawx.lot-ml.com/Product/index/454266',
+        url: 'https://haokawx.lot-ml.com/Product/index/454266'
       },
       {
         src: 'https://gcore.jsdelivr.net/gh/xjh22222228/public@gh-pages/img/10.png',
-        url: '',
-      },
+        url: ''
+      }
     ]
     settings.superImages ??= defImgs
     settings.lightImages ??= defImgs
@@ -431,12 +434,12 @@ const main = async () => {
     settings.sideThemeImages ||= [
       {
         src: banner2,
-        url: 'https://github.com/xjh22222228/nav',
+        url: 'https://github.com/xjh22222228/nav'
       },
       {
         src: banner1,
-        url: 'https://github.com/xjh22222228/nav',
-      },
+        url: 'https://github.com/xjh22222228/nav'
+      }
     ]
     settings.shortcutTitle ??= ''
     settings.shortcutDocTitle ||= ''
@@ -445,8 +448,8 @@ const main = async () => {
     settings.shortcutThemeImages ??= [
       {
         src: backgroundImg,
-        url: '',
-      },
+        url: ''
+      }
     ]
     settings.checkUrl ??= false
     settings.spiderIcon ??= 'NO'
@@ -490,7 +493,7 @@ const main = async () => {
       return item
     })
     fs.writeFileSync(PATHS.settings, JSON.stringify(settings), {
-      encoding: 'utf-8',
+      encoding: 'utf-8'
     })
   }
 

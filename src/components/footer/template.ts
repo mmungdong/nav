@@ -103,7 +103,7 @@ const t: Record<string, any> = {
     >
   </div>
 </div>
-  `,
+  `
 }
 
 export default t

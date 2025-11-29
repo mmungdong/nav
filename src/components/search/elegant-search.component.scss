@@ -1,0 +1,654 @@
+// 优雅搜索组件样式
+.elegant-search-engine {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+
+  .search-logo {
+    margin-bottom: 20px;
+    max-height: 60px;
+    transition: all 0.3s ease;
+
+    &.mobile {
+      max-height: 40px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .search-container {
+    position: relative;
+    width: 700px;
+    max-width: 95%;
+    transition: all 0.3s ease;
+
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+
+      &:hover {
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+        border-color: #cbd5e0;
+      }
+
+      &.focused {
+        border-color: #4361ee;
+        box-shadow: 0 6px 25px rgba(67, 97, 238, 0.2);
+      }
+
+      .search-prefix {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        height: 56px;
+        cursor: pointer;
+        border-right: 1px solid #e2e8f0;
+        transition: all 0.2s ease;
+        background: #f8fafc;
+
+        &:hover {
+          background: #f1f5f9;
+        }
+
+        .search-engine-icon {
+          width: 28px;
+          height: 28px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          border-radius: 6px;
+        }
+
+        .dropdown-arrow {
+          margin-left: 10px;
+          font-size: 14px;
+          color: #64748b;
+          transition: transform 0.2s ease;
+
+          &.open {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      .search-input {
+        flex: 1;
+        padding: 18px 20px;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: #334155;
+        height: 56px;
+
+        &::placeholder {
+          color: #94a3b8;
+        }
+      }
+
+      .search-suffix {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        height: 56px;
+        cursor: pointer;
+        background: #4361ee;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #3f37c9;
+          transform: translateY(-2px);
+        }
+
+        .search-icon {
+          color: white;
+          font-size: 22px;
+        }
+      }
+    }
+
+    .search-type-selector {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+
+      ::ng-deep .ant-select {
+        min-width: 180px;
+
+        .ant-select-selector {
+          border-radius: 10px !important;
+          border: 1px solid #e2e8f0 !important;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+          height: 46px !important;
+          cursor: pointer !important;
+          padding: 0 16px !important;
+
+          &:hover {
+            border-color: #4361ee !important;
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.2) !important;
+            transform: translateY(-2px);
+          }
+
+          .ant-select-selection-item {
+            line-height: 44px !important;
+            color: #334155 !important;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+          }
+        }
+
+        &.ant-select-focused {
+          .ant-select-selector {
+            border-color: #4361ee !important;
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3) !important;
+            transform: translateY(-2px);
+          }
+        }
+
+        .ant-select-arrow {
+          color: #94a3b8 !important;
+          font-size: 16px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          right: 16px !important;
+        }
+
+        &:hover .ant-select-arrow {
+          color: #4361ee !important;
+          transform: scale(1.15) translateY(-2px);
+        }
+
+        &.ant-select-focused .ant-select-arrow {
+          color: #4361ee !important;
+          transform: rotate(180deg);
+        }
+
+        // 下拉选项样式优化
+        .ant-select-dropdown {
+          border-radius: 12px !important;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+          border: 1px solid #e2e8f0 !important;
+          overflow: hidden;
+          margin-top: 8px !important;
+          transform-origin: top center;
+          animation: dropdownAnimation 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+          .ant-select-item {
+            transition: all 0.2s ease;
+            border-radius: 8px !important;
+            margin: 4px 8px !important;
+            cursor: pointer !important;
+            padding: 10px 16px !important;
+            font-size: 14px;
+            font-weight: 500;
+            color: #334155;
+
+            &:hover {
+              background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+              transform: translateX(4px);
+            }
+
+            &.ant-select-item-option-selected {
+              background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%) !important;
+              color: #4361ee !important;
+              font-weight: 600;
+              box-shadow: 0 2px 8px rgba(67, 97, 238, 0.2);
+            }
+
+            &.ant-select-item-option-active {
+              background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%) !important;
+            }
+
+            &.ant-select-item-option-disabled {
+              color: #94a3b8 !important;
+              cursor: not-allowed !important;
+              background: transparent !important;
+            }
+          }
+
+          // 添加滚动条样式
+          .ant-select-dropdown-menu {
+            max-height: 240px !important;
+            &::-webkit-scrollbar {
+              width: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background: #f1f5f9;
+              border-radius: 3px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background: #cbd5e0;
+              border-radius: 3px;
+
+              &:hover {
+                background: #94a3b8;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // 下拉动画
+    @keyframes dropdownAnimation {
+      0% {
+        opacity: 0;
+        transform: scaleY(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+    }
+  }
+
+  // 弹出引擎选择器样式
+  ::ng-deep .engine-selector-popover {
+    .ant-popover-inner {
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e2e8f0;
+      padding: 16px;
+      background: #ffffff;
+      backdrop-filter: blur(10px);
+      transform: translateZ(0); // 硬件加速
+    }
+
+    .ant-popover-arrow {
+      display: none;
+    }
+
+    .engine-selector-content {
+      .engine-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        max-width: 360px;
+
+        @media (max-width: 768px) {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+
+        .engine-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px 16px;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+          transform: translateZ(0); // 硬件加速
+
+          &:hover {
+            background: #ffffff;
+            border-color: #4361ee;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.25);
+            z-index: 10;
+          }
+
+          &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+          }
+
+          &.active {
+            background: linear-gradient(135deg, #4361ee 0%, #3a56e4 100%);
+            border-color: #4361ee;
+            color: white;
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.35);
+
+            .engine-icon {
+              filter: brightness(0) invert(1);
+              transform: scale(1.15);
+            }
+
+            .engine-name {
+              color: white;
+              font-weight: 600;
+            }
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+
+          &:hover::before {
+            opacity: 1;
+          }
+
+          // 添加点击波纹效果
+          &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(67, 97, 238, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+          }
+
+          &:active::after {
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+          }
+
+          .engine-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          }
+
+          .engine-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #334155;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px;
+            transition: all 0.2s ease;
+            line-height: 1.3;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 暗色主题适配
+.dark {
+  .elegant-search-engine {
+    .search-container {
+      .search-input-wrapper {
+        background: #1e293b;
+        border-color: #334155;
+
+        &:hover {
+          border-color: #475569;
+          box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        &.focused {
+          border-color: #4361ee;
+          box-shadow: 0 6px 25px rgba(67, 97, 238, 0.3);
+        }
+
+        .search-prefix {
+          border-right-color: #334155;
+          background: #334155;
+
+          &:hover {
+            background: #475569;
+          }
+        }
+
+        .search-input {
+          color: #f1f5f9;
+          background: transparent;
+
+          &::placeholder {
+            color: #94a3b8;
+          }
+        }
+      }
+
+      .search-type-selector {
+        ::ng-deep .ant-select {
+          .ant-select-selector {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+            border-color: #475569 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+
+            &:hover {
+              border-color: #4361ee !important;
+              box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+              transform: translateY(-2px);
+            }
+
+            .ant-select-selection-item {
+              color: #f1f5f9 !important;
+            }
+          }
+
+          &.ant-select-focused {
+            .ant-select-selector {
+              border-color: #4361ee !important;
+              box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4) !important;
+              transform: translateY(-2px);
+            }
+          }
+
+          .ant-select-arrow {
+            color: #94a3b8 !important;
+          }
+
+          &:hover .ant-select-arrow {
+            color: #4361ee !important;
+            transform: scale(1.15) translateY(-2px);
+          }
+
+          &.ant-select-focused .ant-select-arrow {
+            color: #4361ee !important;
+            transform: rotate(180deg);
+          }
+
+          // 暗色主题下拉选项样式
+          .ant-select-dropdown {
+            background: #1e293b !important;
+            border-color: #475569 !important;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3) !important;
+
+            .ant-select-item {
+              color: #f1f5f9 !important;
+
+              &:hover {
+                background: linear-gradient(135deg, #334155 0%, #475569 100%) !important;
+                transform: translateX(4px);
+              }
+
+              &.ant-select-item-option-selected {
+                background: linear-gradient(135deg, #334155 0%, #4361ee 100%) !important;
+                color: #ffffff !important;
+                box-shadow: 0 2px 8px rgba(67, 97, 238, 0.3);
+              }
+
+              &.ant-select-item-option-active {
+                background: linear-gradient(135deg, #334155 0%, #4361ee 100%) !important;
+              }
+
+              &.ant-select-item-option-disabled {
+                color: #64748b !important;
+              }
+            }
+
+            // 暗色主题滚动条样式
+            .ant-select-dropdown-menu {
+              &::-webkit-scrollbar-track {
+                background: #334155;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                background: #475569;
+
+                &:hover {
+                  background: #64748b;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // 弹出引擎选择器暗色主题
+    ::ng-deep .engine-selector-popover {
+      .ant-popover-inner {
+        background: #1e293b;
+        border-color: #334155;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+      }
+
+      .engine-selector-content {
+        .engine-grid {
+          .engine-item {
+            background: #334155;
+            border-color: #475569;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+            &:hover {
+              background: #3f4d61;
+              border-color: #4361ee;
+              transform: translateY(-4px);
+              box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+              z-index: 10;
+            }
+
+            &:active {
+              transform: translateY(-1px);
+              box-shadow: 0 4px 12px rgba(67, 97, 238, 0.25);
+            }
+
+            &.active {
+              background: linear-gradient(135deg, #4361ee 0%, #3a56e4 100%);
+              border-color: #4361ee;
+              box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+
+              .engine-icon {
+                filter: brightness(0) invert(1);
+                transform: scale(1.15);
+              }
+
+              .engine-name {
+                color: white;
+                font-weight: 600;
+              }
+            }
+
+            &::before {
+              background: linear-gradient(135deg, rgba(67, 97, 238, 0.2) 0%, transparent 100%);
+            }
+
+            &:active::after {
+              width: 200px;
+              height: 200px;
+              opacity: 0;
+            }
+
+            .engine-icon {
+              width: 48px;
+              height: 48px;
+              margin-bottom: 16px;
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              border-radius: 10px;
+              box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
+
+            .engine-name {
+              color: #e2e8f0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .elegant-search-engine {
+    padding: 15px 0;
+
+    .search-container {
+      width: 95%;
+
+      .search-input-wrapper {
+        .search-prefix {
+          padding: 0 12px;
+          height: 50px;
+
+          .search-engine-icon {
+            width: 24px;
+            height: 24px;
+          }
+
+          .dropdown-arrow {
+            font-size: 12px;
+            margin-left: 8px;
+          }
+        }
+
+        .search-input {
+          padding: 15px;
+          font-size: 15px;
+          height: 50px;
+        }
+
+        .search-suffix {
+          padding: 0 16px;
+          height: 50px;
+
+          .search-icon {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .search-type-selector {
+        ::ng-deep .ant-select {
+          min-width: 140px;
+
+          .ant-select-selector {
+            height: 38px !important;
+
+            .ant-select-selection-item {
+              line-height: 36px !important;
+              font-size: 14px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

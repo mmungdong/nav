@@ -2,21 +2,22 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
-import { setNavs } from 'src/utils/web'
-import { navs } from '../../store'
-import { INavTwoProp, INavThreeProp, IWebProps } from '../../types'
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { NzModalModule } from 'ng-zorro-antd/modal'
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox'
 import { NzSelectModule } from 'ng-zorro-antd/select'
-import { deleteWebByIds, deleteClassByIds } from 'src/utils/web'
+import { $t } from 'src/locale'
 import { getClassById } from 'src/utils'
-import { getTempId, isSelfDevelop } from 'src/utils/utils'
 import event from 'src/utils/mitt'
+import { getTempId, isSelfDevelop } from 'src/utils/utils'
+import { setNavs } from 'src/utils/web'
+import { deleteWebByIds, deleteClassByIds } from 'src/utils/web'
+
+import { navs } from '../../store'
+import { INavTwoProp, INavThreeProp, IWebProps } from '../../types'
 
 @Component({
   standalone: true,
@@ -25,11 +26,11 @@ import event from 'src/utils/mitt'
     FormsModule,
     NzCheckboxModule,
     NzModalModule,
-    NzSelectModule,
+    NzSelectModule
   ],
   selector: 'app-move-web',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class MoveWebComponent {
   readonly $t = $t
@@ -60,7 +61,7 @@ export class MoveWebComponent {
       id?: number
       level?: number
       data: IWebProps[]
-    },
+    }
   ) {
     ctx.oneSelect = -1
     ctx.twoSelect = -1
@@ -140,7 +141,7 @@ export class MoveWebComponent {
         for (const item of moveItems) {
           const id = item.id
           const has = this.navs()[oneIndex].nav[twoIndex].nav.some(
-            (item) => item.id === id,
+            (item) => item.id === id
           )
           if (has) {
             this.message.error($t('_sameExists'))
@@ -168,7 +169,7 @@ export class MoveWebComponent {
           return this.message.error($t('_sel3'))
         }
         const { oneIndex, twoIndex, threeIndex } = getClassById(
-          this.threeSelect,
+          this.threeSelect
         )
         for (const item of moveItems) {
           const id = item.id

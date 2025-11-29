@@ -2,28 +2,29 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 import {
   RouterOutlet,
   Router,
   NavigationStart,
   NavigationEnd,
   NavigationCancel,
-  NavigationError,
+  NavigationError
 } from '@angular/router'
-import { $t } from 'src/locale'
-import { isLogin, userLogout, getAuthCode } from 'src/utils/user'
-import { VERSION } from 'src/constants'
-import { isSelfDevelop, removeDark } from 'src/utils/utils'
+import { NzButtonModule } from 'ng-zorro-antd/button'
+import { NzIconModule } from 'ng-zorro-antd/icon'
 import { NzLayoutModule } from 'ng-zorro-antd/layout'
 import { NzMenuModule } from 'ng-zorro-antd/menu'
-import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
-import { NzIconModule } from 'ng-zorro-antd/icon'
 import { LoginComponent } from 'src/components/login/login.component'
+import { VERSION } from 'src/constants'
 import { STORAGE_KEY_MAP } from 'src/constants'
+import { $t } from 'src/locale'
 import { imageErrorHidden } from 'src/utils'
+import { isLogin, userLogout, getAuthCode } from 'src/utils/user'
+import { isSelfDevelop, removeDark } from 'src/utils/utils'
+
 import navConfig from '../../../nav.config.json'
 
 @Component({
@@ -36,11 +37,11 @@ import navConfig from '../../../nav.config.json'
     LoginComponent,
     RouterOutlet,
     NzSpinModule,
-    NzIconModule,
+    NzIconModule
   ],
   selector: 'app-system',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SystemComponent {
   readonly isSelfDevelop = isSelfDevelop
@@ -81,15 +82,15 @@ export default class SystemComponent {
     this.isCollapsed = !this.isCollapsed
     localStorage.setItem(
       STORAGE_KEY_MAP.SYSTEM_COLLAPSED,
-      String(Number(this.isCollapsed)),
+      String(Number(this.isCollapsed))
     )
   }
 
   goBack() {
     this.router.navigate(['/'], {
       queryParams: {
-        _: Date.now(),
-      },
+        _: Date.now()
+      }
     })
   }
 

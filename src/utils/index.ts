@@ -3,20 +3,22 @@
 // See https://github.com/xjh22222228/nav
 
 import qs from 'qs'
+import { SearchType } from 'src/components/search/index'
+import { STORAGE_KEY_MAP } from 'src/constants'
+import { CODE_SYMBOL } from 'src/constants/symbol'
+import { $t } from 'src/locale'
+import { navs, search, settings, tagMap } from 'src/store'
+import event from 'src/utils/mitt'
+
 import {
   IWebProps,
   INavThreeProp,
   INavProps,
   ISearchItemProps,
-  IWebTag,
+  IWebTag
 } from '../types'
-import { STORAGE_KEY_MAP } from 'src/constants'
-import { CODE_SYMBOL } from 'src/constants/symbol'
+
 import { isLogin } from './user'
-import { SearchType } from 'src/components/search/index'
-import { navs, search, settings, tagMap } from 'src/store'
-import { $t } from 'src/locale'
-import event from 'src/utils/mitt'
 
 export function randomInt(max: number) {
   return Math.floor(Math.random() * max)
@@ -24,7 +26,7 @@ export function randomInt(max: number) {
 
 export function fuzzySearch(
   navList: INavProps[],
-  keyword: string,
+  keyword: string
 ): INavThreeProp[] {
   if (!keyword.trim()) {
     return []
@@ -36,7 +38,7 @@ export function fuzzySearch(
   const sType = Number(type) || SearchType.All
   const navData: IWebProps[] = []
   let resultList: INavThreeProp[] = [
-    { nav: navData, id: -1, title: $t('_searchRes'), icon: '' },
+    { nav: navData, id: -1, title: $t('_searchRes'), icon: '' }
   ]
   const urlRecordMap = new Map<number, boolean>()
 
@@ -107,7 +109,7 @@ export function fuzzySearch(
           }
 
           const find = item.tags.some((item: IWebTag) =>
-            item.url?.includes(keyword),
+            item.url?.includes(keyword)
           )
           if (find) {
             if (!urlRecordMap.has(item.id)) {
@@ -171,36 +173,36 @@ export function fuzzySearch(
 
         try {
           switch (sType) {
-            case SearchType.Url:
-              searchUrl()
-              break
+          case SearchType.Url:
+            searchUrl()
+            break
 
-            case SearchType.Title:
-              searchTitle()
-              break
+          case SearchType.Title:
+            searchTitle()
+            break
 
-            case SearchType.Desc:
-              searchDesc()
-              break
+          case SearchType.Desc:
+            searchDesc()
+            break
 
-            case SearchType.Quick:
-              searchQuick()
-              break
+          case SearchType.Quick:
+            searchQuick()
+            break
 
-            case SearchType.Tag:
-              searchTags()
-              break
+          case SearchType.Tag:
+            searchTags()
+            break
 
-            case SearchType.Id:
-              if (searchId()) {
-                break outerLoop
-              }
-              break
+          case SearchType.Id:
+            if (searchId()) {
+              break outerLoop
+            }
+            break
 
-            default:
-              searchTitle()
-              searchDesc()
-              searchUrl()
+          default:
+            searchTitle()
+            searchDesc()
+            searchUrl()
           }
         } catch (error) {
           console.error(error)
@@ -293,7 +295,7 @@ export function queryString() {
     ...parseQs,
     type: parseQs['type'],
     q: (parseQs['q'] || '') as string,
-    id,
+    id
   } as const
 }
 
@@ -303,8 +305,8 @@ export function setLocation() {
   window.localStorage.setItem(
     STORAGE_KEY_MAP.LOCATION,
     JSON.stringify({
-      id,
-    }),
+      id
+    })
   )
 }
 
@@ -326,7 +328,7 @@ export function getDefaultSearchEngine(): ISearchItemProps {
 export function setDefaultSearchEngine(engine: ISearchItemProps) {
   window.localStorage.setItem(
     STORAGE_KEY_MAP.SEARCH_ENGINE,
-    JSON.stringify(engine),
+    JSON.stringify(engine)
   )
 }
 
@@ -348,18 +350,18 @@ export async function copyText(text: string): Promise<boolean> {
   } catch (error: any) {
     event.emit('MESSAGE', {
       type: 'error',
-      message: error.message,
+      message: error.message
     })
     return false
   }
 }
 
 export async function isValidImg(
-  url: string,
+  url: string
 ): Promise<{ valid: boolean; url: string }> {
   const payload = {
     valid: false,
-    url,
+    url
   }
   if (!url) return payload
 
@@ -442,7 +444,7 @@ export function getOverIndex(selector: string): number {
 
 export function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent,
+    navigator.userAgent
   )
 }
 
@@ -475,7 +477,7 @@ export function getDateTime() {
     month,
     date,
     zeroDate,
-    dayText: weeks[day],
+    dayText: weeks[day]
   } as const
 }
 
@@ -551,7 +553,7 @@ export function getClassById(id: unknown, initValue = 0, isWebId = false) {
 export function scrollIntoViewLeft(
   parentElement: HTMLElement,
   target: HTMLElement,
-  config?: ScrollToOptions,
+  config?: ScrollToOptions
 ) {
   if (!parentElement || !target) {
     return
@@ -563,7 +565,7 @@ export function scrollIntoViewLeft(
   parentElement.scrollTo({
     left: scrollPosition,
     behavior: 'smooth',
-    ...config,
+    ...config
   })
 }
 

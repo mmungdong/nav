@@ -168,7 +168,7 @@ const zhCN: Record<string, any> = {
     '上次检测出 {count} 个网站链接失效，具体到管理网站查看，如需再次检测状态直接点保存触发事件即可。',
   _enableSEO: '开启SEO(加载稍慢)',
   _allowUser: '允许用户提交',
-  _collectMenuView: `具体到用户收录菜单查看`,
+  _collectMenuView: '具体到用户收录菜单查看',
   _displaySwitchTheme: '显示切换主题',
   _requestAddress: '请求地址',
   _requestTip: '当点击保存按钮时会发出GET请求填写的地址',
@@ -214,7 +214,7 @@ const zhCN: Record<string, any> = {
   _accessTimeoutTip: '爬取网站指定秒数无响应跳过，数字越大成功率越高，但是越慢',
   _imageCDN: '图片CDN',
   _docTitle: '文档标题',
-  _importEnter: `在浏览器输入 <a href="chrome://bookmarks/" target="_blank">chrome://bookmarks/</a> 找到导出书签，导出 HTML 文件点击下面导入`,
+  _importEnter: '在浏览器输入 <a href="chrome://bookmarks/" target="_blank">chrome://bookmarks/</a> 找到导出书签，导出 HTML 文件点击下面导入',
   _buildSuccess: '构建成功',
   _bindDomain:
     '绑定域名，多个以逗号分隔，不要带协议如：example.com,xjh22222228.github.io',
@@ -229,7 +229,7 @@ const zhCN: Record<string, any> = {
     '星期三',
     '星期四',
     '星期五',
-    '星期六',
+    '星期六'
   ],
   _shortMonth: '月',
   _shortDay: '日',
@@ -327,7 +327,7 @@ const zhCN: Record<string, any> = {
   _nowUpdate: '立即更新',
   _later: '稍后',
   _avaUpdate: '应用更新可用',
-  _updateFailed: '更新失败',
+  _updateFailed: '更新失败'
 }
 
 export default zhCN

@@ -1,1 +1,1 @@
-export * from './background-setting.component';
+export * from './background-setting.component'

@@ -8,7 +8,7 @@ import { CODE_SYMBOL, SELF_SYMBOL, ROUTER_SYMBOL } from 'src/constants/symbol'
 import event from 'src/utils/mitt'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class JumpService {
   constructor(private router: Router) {}

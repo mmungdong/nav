@@ -2,27 +2,28 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import config from '../../nav.config.json'
 import type { AxiosRequestConfig } from 'axios'
+import { encode } from 'js-base64'
+import LZString from 'lz-string'
+import qs from 'qs'
+import { DB_PATH } from 'src/constants'
+import { settings, navs, tagList, search, internal, component } from 'src/store'
+import event from 'src/utils/mitt'
+import {
+  getIsGitee,
+  getIsGitLab,
+  removeTrailingSlashes
+} from 'src/utils/pureUtils'
+import { isLogin, getImageToken } from 'src/utils/user'
+import { isSelfDevelop } from 'src/utils/utils'
+
+import config from '../../nav.config.json'
 import http, {
   httpNav,
   getDefaultRequestData,
   getAddress,
-  getImageBaseUrl,
+  getImageBaseUrl
 } from '../utils/http'
-import qs from 'qs'
-import { encode } from 'js-base64'
-import { settings, navs, tagList, search, internal, component } from 'src/store'
-import { isSelfDevelop } from 'src/utils/utils'
-import { isLogin, getImageToken } from 'src/utils/user'
-import { DB_PATH } from 'src/constants'
-import {
-  getIsGitee,
-  getIsGitLab,
-  removeTrailingSlashes,
-} from 'src/utils/pureUtils'
-import LZString from 'lz-string'
-import event from 'src/utils/mitt'
 
 const { gitRepoUrl, imageRepoUrl } = config
 const s = gitRepoUrl.split('?')[0].split('/')
@@ -76,15 +77,15 @@ const isGitLab = getIsGitLab(config.gitRepoUrl)
 
 export function verifyToken(token: string, imageRepoUrl?: string) {
   let baseURL
-  const url = isSelfDevelop ? '/api/users/verify' : `/user`
+  const url = isSelfDevelop ? '/api/users/verify' : '/user'
   if (imageRepoUrl) {
     baseURL = getImageBaseUrl()
   }
   return http.get(url, {
     baseURL,
     headers: {
-      Authorization: `${isGitLab ? 'Bearer' : 'token'} ${token.trim()}`,
-    },
+      Authorization: `${isGitLab ? 'Bearer' : 'token'} ${token.trim()}`
+    }
   })
 }
 
@@ -109,9 +110,9 @@ export function spiderWebs(data?: any) {
   return fetch(`${baseUrl}/api/spider`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ ...data }),
+    body: JSON.stringify({ ...data })
   })
 }
 
@@ -156,8 +157,8 @@ export async function createBranch(branch: string) {
 export function getFileContent(path: string, branch: string = DEFAULT_BRANCH) {
   return http.get(`/repos/${authorName}/${repoName}/contents/${path}`, {
     params: {
-      ref: branch,
-    },
+      ref: branch
+    }
   })
 }
 
@@ -175,7 +176,7 @@ export async function updateFileContent({
   path,
   branch = DEFAULT_BRANCH,
   isEncode = true,
-  refresh = true,
+  refresh = true
 }: Iupdate) {
   if (isSelfDevelop) {
     if (!isLogin) {
@@ -184,7 +185,7 @@ export async function updateFileContent({
     return http
       .post('/api/contents/update', {
         path,
-        content,
+        content
       })
       .then((res) => {
         refresh && getContentes()
@@ -199,7 +200,7 @@ export async function updateFileContent({
   const commitMessage = `rebot(CI): ${message}`
   const params: Record<string, any> = {
     branch,
-    content: isEncode ? encode(content) : content,
+    content: isEncode ? encode(content) : content
   }
   if (isGitLab) {
     params['commit_message'] = commitMessage
@@ -212,8 +213,8 @@ export async function updateFileContent({
 
   const url = isGitLab
     ? `/projects/${getLabProjectId()}/repository/files/${encodeURIComponent(
-        path,
-      )}`
+      path
+    )}`
     : `/repos/${authorName}/${repoName}/contents/${path}`
 
   return http.put(url, params).then((res) => {
@@ -225,7 +226,7 @@ export async function updateFileContent({
 export function createEmptyCommit() {
   return http.post(`/repos/${authorName}/${repoName}/git/commits`, {
     message: 'Initial commit',
-    tree: '4b825dc642cb6eb9a060e54bf8d69288fbee4904',
+    tree: '4b825dc642cb6eb9a060e54bf8d69288fbee4904'
   })
 }
 
@@ -234,13 +235,13 @@ export async function createImageFile({
   content,
   path,
   branch = DEFAULT_BRANCH,
-  isEncode = true,
+  isEncode = true
 }: Iupdate) {
   if (isSelfDevelop) {
     return http
       .post('/api/contents/create', {
         path,
-        content,
+        content
       })
       .then((res) => {
         requestActionUrl()
@@ -259,19 +260,19 @@ export async function createImageFile({
     axiosConfig['headers'] = {
       Authorization: `${
         getIsGitLab(config.imageRepoUrl) ? 'Bearer' : 'token'
-      } ${getImageToken()}`,
+      } ${getImageToken()}`
     }
   }
 
   const method = _isGitee || _isGItLab ? http.post : http.put
   const url = _isGItLab
     ? `/projects/${
-        getImageRepo().projectId
-      }/repository/files/${encodeURIComponent(path)}`
+      getImageRepo().projectId
+    }/repository/files/${encodeURIComponent(path)}`
     : `/repos/${getImageRepo().owner}/${getImageRepo().repo}/contents/${path}`
   const params: Record<string, any> = {
     branch,
-    content: isEncode ? encode(content) : content,
+    content: isEncode ? encode(content) : content
   }
   const commitMessage = `rebot(CI): ${message}`
   if (_isGItLab) {
@@ -291,7 +292,7 @@ export async function createFile({ content, path }: Iupdate) {
     return http
       .post('/api/file/create', {
         path,
-        content,
+        content
       })
       .then((res) => {
         requestActionUrl()
@@ -336,12 +337,12 @@ export async function getWebInfo(url: string) {
     if (isSelfDevelop) {
       const res = await http.post('/api/web/info', { url })
       return {
-        ...res.data,
+        ...res.data
       }
     }
     const res = await httpNav.post('/api/icon', { url })
     return {
-      ...res.data,
+      ...res.data
     }
   } catch {
     return {}
@@ -350,7 +351,7 @@ export async function getWebInfo(url: string) {
 
 export function bookmarksExport(data: any) {
   return httpNav.post('/api/export', data, {
-    timeout: 0,
+    timeout: 0
   })
 }
 
@@ -376,11 +377,11 @@ export function getTranslate(data?: Record<string, any>) {
 export function getScreenshot(data?: Record<string, any>) {
   if (isSelfDevelop) {
     return http.post('/api/screenshot', getDefaultRequestData(data), {
-      timeout: 0,
+      timeout: 0
     })
   }
   return httpNav.post('/api/screenshot', data, {
-    timeout: 0,
+    timeout: 0
   })
 }
 
@@ -397,11 +398,11 @@ export function getNews(data: Record<string, any> = {}) {
   data['showLoading'] = false
   if (isSelfDevelop) {
     return http.post('/api/news', data, {
-      timeout: 0,
+      timeout: 0
     })
   }
   return httpNav.post('/api/news', data, {
-    timeout: 0,
+    timeout: 0
   })
 }
 

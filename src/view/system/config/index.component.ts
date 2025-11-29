@@ -2,26 +2,26 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { NzButtonModule } from 'ng-zorro-antd/button'
-import { NzFormModule } from 'ng-zorro-antd/form'
-import { NzSliderModule } from 'ng-zorro-antd/slider'
-import { NzInputModule } from 'ng-zorro-antd/input'
-import { NzSwitchModule } from 'ng-zorro-antd/switch'
-import { NzTableModule } from 'ng-zorro-antd/table'
-import { NzRadioModule } from 'ng-zorro-antd/radio'
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox'
-import { NzTabsModule } from 'ng-zorro-antd/tabs'
+import { NzFormModule } from 'ng-zorro-antd/form'
+import { NzInputModule } from 'ng-zorro-antd/input'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm'
 import { NzPopoverModule } from 'ng-zorro-antd/popover'
+import { NzRadioModule } from 'ng-zorro-antd/radio'
+import { NzSwitchModule } from 'ng-zorro-antd/switch'
+import { NzTableModule } from 'ng-zorro-antd/table'
+import { NzTabsModule } from 'ng-zorro-antd/tabs'
 import { NzSelectModule } from 'ng-zorro-antd/select'
 import { getConfigInfo, updateConfigInfo } from 'src/api'
-import { NzNotificationService } from 'ng-zorro-antd/notification'
-import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzSliderModule } from 'ng-zorro-antd/slider'
+import { $t } from 'src/locale'
 
 @Component({
   standalone: true,
@@ -40,11 +40,11 @@ import { NzMessageService } from 'ng-zorro-antd/message'
     NzTableModule,
     NzRadioModule,
     NzCheckboxModule,
-    NzPopconfirmModule,
+    NzPopconfirmModule
   ],
   selector: 'system-config',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SystemConfigComponent {
   readonly $t = $t
@@ -55,14 +55,14 @@ export default class SystemConfigComponent {
   constructor(
     private fb: FormBuilder,
     private notification: NzNotificationService,
-    private message: NzMessageService,
+    private message: NzMessageService
   ) {
     this.validateForm = this.fb.group({
       password: [''],
       address: [''],
       XFAPIPassword: [''],
       mailConfig: [''],
-      hashMode: [false],
+      hashMode: [false]
     })
   }
 
@@ -100,8 +100,8 @@ export default class SystemConfigComponent {
       const params = {
         ...this.validateForm.value,
         mailConfig: JSON.parse(
-          this.validateForm.get('mailConfig')?.value || '{}',
-        ),
+          this.validateForm.get('mailConfig')?.value || '{}'
+        )
       }
 
       await updateConfigInfo(params)

@@ -4,16 +4,16 @@
 
 import { Component, EventEmitter, Output } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { $t } from 'src/locale'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { NzDrawerModule } from 'ng-zorro-antd/drawer'
-import { NzFormModule } from 'ng-zorro-antd/form'
+import dayjs from 'dayjs'
 import { NzButtonModule } from 'ng-zorro-antd/button'
-import { NzInputModule } from 'ng-zorro-antd/input'
-import { UploadImageComponent } from 'src/components/upload-image/index.component'
 import { NzColorPickerModule } from 'ng-zorro-antd/color-picker'
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker'
-import dayjs from 'dayjs'
+import { NzDrawerModule } from 'ng-zorro-antd/drawer'
+import { NzFormModule } from 'ng-zorro-antd/form'
+import { NzInputModule } from 'ng-zorro-antd/input'
+import { UploadImageComponent } from 'src/components/upload-image/index.component'
+import { $t } from 'src/locale'
 
 @Component({
   standalone: true,
@@ -26,11 +26,11 @@ import dayjs from 'dayjs'
     NzButtonModule,
     NzInputModule,
     UploadImageComponent,
-    NzColorPickerModule,
+    NzColorPickerModule
   ],
   selector: 'countdown-drawer',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class CountdownDrawerComponent {
   @Output() ok = new EventEmitter<void>()
@@ -48,7 +48,7 @@ export class CountdownDrawerComponent {
       url: [''],
       dateColor: [''],
       dayColor: [''],
-      date: [null],
+      date: [null]
     })
   }
 
@@ -73,7 +73,7 @@ export class CountdownDrawerComponent {
     this.ok.emit({
       ...values,
       date: dayjs(values.date).format('YYYY-MM-DD'),
-      index: this.index,
+      index: this.index
     })
     this.handleClose()
   }

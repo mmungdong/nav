@@ -2,19 +2,19 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input, ViewChild, ElementRef } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component, Input, ViewChild, ElementRef } from '@angular/core'
+import { CODE_SYMBOL } from 'src/constants/symbol'
+import { SafeHtmlPipe } from 'src/pipe/safeHtml.pipe'
 import type { ImageProps } from 'src/types'
 import { parseHtmlWithContent, parseLoadingWithContent } from 'src/utils/utils'
-import { SafeHtmlPipe } from 'src/pipe/safeHtml.pipe'
-import { CODE_SYMBOL } from 'src/constants/symbol'
 
 @Component({
   standalone: true,
   imports: [CommonModule, SafeHtmlPipe],
   selector: 'app-side-image',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class SideImageComponent {
   @Input() data: ImageProps = {} as ImageProps

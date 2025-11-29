@@ -1,19 +1,19 @@
 // 开源项目，未经作者同意，不得以抄袭/复制代码/修改源代码版权信息。
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { NgStyle } from '@angular/common'
-import { isDark as isDarkFn, getDateTime, isMobile } from 'src/utils'
-import { settings } from 'src/store'
-import type { IWebProps } from 'src/types'
-import { JumpService } from 'src/services/jump'
-import { $t } from 'src/locale'
-import { SearchComponent } from 'src/components/search/index.component'
+import { Component } from '@angular/core'
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
 import { FixbarComponent } from 'src/components/fixbar/index.component'
-import { WebListComponent } from 'src/components/web-list/index.component'
 import { LogoComponent } from 'src/components/logo/logo.component'
+import { ElegantSearchComponent } from 'src/components/search'
+import { WebListComponent } from 'src/components/web-list/index.component'
+import { $t } from 'src/locale'
+import { JumpService } from 'src/services/jump'
+import { settings } from 'src/store'
+import type { IWebProps } from 'src/types'
+import { isDark as isDarkFn, getDateTime, isMobile } from 'src/utils'
 import event from 'src/utils/mitt'
 
 @Component({
@@ -21,15 +21,15 @@ import event from 'src/utils/mitt'
   imports: [
     CommonModule,
     NgStyle,
-    SearchComponent,
+    ElegantSearchComponent,
     NzToolTipModule,
     FixbarComponent,
     WebListComponent,
-    LogoComponent,
+    LogoComponent
   ],
   selector: 'app-shortcut',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class ShortcutComponent {
   readonly $t = $t

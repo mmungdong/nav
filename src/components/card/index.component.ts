@@ -2,19 +2,9 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import { Component, Input, ViewChild, ElementRef } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { CommonModule } from '@angular/common'
-import { isLogin, getPermissions } from 'src/utils/user'
-import { copyText, getTextContent, randomColor, randomInt } from 'src/utils'
-import { parseHtmlWithContent, parseLoadingWithContent } from 'src/utils/utils'
-import { setNavs } from 'src/utils/web'
-import type { IWebProps, ICardType } from 'src/types'
-import { ActionType } from 'src/types'
-import { SearchType } from 'src/components/search/index'
-import { $t, isZhCN } from 'src/locale'
-import { settings, navs } from 'src/store'
-import { JumpService } from 'src/services/jump'
 import { NzRateModule } from 'ng-zorro-antd/rate'
 import { LogoComponent } from 'src/components/logo/logo.component'
 import { NzButtonModule } from 'ng-zorro-antd/button'
@@ -28,7 +18,17 @@ import { NzMessageService } from 'ng-zorro-antd/message'
 import { CommonService } from 'src/services/common'
 import { CODE_SYMBOL } from 'src/constants/symbol'
 import { BreadcrumbComponent } from 'src/components/breadcrumb/index.component'
+import { SearchType } from 'src/components/search/index'
+import { $t, isZhCN } from 'src/locale'
+import { JumpService } from 'src/services/jump'
+import { settings, navs } from 'src/store'
+import { ActionType } from 'src/types'
+import type { IWebProps, ICardType } from 'src/types'
+import { copyText, getTextContent, randomColor, randomInt } from 'src/utils'
 import event from 'src/utils/mitt'
+import { isLogin, getPermissions } from 'src/utils/user'
+import { parseHtmlWithContent, parseLoadingWithContent } from 'src/utils/utils'
+import { setNavs } from 'src/utils/web'
 
 @Component({
   standalone: true,
@@ -43,11 +43,11 @@ import event from 'src/utils/mitt'
     NzIconModule,
     NzPopconfirmModule,
     SafeHtmlPipe,
-    BreadcrumbComponent,
+    BreadcrumbComponent
   ],
   selector: 'app-card',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class CardComponent {
   @Input() dataSource!: IWebProps
@@ -69,7 +69,7 @@ export class CardComponent {
   constructor(
     public commonService: CommonService,
     public readonly jumpService: JumpService,
-    private message: NzMessageService,
+    private message: NzMessageService
   ) {}
 
   ngOnInit() {
@@ -86,7 +86,7 @@ export class CardComponent {
 
   private generateColor() {
     this.backgroundColor = `linear-gradient(${randomInt(
-      360,
+      360
     )}deg, ${randomColor()} 0%, ${randomColor()} 100%)`
   }
 
@@ -119,7 +119,7 @@ export class CardComponent {
 
   openEditWebMoal(): void {
     event.emit('CREATE_WEB', {
-      detail: this.dataSource,
+      detail: this.dataSource
     })
   }
 
@@ -132,12 +132,12 @@ export class CardComponent {
     const params: IWebProps = {
       ...(this.dataSource as IWebProps),
       name: getTextContent(this.dataSource.name),
-      desc: getTextContent(this.dataSource.desc),
+      desc: getTextContent(this.dataSource.desc)
     }
     if (isLogin) {
       event.emit('DELETE_MODAL', {
         ids: [params.id],
-        data: params,
+        data: params
       })
     } else {
       event.emit('MODAL', {
@@ -152,19 +152,19 @@ export class CardComponent {
             data: {
               ...params,
               extra: {
-                type: ActionType.Delete,
-              },
-            },
+                type: ActionType.Delete
+              }
+            }
           })
           this.message.success($t('_waitHandle'))
-        },
+        }
       })
     }
   }
 
   openMoveWebModal(): void {
     event.emit('MOVE_WEB', {
-      data: [this.dataSource],
+      data: [this.dataSource]
     })
   }
 

@@ -1,107 +1,227 @@
-// 现代化搜索组件样式
-.search-modern {
+// 美化后的搜索组件样式
+.improved-search-engine {
   position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 30px 0;
+  padding: 20px 0;
+
+  .search-logo {
+    margin-bottom: 20px;
+    max-height: 60px;
+    transition: all 0.3s ease;
+
+    &.mobile {
+      max-height: 40px;
+      margin-bottom: 15px;
+    }
+  }
 
   .search-container {
-    width: 100%;
-    max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    position: relative;
+    width: 700px;
+    max-width: 95%;
+    transition: all 0.3s ease;
 
-    .search-box {
-      width: 100%;
+    &.focused {
+      transform: scale(1.02);
+    }
+
+    .search-input-wrapper {
       position: relative;
-      display: flex;
-      align-items: center;
+      background: #ffffff;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 2px solid #e2e8f0;
+      overflow: hidden;
 
-      .search-input-wrapper {
-        flex: 1;
-        position: relative;
+      &:hover {
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+        border-color: #cbd5e0;
+      }
 
-        .search-input {
-          width: 100%;
-          padding: 16px 20px 16px 50px;
-          font-size: 16px;
-          border: 2px solid #e9ecef;
-          border-radius: 50px;
-          background: #ffffff;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      &.focused {
+        border-color: #4361ee;
+        box-shadow: 0 6px 25px rgba(67, 97, 238, 0.2);
+      }
 
-          &:focus {
-            outline: none;
-            border-color: #4361ee;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
+      .search-prefix {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        height: 100%;
+        cursor: pointer;
+        border-right: 1px solid #e2e8f0;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #f8fafc;
+        }
+
+        .search-engine-icon {
+          width: 24px;
+          height: 24px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        .dropdown-arrow {
+          margin-left: 8px;
+          font-size: 12px;
+          color: #94a3b8;
+          transition: transform 0.2s ease;
+
+          &.open {
+            transform: rotate(180deg);
           }
         }
       }
 
-      .search-icon {
-        position: absolute;
-        left: 20px;
-        color: #6c757d;
-        font-size: 20px;
-        z-index: 2;
+      .search-input {
+        padding: 15px 20px;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        width: 100%;
+        background: transparent;
+
+        &::placeholder {
+          color: #94a3b8;
+        }
       }
 
-      .search-button {
-        margin-left: 15px;
-        padding: 16px 30px;
-        background: linear-gradient(135deg, #4361ee, #3f37c9);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-size: 16px;
-        font-weight: 600;
+      .search-suffix {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        height: 100%;
         cursor: pointer;
+        background: linear-gradient(135deg, #4361ee, #3f37c9);
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 
         &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+          background: linear-gradient(135deg, #3f37c9, #4361ee);
+          transform: scale(1.05);
         }
 
-        &:active {
-          transform: translateY(0);
+        .search-icon {
+          color: white;
+          font-size: 20px;
         }
       }
     }
 
-    .search-engines {
+    .search-type-selector {
+      margin-top: 15px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
       justify-content: center;
-      max-width: 100%;
 
-      .engine-item {
-        padding: 10px 20px;
-        background: #f8f9fa;
-        border-radius: 50px;
-        font-size: 14px;
-        color: #495057;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        border: 1px solid #e9ecef;
+      ::ng-deep .ant-select {
+        min-width: 150px;
 
-        &:hover {
-          background: #e9ecef;
-          transform: translateY(-2px);
+        .ant-select-selector {
+          border-radius: 50px !important;
+          border: 1px solid #e2e8f0 !important;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+          transition: all 0.3s ease !important;
+
+          &:hover {
+            border-color: #cbd5e0 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+          }
+
+          .ant-select-selection-item {
+            line-height: 32px !important;
+          }
         }
 
-        &.active {
-          background: linear-gradient(135deg, #4361ee, #3f37c9);
-          color: white;
-          border-color: #4361ee;
-          box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        &.ant-select-focused {
+          .ant-select-selector {
+            border-color: #4361ee !important;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2) !important;
+          }
+        }
+      }
+    }
+  }
+
+  // 弹出引擎选择器样式
+  ::ng-deep .engine-selector-popover {
+    .ant-popover-inner {
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e2e8f0;
+      padding: 10px;
+    }
+
+    .ant-popover-arrow {
+      display: none;
+    }
+
+    .engine-selector-content {
+      .engine-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        max-width: 300px;
+
+        @media (max-width: 768px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .engine-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 12px 8px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+
+          &:hover {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+          }
+
+          &.active {
+            background: linear-gradient(135deg, #4361ee, #3f37c9);
+            border-color: #4361ee;
+            color: white;
+
+            .engine-icon {
+              filter: brightness(0) invert(1);
+            }
+
+            .engine-name {
+              color: white;
+            }
+          }
+
+          .engine-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 8px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+
+          .engine-name {
+            font-size: 12px;
+            color: #334155;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 80px;
+          }
         }
       }
     }
@@ -110,40 +230,97 @@
 
 // 暗色主题适配
 .dark {
-  .search-modern {
+  .improved-search-engine {
     .search-container {
-      .search-box {
-        .search-input-wrapper {
-          .search-input {
-            background: #212529;
-            border-color: #343a40;
-            color: #f8f9fa;
+      .search-input-wrapper {
+        background: #1e293b;
+        border-color: #334155;
 
-            &:focus {
-              border-color: #4361ee;
-              box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
-            }
+        &:hover {
+          border-color: #475569;
+          box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        &.focused {
+          border-color: #4361ee;
+          box-shadow: 0 6px 25px rgba(67, 97, 238, 0.3);
+        }
+
+        .search-prefix {
+          border-right-color: #334155;
+
+          &:hover {
+            background: #334155;
           }
         }
 
-        .search-icon {
-          color: #adb5bd;
+        .search-input {
+          color: #f1f5f9;
+          background: transparent;
+
+          &::placeholder {
+            color: #94a3b8;
+          }
         }
       }
 
-      .search-engines {
-        .engine-item {
-          background: #343a40;
-          border-color: #495057;
-          color: #f8f9fa;
+      .search-type-selector {
+        ::ng-deep .ant-select {
+          .ant-select-selector {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 
-          &:hover {
-            background: #495057;
+            &:hover {
+              border-color: #475569 !important;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+            }
+
+            .ant-select-selection-item {
+              color: #f1f5f9 !important;
+            }
           }
 
-          &.active {
-            background: linear-gradient(135deg, #4361ee, #3f37c9);
-            border-color: #4361ee;
+          &.ant-select-focused {
+            .ant-select-selector {
+              border-color: #4361ee !important;
+              box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3) !important;
+            }
+          }
+
+          .ant-select-arrow {
+            color: #94a3b8 !important;
+          }
+        }
+      }
+    }
+
+    // 弹出引擎选择器暗色主题
+    ::ng-deep .engine-selector-popover {
+      .ant-popover-inner {
+        background: #1e293b;
+        border-color: #334155;
+      }
+
+      .engine-selector-content {
+        .engine-grid {
+          .engine-item {
+            background: #334155;
+            border-color: #475569;
+
+            &:hover {
+              background: #475569;
+              border-color: #64748b;
+            }
+
+            &.active {
+              background: linear-gradient(135deg, #4361ee, #3f37c9);
+              border-color: #4361ee;
+            }
+
+            .engine-name {
+              color: #e2e8f0;
+            }
           }
         }
       }
@@ -153,35 +330,50 @@
 
 // 响应式设计
 @media (max-width: 768px) {
-  .search-modern {
-    padding: 20px 0;
+  .improved-search-engine {
+    padding: 15px 0;
 
     .search-container {
-      padding: 0 15px;
+      width: 95%;
 
-      .search-box {
-        flex-direction: column;
+      .search-input-wrapper {
+        .search-prefix {
+          padding: 0 12px;
 
-        .search-input-wrapper {
-          width: 100%;
+          .search-engine-icon {
+            width: 20px;
+            height: 20px;
+          }
 
-          .search-input {
-            padding: 14px 20px 14px 50px;
-            font-size: 16px;
+          .dropdown-arrow {
+            font-size: 10px;
           }
         }
 
-        .search-button {
-          margin: 15px 0 0 0;
-          padding: 14px 25px;
-          width: 100%;
+        .search-input {
+          padding: 12px 15px;
+          font-size: 14px;
+        }
+
+        .search-suffix {
+          padding: 0 12px;
+
+          .search-icon {
+            font-size: 18px;
+          }
         }
       }
 
-      .search-engines {
-        .engine-item {
-          padding: 8px 16px;
-          font-size: 13px;
+      .search-type-selector {
+        ::ng-deep .ant-select {
+          min-width: 120px;
+
+          .ant-select-selector {
+            .ant-select-selection-item {
+              line-height: 28px !important;
+              font-size: 14px !important;
+            }
+          }
         }
       }
     }

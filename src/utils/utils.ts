@@ -2,10 +2,11 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import navConfig from '../../nav.config.json'
+import { CODE_SYMBOL } from 'src/constants/symbol'
 import { internal } from 'src/store'
 import { isLogin } from 'src/utils/user'
-import { CODE_SYMBOL } from 'src/constants/symbol'
+
+import navConfig from '../../nav.config.json'
 
 export const isSelfDevelop = !!navConfig.address
 
@@ -20,19 +21,19 @@ export function compilerTemplate(str: string): string {
   const data: TemplateData = {
     total: isLogin ? loginViewCount : userViewCount,
     hostname: window.location.hostname,
-    year: new Date().getFullYear(),
+    year: new Date().getFullYear()
   }
 
   return Object.entries(data).reduce(
     (result, [key, value]) => result.replaceAll(`\${${key}}`, String(value)),
-    str,
+    str
   )
 }
 
 const DARK_THEME = {
   cssUrl: navConfig.zorroDark,
   cssId: 'dark-css',
-  classes: ['dark-container', 'dark'],
+  classes: ['dark-container', 'dark']
 } as const
 
 export function addDark(): void {

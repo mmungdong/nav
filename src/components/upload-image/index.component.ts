@@ -2,12 +2,12 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, EventEmitter, Output, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { $t } from 'src/locale'
+import { Component, EventEmitter, Output, Input } from '@angular/core'
+import { NzIconModule } from 'ng-zorro-antd/icon'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { createImageFile, getCDN, getImageRepo } from 'src/api'
-import { NzIconModule } from 'ng-zorro-antd/icon'
+import { $t } from 'src/locale'
 import { isSelfDevelop } from 'src/utils/utils'
 
 @Component({
@@ -15,7 +15,7 @@ import { isSelfDevelop } from 'src/utils/utils'
   imports: [CommonModule, NzIconModule],
   selector: 'app-upload-image',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class UploadImageComponent {
   @Input() accept = 'image/*'
@@ -63,11 +63,11 @@ export class UploadImageComponent {
           message: 'create image',
           content: url,
           isEncode: false,
-          path,
+          path
         })
           .then((res) => {
             const params = {
-              cdn: isSelfDevelop ? res?.data?.fullImagePath : getCDN(path),
+              cdn: isSelfDevelop ? res?.data?.fullImagePath : getCDN(path)
             }
             that.onChange.emit(params)
             that.message.success($t('_uploadSuccess'))

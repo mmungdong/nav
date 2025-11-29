@@ -37,7 +37,7 @@ const loadingTemplate: Record<string, string> = {
       <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
     </svg>
   </div>  
-`,
+`
 }
 
 export default loadingTemplate

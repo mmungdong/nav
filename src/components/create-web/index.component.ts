@@ -2,35 +2,17 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import {
   Component,
   ViewChild,
   ViewChildren,
   QueryList,
   ElementRef,
-  computed,
+  computed
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { getTextContent, getClassById } from 'src/utils'
-import { getTempId, isSelfDevelop } from 'src/utils/utils'
-import { updateByWeb, pushDataByAny } from 'src/utils/web'
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms'
-import type { IWebProps, IWebTag } from 'src/types'
-import { TopType, ActionType } from 'src/types'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import { NzNotificationService } from 'ng-zorro-antd/notification'
-import {
-  saveUserCollect,
-  getWebInfo,
-  getTranslate,
-  getScreenshot,
-  createImageFile,
-  getImageRepo,
-  getCDN,
-} from 'src/api'
-import { $t } from 'src/locale'
-import { settings, navs, tagList, tagMap } from 'src/store'
 import { isLogin, getPermissions } from 'src/utils/user'
 import { NzModalModule } from 'ng-zorro-antd/modal'
 import { NzFormModule } from 'ng-zorro-antd/form'
@@ -42,15 +24,33 @@ import { LogoComponent } from 'src/components/logo/logo.component'
 import { UploadImageComponent } from 'src/components/upload-image/index.component'
 import { NzIconModule } from 'ng-zorro-antd/icon'
 import { NzButtonModule } from 'ng-zorro-antd/button'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { NzSelectModule } from 'ng-zorro-antd/select'
+import {
+  saveUserCollect,
+  getWebInfo,
+  getTranslate,
+  getScreenshot,
+  createImageFile,
+  getImageRepo,
+  getCDN,
+} from 'src/api'
 import { SELF_SYMBOL, DEFAULT_SORT_INDEX } from 'src/constants/symbol'
+import { $t } from 'src/locale'
 import { JumpService } from 'src/services/jump'
+import { settings, navs, tagList, tagMap } from 'src/store'
+import { TopType, ActionType } from 'src/types'
+import type { IWebProps, IWebTag } from 'src/types'
+import { getTextContent, getClassById } from 'src/utils'
+import event from 'src/utils/mitt'
 import {
   removeTrailingSlashes,
   transformSafeHTML,
-  transformUnSafeHTML,
+  transformUnSafeHTML
 } from 'src/utils/pureUtils'
-import event from 'src/utils/mitt'
+import { getTempId, isSelfDevelop } from 'src/utils/utils'
+import { updateByWeb, pushDataByAny } from 'src/utils/web'
 
 @Component({
   standalone: true,
@@ -68,11 +68,11 @@ import event from 'src/utils/mitt'
     LogoComponent,
     UploadImageComponent,
     NzIconModule,
-    NzButtonModule,
+    NzButtonModule
   ],
   selector: 'app-create-web',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class CreateWebComponent {
   @ViewChildren('inputs') inputs!: QueryList<ElementRef>
@@ -87,7 +87,7 @@ export class CreateWebComponent {
   readonly DEFAULT_SORT_INDEX = DEFAULT_SORT_INDEX
   readonly validateForm!: FormGroup
   readonly tagList = computed(() =>
-    tagList().filter((item) => !(!isLogin && item.noOpen)),
+    tagList().filter((item) => !(!isLogin && item.noOpen))
   )
   submitting = false
   getting = false
@@ -99,7 +99,7 @@ export class CreateWebComponent {
   callback: Function = () => {}
   topOptions = [
     { label: TopType[1], value: TopType.Side },
-    { label: TopType[2], value: TopType.Shortcut },
+    { label: TopType[2], value: TopType.Shortcut }
   ]
   breadcrumb: string[] = []
 
@@ -107,7 +107,7 @@ export class CreateWebComponent {
     public readonly jumpService: JumpService,
     private fb: FormBuilder,
     private message: NzMessageService,
-    private notification: NzNotificationService,
+    private notification: NzNotificationService
   ) {
     event.on('CREATE_WEB', (props: any) => {
       this.open(this, props)
@@ -130,7 +130,7 @@ export class CreateWebComponent {
       desc: [''],
       index: [''],
       img: [''],
-      urlArr: this.fb.array([]),
+      urlArr: this.fb.array([])
     })
   }
 
@@ -176,7 +176,7 @@ export class CreateWebComponent {
       isMove?: boolean
       parentId?: number
       detail: IWebProps | null | undefined
-    },
+    }
   ) {
     if (props?.isKeyboard && this.showModal) {
       return
@@ -219,8 +219,8 @@ export class CreateWebComponent {
             this.fb.group({
               id: Number(item.id),
               name: tagMap()[item.id].name ?? '',
-              url: item.url || '',
-            }),
+              url: item.url || ''
+            })
           )
         })
       }
@@ -297,8 +297,8 @@ export class CreateWebComponent {
       this.fb.group({
         id: '',
         name: '',
-        url: '',
-      }),
+        url: ''
+      })
     )
   }
 
@@ -333,7 +333,7 @@ export class CreateWebComponent {
     }
     this.translating = true
     getTranslate({
-      content: transalteBody,
+      content: transalteBody
     })
       .then((res) => {
         const translateContent = res.data.content
@@ -363,7 +363,7 @@ export class CreateWebComponent {
           message: 'create image',
           content: res.data.image,
           isEncode: false,
-          path,
+          path
         })
           .then((res) => {
             const value = isSelfDevelop ? res.data.fullImagePath : getCDN(path)
@@ -382,7 +382,7 @@ export class CreateWebComponent {
     try {
       const url = removeTrailingSlashes(this.url)
       const { oneIndex, twoIndex, threeIndex, breadcrumb } = getClassById(
-        this.parentId,
+        this.parentId
       )
       const w = navs()[oneIndex].nav[twoIndex].nav[threeIndex].nav
       const repeatData = w.find((item) => {
@@ -401,8 +401,8 @@ export class CreateWebComponent {
           URL: ${repeatData.url}
           `,
           {
-            nzDuration: 20000,
-          },
+            nzDuration: 20000
+          }
         )
       } else {
         this.message.success($t('_urlNoRepeat'))
@@ -427,7 +427,7 @@ export class CreateWebComponent {
       if (item.id) {
         tags.push({
           id: item.id,
-          url: item.url.trim(),
+          url: item.url.trim()
         })
       }
     })
@@ -445,7 +445,7 @@ export class CreateWebComponent {
       url,
       tags,
       topTypes,
-      img: this.imgUrl || undefined,
+      img: this.imgUrl || undefined
     }
 
     if (this.detail) {
@@ -462,9 +462,9 @@ export class CreateWebComponent {
           data: {
             ...payload,
             extra: {
-              type: ActionType.Edit,
-            },
-          },
+              type: ActionType.Edit
+            }
+          }
         }
         await saveUserCollect(params)
         this.message.success($t('_waitHandle'))
@@ -480,7 +480,7 @@ export class CreateWebComponent {
             this.message.success($t('_addSuccess'))
             if (this.isMove) {
               event.emit('MOVE_WEB', {
-                data: [payload],
+                data: [payload]
               })
             }
           }
@@ -490,9 +490,9 @@ export class CreateWebComponent {
               ...payload,
               parentId: this.parentId,
               extra: {
-                type: ActionType.Create,
-              },
-            },
+                type: ActionType.Create
+              }
+            }
           }
           await saveUserCollect(params)
           this.message.success($t('_waitHandle'))

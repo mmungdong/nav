@@ -23,24 +23,25 @@ import {
   getContentes,
   getUserCollectCount
 } from 'src/api'
+import { CreateWebComponent } from 'src/components/create-web/index.component'
+import { DeleteModalComponent } from 'src/components/delete-modal/index.component'
+import { EditClassComponent } from 'src/components/edit-class/index.component'
+import { IconGitComponent } from 'src/components/icon-git/icon-git.component'
+import { MoveWebComponent } from 'src/components/move-web/index.component'
 import { getLocale } from 'src/locale'
-
+import { $t } from 'src/locale'
 import { settings } from 'src/store'
-import { queryString, setLocation, isMobile, getDefaultTheme } from '../utils'
+import event from 'src/utils/mitt'
 import { getToken, userLogout, isLogin, getPermissions } from 'src/utils/user'
 import { getNavs } from 'src/utils/web'
+
+import { queryString, setLocation, isMobile, getDefaultTheme } from '../utils'
+
 import { isSelfDevelop } from 'src/utils/utils'
 
 import { routes } from './app.routes'
 
-import { MoveWebComponent } from 'src/components/move-web/index.component'
-import { CreateWebComponent } from 'src/components/create-web/index.component'
-import { IconGitComponent } from 'src/components/icon-git/icon-git.component'
-import { EditClassComponent } from 'src/components/edit-class/index.component'
-import { $t } from 'src/locale'
 import { getAuthCode } from 'src/utils/user'
-import { DeleteModalComponent } from 'src/components/delete-modal/index.component'
-import event from 'src/utils/mitt'
 
 @Component({
   standalone: true,

@@ -2,29 +2,29 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import {
   Component,
   ViewChild,
   ElementRef,
   ViewChildren,
-  QueryList,
+  QueryList
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { randomBgImg, removeBgImg, scrollIntoViewLeft } from 'src/utils'
-import { CommonService } from 'src/services/common'
-import { ComponentGroupComponent } from 'src/components/component-group/index.component'
-import { WebMoreMenuComponent } from 'src/components/web-more-menu/index.component'
-import { SearchComponent } from 'src/components/search/index.component'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
 import { CardComponent } from 'src/components/card/index.component'
-import { NoDataComponent } from 'src/components/no-data/no-data.component'
-import { FooterComponent } from 'src/components/footer/footer.component'
-import { FixbarComponent } from 'src/components/fixbar/index.component'
-import { ToolbarTitleWebComponent } from 'src/components/toolbar-title/index.component'
-import { SideImagesComponent } from 'src/components/side-images/index.component'
 import { ClassTabsComponent } from 'src/components/class-tabs/index.component'
+import { ComponentGroupComponent } from 'src/components/component-group/index.component'
+import { FixbarComponent } from 'src/components/fixbar/index.component'
+import { FooterComponent } from 'src/components/footer/footer.component'
+import { NoDataComponent } from 'src/components/no-data/no-data.component'
+import { ElegantSearchComponent } from 'src/components/search'
+import { SideImagesComponent } from 'src/components/side-images/index.component'
+import { ToolbarTitleWebComponent } from 'src/components/toolbar-title/index.component'
+import { WebMoreMenuComponent } from 'src/components/web-more-menu/index.component'
+import { CommonService } from 'src/services/common'
 import type { INavProps } from 'src/types'
+import { randomBgImg, removeBgImg, scrollIntoViewLeft } from 'src/utils'
 
 @Component({
   standalone: true,
@@ -33,7 +33,7 @@ import type { INavProps } from 'src/types'
     ToolbarTitleWebComponent,
     ComponentGroupComponent,
     WebMoreMenuComponent,
-    SearchComponent,
+    ElegantSearchComponent,
     NzSpinModule,
     NzToolTipModule,
     CardComponent,
@@ -41,11 +41,11 @@ import type { INavProps } from 'src/types'
     FooterComponent,
     FixbarComponent,
     SideImagesComponent,
-    ClassTabsComponent,
+    ClassTabsComponent
   ],
   selector: 'app-light',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class LightComponent {
   @ViewChild('parent') parentElement!: ElementRef
@@ -77,8 +77,8 @@ export default class LightComponent {
         this.parentElement.nativeElement,
         this.items.toArray()[this.commonService.oneIndex].nativeElement,
         {
-          behavior: 'auto',
-        },
+          behavior: 'auto'
+        }
       )
     }
 

@@ -2,12 +2,12 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { settings } from 'src/store'
-import { compilerTemplate } from 'src/utils/utils'
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 import { SafeHtmlPipe } from 'src/pipe/safeHtml.pipe'
+import { settings } from 'src/store'
 import event from 'src/utils/mitt'
+import { compilerTemplate } from 'src/utils/utils'
 
 @Component({
   standalone: true,
@@ -15,7 +15,7 @@ import event from 'src/utils/mitt'
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
+  styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
   @Input() className: string = ''
@@ -27,7 +27,7 @@ export class FooterComponent {
 
   ngOnInit() {
     this.footerContent = compilerTemplate(
-      this.content || settings().footerContent,
+      this.content || settings().footerContent
     )
   }
 

@@ -10,7 +10,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core'
   imports: [],
   selector: 'app-loading',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class LoadingComponent {
   constructor() {}

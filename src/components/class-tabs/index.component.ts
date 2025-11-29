@@ -2,6 +2,7 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import {
   Component,
   Input,
@@ -9,20 +10,19 @@ import {
   ElementRef,
   ViewChildren,
   QueryList,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import type { INavThreeProp } from 'src/types'
-import { scrollIntoViewLeft } from 'src/utils'
 import { fromEvent, Subscription } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
+import type { INavThreeProp } from 'src/types'
+import { scrollIntoViewLeft } from 'src/utils'
 
 @Component({
   standalone: true,
   imports: [CommonModule],
   selector: 'app-class-tabs',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class ClassTabsComponent {
   @ViewChild('parent') parentElement!: ElementRef
@@ -80,7 +80,7 @@ export class ClassTabsComponent {
 
   private getToolbarItems() {
     this.toolbarItems = Array.from(
-      document.querySelectorAll('.nav-wrapper'),
+      document.querySelectorAll('.nav-wrapper')
     ) as HTMLElement[]
   }
 
@@ -125,8 +125,8 @@ export class ClassTabsComponent {
       this.parentElement.nativeElement,
       this.items.toArray()[this.activeIndex].nativeElement,
       {
-        behavior: 'smooth',
-      },
+        behavior: 'smooth'
+      }
     )
   }
 
@@ -161,7 +161,7 @@ export class ClassTabsComponent {
       const target = this.getTarget()
       target.scrollTo({
         top,
-        behavior: 'smooth',
+        behavior: 'smooth'
       })
     }
   }

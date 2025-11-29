@@ -2,34 +2,35 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CommonModule } from '@angular/common'
 import {
   Component,
   Input,
   Output,
   EventEmitter,
   ViewChild,
-  ElementRef,
+  ElementRef
 } from '@angular/core'
-import { Router } from '@angular/router'
-import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
+import { Router } from '@angular/router'
+import { NzInputModule } from 'ng-zorro-antd/input'
 import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalModule } from 'ng-zorro-antd/modal'
 import {
   verifyToken,
   createBranch,
   authorName,
-  isStandaloneImage,
+  isStandaloneImage
 } from 'src/api'
+import { $t } from 'src/locale'
 import {
   setToken,
   removeToken,
   removeWebsite,
-  setImageToken,
+  setImageToken
 } from 'src/utils/user'
-import { $t } from 'src/locale'
 import { isSelfDevelop } from 'src/utils/utils'
-import { NzModalModule } from 'ng-zorro-antd/modal'
-import { NzInputModule } from 'ng-zorro-antd/input'
+
 import config from '../../../nav.config.json'
 
 @Component({
@@ -37,7 +38,7 @@ import config from '../../../nav.config.json'
   imports: [CommonModule, FormsModule, NzModalModule, NzInputModule],
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   @Input() visible = false
@@ -53,7 +54,7 @@ export class LoginComponent {
 
   constructor(
     private readonly message: NzMessageService,
-    private router: Router,
+    private router: Router
   ) {
     if (!isSelfDevelop) {
       this.showImgToken = isStandaloneImage()

@@ -1,28 +1,33 @@
 // Copyright @ 2018-present xie.jiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
-import dayjs from 'dayjs'
-import LOAD_MAP from './loading'
-import utc from 'dayjs/plugin/utc.js'
-import timezone from 'dayjs/plugin/timezone.js'
-import getWebInfo from 'info-web'
+import fs from 'node:fs'
 import path from 'node:path'
+
+import axios from 'axios'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone.js'
+import utc from 'dayjs/plugin/utc.js'
+import getWebInfo from 'info-web'
+import yaml from 'js-yaml'
+import sharp from 'sharp'
+
+import { SELF_SYMBOL, DEFAULT_SORT_INDEX } from '../src/constants/symbol'
 import type {
   INavProps,
   ISearchProps,
   ISettings,
   ITagPropValues,
-  IWebProps,
+  IWebProps
 } from '../src/types'
-import { SELF_SYMBOL, DEFAULT_SORT_INDEX } from '../src/constants/symbol'
 import {
   replaceJsdelivrCDN,
   removeTrailingSlashes,
-  isNumber,
+  isNumber
 } from '../src/utils/pureUtils'
-import fs from 'node:fs'
-import yaml from 'js-yaml'
-import sharp from 'sharp'
-import axios from 'axios'
+
+
+
+import LOAD_MAP from './loading'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -55,12 +60,12 @@ export const PATHS = {
   html: {
     index: path.resolve('dist', 'browser', 'index.html'),
     main: path.resolve('src', 'main.html'),
-    write: path.resolve('src', 'index.html'),
+    write: path.resolve('src', 'index.html')
   },
   manifest: path.resolve('dist', 'browser', 'manifest.webmanifest'),
   manifestPublic: path.resolve('public', 'manifest.webmanifest'),
   manifestIcon512: path.resolve('dist', 'browser', 'icons', 'icon-512x512.png'),
-  manifestIcon192: path.resolve('dist', 'browser', 'icons', 'icon-192x192.png'),
+  manifestIcon192: path.resolve('dist', 'browser', 'icons', 'icon-192x192.png')
 } as const
 
 export const getConfig = () => {
@@ -72,12 +77,12 @@ export const getConfig = () => {
 
   const gitRepoUrl = removeTrailingSlashes(config['gitRepoUrl'] || '').replace(
     /\.git$/,
-    '',
+    ''
   )
 
   const zorroVersion = pkgJson.dependencies['ng-zorro-antd'].replace(
     /[^0-9.]/g,
-    '',
+    ''
   )
   return {
     version: pkgJson.version,
@@ -89,7 +94,7 @@ export const getConfig = () => {
     address: config['address'],
     email: config['email'],
     port: config['port'],
-    datetime: dayjs.tz().format('YYYY-MM-DD HH:mm'),
+    datetime: dayjs.tz().format('YYYY-MM-DD HH:mm')
   } as const
 }
 
@@ -144,7 +149,7 @@ export function getWebCount(navs: INavProps[]): WebCountResult {
 
   return {
     userViewCount: userViewCount - diffCount,
-    loginViewCount,
+    loginViewCount
   }
 }
 
@@ -200,7 +205,7 @@ function incrementClassId(id: number | string): number {
 export function setWebs(
   nav: INavProps[],
   settings: ISettings,
-  tags: ITagPropValues[] = [],
+  tags: ITagPropValues[] = []
 ): INavProps[] {
   if (!Array.isArray(nav)) return []
 
@@ -371,10 +376,10 @@ interface TemplateParams {
 export function writeTemplate({
   html,
   settings,
-  seoTemplate,
+  seoTemplate
 }: TemplateParams): string {
   const search: ISearchProps = JSON.parse(
-    fs.readFileSync(PATHS.search, 'utf-8'),
+    fs.readFileSync(PATHS.search, 'utf-8')
   )
 
   function getLoadKey(): string {
@@ -388,35 +393,35 @@ export function writeTemplate({
     {
       href: getConfig().zorroDark,
       as: 'style',
-      rel: 'prefetch',
-    },
+      rel: 'prefetch'
+    }
   ]
   if (settings.logo) {
     prefetchs.push({
       href: settings.logo,
       as: 'image',
-      rel: 'prefetch',
+      rel: 'prefetch'
     })
   }
   if (settings.darkLogo && settings.logo !== settings.darkLogo) {
     prefetchs.push({
       href: settings.darkLogo,
       as: 'image',
-      rel: 'prefetch',
+      rel: 'prefetch'
     })
   }
   if (search.logo) {
     prefetchs.push({
       href: search.logo,
       as: 'image',
-      rel: 'prefetch',
+      rel: 'prefetch'
     })
   }
   if (search.darkLogo && search.logo !== search.darkLogo) {
     prefetchs.push({
       href: search.darkLogo,
       as: 'image',
-      rel: 'prefetch',
+      rel: 'prefetch'
     })
   }
 
@@ -446,25 +451,25 @@ export function writeTemplate({
   let t = html
   t = t.replace(
     /(<!-- nav\.config-start -->)(.|\s)*?(<!-- nav.config-end -->)/i,
-    `$1${htmlTemplate}$3`,
+    `$1${htmlTemplate}$3`
   )
   t = t.replace(
     /(<!-- nav.headerContent-start -->)(.|\s)*?(<!-- nav.headerContent-end -->)/i,
-    `$1${settings.headerContent}$3`,
+    `$1${settings.headerContent}$3`
   )
   t = t.replace(
     /(<!-- nav.seo-start -->)(.|\s)*?(<!-- nav.seo-end -->)/i,
-    `$1${seoTemplate}$3`,
+    `$1${seoTemplate}$3`
   )
   t = t.replace(
     /(<!-- nav.pwa-start -->)(.|\s)*?(<!-- nav.pwa-end -->)/i,
-    `$1${pwaContent}$3`,
+    `$1${pwaContent}$3`
   )
 
   const loadingCode = settings.loadingCode.trim()
   t = t.replace(
     /(<!-- nav.loading-start -->)(.|\s)*?(<!-- nav.loading-end -->)/i,
-    `$1${loadingCode || LOAD_MAP[getLoadKey()] || ''}$3`,
+    `$1${loadingCode || LOAD_MAP[getLoadKey()] || ''}$3`
   )
   return t
 }
@@ -496,7 +501,7 @@ function updateItemField(
   value: string | undefined,
   settingKey: keyof ISettings,
   settings: ISettings,
-  logMessage: string,
+  logMessage: string
 ): string {
   if (settings[settingKey] === 'ALWAYS' && value) {
     const message = `更新${logMessage}：${correctURL(item.url)}: "${
@@ -522,7 +527,7 @@ export async function spiderWebs(
   settings: ISettings,
   props?: {
     onOk?: (messages: string[]) => void
-  },
+  }
 ): Promise<SpiderWebResult> {
   let errorUrlCount = 0
   const { onOk } = props || {}
@@ -560,7 +565,7 @@ export async function spiderWebs(
 
   if (items.length) {
     console.log(
-      `正在爬取信息... 并发数量：${max}  超时: ${settings.spiderTimeout}秒`,
+      `正在爬取信息... 并发数量：${max}  超时: ${settings.spiderTimeout}秒`
     )
   }
 
@@ -569,8 +574,8 @@ export async function spiderWebs(
       .slice(current * max, current * max + max)
       .map((item) =>
         getWebInfo(correctURL(item.url), {
-          timeout: settings.spiderTimeout * 1000,
-        }),
+          timeout: settings.spiderTimeout * 1000
+        })
       )
 
     const promises = await Promise.all(requestPromises)
@@ -600,7 +605,7 @@ export async function spiderWebs(
             res.iconUrl,
             'spiderIcon',
             settings,
-            '图标',
+            '图标'
           ),
           updateItemField(
             item,
@@ -608,7 +613,7 @@ export async function spiderWebs(
             res.title,
             'spiderTitle',
             settings,
-            '标题',
+            '标题'
           ),
           updateItemField(
             item,
@@ -616,8 +621,8 @@ export async function spiderWebs(
             res.description,
             'spiderDescription',
             settings,
-            '描述',
-          ),
+            '描述'
+          )
         )
       }
       console.log('-'.repeat(100))
@@ -635,7 +640,7 @@ export async function spiderWebs(
   return {
     webs: db,
     errorUrlCount,
-    time: diff,
+    time: diff
   }
 }
 
@@ -734,7 +739,7 @@ export async function writePWA(settings: ISettings, manifestPath: string) {
         try {
           new URL(settings.pwaIcon)
           const res = await axios.get(settings.pwaIcon, {
-            responseType: 'arraybuffer',
+            responseType: 'arraybuffer'
           })
           imageBuffer = res.data
         } catch {
@@ -749,7 +754,7 @@ export async function writePWA(settings: ISettings, manifestPath: string) {
             .resize({
               width: 512,
               height: 512,
-              fit: 'cover',
+              fit: 'cover'
             })
             .png()
             .toFile(PATHS.manifestIcon512),
@@ -757,10 +762,10 @@ export async function writePWA(settings: ISettings, manifestPath: string) {
             .resize({
               width: 192,
               height: 192,
-              fit: 'cover',
+              fit: 'cover'
             })
             .png()
-            .toFile(PATHS.manifestIcon192),
+            .toFile(PATHS.manifestIcon192)
         ])
       }
     }

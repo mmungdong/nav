@@ -5,21 +5,21 @@
 import { Injectable, computed } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { navs, settings } from 'src/store'
+import type { INavThreeProp } from 'src/types'
 import {
   queryString,
   fuzzySearch,
   matchCurrentList,
   getOverIndex,
-  getClassById,
+  getClassById
 } from 'src/utils'
-import { setNavs, toggleCollapseAll } from 'src/utils/web'
-import type { INavThreeProp } from 'src/types'
+import event from 'src/utils/mitt'
 import { isLogin, getPermissions } from 'src/utils/user'
 import { isSelfDevelop } from 'src/utils/utils'
-import event from 'src/utils/mitt'
+import { setNavs, toggleCollapseAll } from 'src/utils/web'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CommonService {
   readonly isLogin = isLogin
@@ -37,7 +37,7 @@ export class CommonService {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {
     const getData = () => {
       const { id, q } = queryString()
@@ -80,8 +80,8 @@ export class CommonService {
       relativeTo: this.activatedRoute,
       queryParams: {
         id,
-        _: Date.now(),
-      },
+        _: Date.now()
+      }
     })
     event.emit('SEARCH_FOCUS')
   }

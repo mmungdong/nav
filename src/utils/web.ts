@@ -1,18 +1,23 @@
 // 开源项目，未经作者同意，不得以抄袭/复制代码/修改源代码版权信息。
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
-import event from 'src/utils/mitt'
 import localforage from 'localforage'
-import navConfig from '../../nav.config.json'
 import { updateFileContent } from 'src/api'
-import { isLogin } from './user'
-import { IWebProps, INavProps } from '../types'
-import { navs } from 'src/store'
 import { STORAGE_KEY_MAP, DB_PATH } from 'src/constants'
-import { isSelfDevelop } from './utils'
-import { queryString, getClassById } from './index'
 import { $t } from 'src/locale'
+import { navs } from 'src/store'
+import event from 'src/utils/mitt'
+
+import navConfig from '../../nav.config.json'
+import { IWebProps, INavProps } from '../types'
+
 import { filterLoginData } from './pureUtils'
+import { isLogin } from './user'
+import { isSelfDevelop } from './utils'
+
+import { queryString, getClassById } from './index'
+
+
 
 export async function getNavs() {
   if (isSelfDevelop) {
@@ -41,7 +46,7 @@ export async function getNavs() {
     })
     globalThis.localStorage.setItem(
       STORAGE_KEY_MAP.DATE_TIME,
-      navConfig.datetime,
+      navConfig.datetime
     )
     localforage.removeItem(STORAGE_KEY_MAP.WEBSITE)
     finish(data)
@@ -52,8 +57,8 @@ export async function getNavs() {
           title: $t('_buildSuccess'),
           content: navConfig.datetime,
           config: {
-            nzDuration: 0,
-          },
+            nzDuration: 0
+          }
         })
       }, 1000)
     }
@@ -73,7 +78,7 @@ export function setNavs(navs: INavProps[]): Promise<any> {
   if (isSelfDevelop) {
     return updateFileContent({
       content: JSON.stringify(navs),
-      path: DB_PATH,
+      path: DB_PATH
     })
   }
   return localforage.setItem(STORAGE_KEY_MAP.WEBSITE, navs)
@@ -96,7 +101,7 @@ export function toggleCollapseAll(navs: INavProps[]): boolean {
 
 export async function deleteWebByIds(
   ids: number[],
-  isDelRid = false,
+  isDelRid = false
 ): Promise<boolean> {
   let hasDelete = false
   function f(arr: any[]) {
@@ -207,7 +212,7 @@ export function updateByClass(oldId: number, newData: any) {
 
 export async function deleteClassByIds(
   ids: number[],
-  isDelRid = false,
+  isDelRid = false
 ): Promise<boolean> {
   let hasDelete = false
 

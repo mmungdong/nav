@@ -5,7 +5,7 @@ import type { ISettings, IWebProps, INavProps } from '../types'
 
 export function replaceJsdelivrCDN(
   url: string = '',
-  settings: ISettings,
+  settings: ISettings
 ): string {
   const cdn = settings?.gitHubCDN
   if (!cdn) {
@@ -105,7 +105,7 @@ export function isNumber(v: any): boolean {
 export function transformSafeHTML(str: string) {
   const entity: any = {
     '<': '&lt;',
-    '>': '&gt;',
+    '>': '&gt;'
   }
   return str.replace(/[<>]/g, (char) => entity[char])
 }
@@ -113,7 +113,7 @@ export function transformSafeHTML(str: string) {
 export function transformUnSafeHTML(str: string) {
   const entity: any = {
     '&lt;': '<',
-    '&gt;': '>',
+    '&gt;': '>'
   }
   return str.replace(/(&lt;|&gt;)/g, (char) => entity[char])
 }

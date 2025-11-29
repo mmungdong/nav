@@ -2,17 +2,17 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, EventEmitter, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component, EventEmitter, Output } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { $t } from 'src/locale'
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms'
+import dayjs from 'dayjs'
+import { NzButtonModule } from 'ng-zorro-antd/button'
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker'
 import { NzDrawerModule } from 'ng-zorro-antd/drawer'
 import { NzFormModule } from 'ng-zorro-antd/form'
-import { NzButtonModule } from 'ng-zorro-antd/button'
 import { NzInputModule } from 'ng-zorro-antd/input'
-import { NzDatePickerModule } from 'ng-zorro-antd/date-picker'
-import dayjs from 'dayjs'
+import { $t } from 'src/locale'
 
 @Component({
   standalone: true,
@@ -24,11 +24,11 @@ import dayjs from 'dayjs'
     NzFormModule,
     NzButtonModule,
     NzInputModule,
-    NzDatePickerModule,
+    NzDatePickerModule
   ],
   selector: 'holiday-drawer',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class HolidayDrawerComponent {
   @Output() ok = new EventEmitter<void>()
@@ -40,7 +40,7 @@ export class HolidayDrawerComponent {
 
   constructor(private fb: FormBuilder) {
     this.validateForm = this.fb.group({
-      items: this.fb.array([]),
+      items: this.fb.array([])
     })
   }
 
@@ -57,8 +57,8 @@ export class HolidayDrawerComponent {
             url: item.url || '',
             day: String(item.day),
             title: item.title,
-            date: item.date,
-          }),
+            date: item.date
+          })
         )
       })
     }
@@ -71,8 +71,8 @@ export class HolidayDrawerComponent {
         day: '0',
         url: '',
         title: '',
-        date: Date.now(),
-      }),
+        date: Date.now()
+      })
     )
   }
 
@@ -101,7 +101,7 @@ export class HolidayDrawerComponent {
           return !!item.title.trim()
         })
         .sort((a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf()),
-      index: this.index,
+      index: this.index
     })
     this.handleClose()
   }

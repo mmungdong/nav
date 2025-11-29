@@ -1,27 +1,28 @@
 // 开源项目，未经作者同意，不得以抄袭/复制代码/修改源代码版权信息。
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 
-import { Component, Input, ViewChild, ElementRef } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component, Input, ViewChild, ElementRef } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { Router, ActivatedRoute } from '@angular/router'
+import { NzInputModule } from 'ng-zorro-antd/input'
+import { NzPopoverModule } from 'ng-zorro-antd/popover'
+import { NzSelectModule } from 'ng-zorro-antd/select'
+import { LogoComponent } from 'src/components/logo/logo.component'
+import { $t } from 'src/locale'
+import { search } from 'src/store'
+import type { ISearchItemProps } from 'src/types'
 import {
   getDefaultSearchEngine,
   setDefaultSearchEngine,
   queryString,
   isDark,
-  isMobile,
+  isMobile
 } from 'src/utils'
-import { Router, ActivatedRoute } from '@angular/router'
-import { search } from 'src/store'
-import type { ISearchItemProps } from 'src/types'
-import { SearchType } from './index'
-import { $t } from 'src/locale'
-import { NzInputModule } from 'ng-zorro-antd/input'
-import { NzPopoverModule } from 'ng-zorro-antd/popover'
-import { NzSelectModule } from 'ng-zorro-antd/select'
-import { LogoComponent } from 'src/components/logo/logo.component'
-import { isLogin } from 'src/utils/user'
 import event from 'src/utils/mitt'
+import { isLogin } from 'src/utils/user'
+
+import { SearchType } from './index'
 
 @Component({
   standalone: true,
@@ -31,11 +32,11 @@ import event from 'src/utils/mitt'
     NzInputModule,
     NzPopoverModule,
     LogoComponent,
-    NzSelectModule,
+    NzSelectModule
   ],
   selector: 'app-search',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class SearchComponent {
   @ViewChild('input', { static: false }) input!: ElementRef
@@ -46,7 +47,7 @@ export class SearchComponent {
   readonly isLogin = isLogin
   readonly SearchType = SearchType
   readonly searchEngineList: ISearchItemProps[] = search().list.filter(
-    (item) => !item.blocked,
+    (item) => !item.blocked
   )
   readonly search = search()
   readonly isMobile = isMobile()
@@ -57,7 +58,7 @@ export class SearchComponent {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {
     event.on('SEARCH_FOCUS', () => {
       if (!this.isMobile) {
@@ -118,8 +119,8 @@ export class SearchComponent {
         ...params,
         q: this.keyword,
         type: this.searchTypeValue,
-        _: Date.now(),
-      },
+        _: Date.now()
+      }
     })
 
     if (this.isMobile) {

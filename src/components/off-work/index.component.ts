@@ -2,18 +2,18 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import type { IComponentItemProps } from 'src/types'
+import { Component, Input } from '@angular/core'
 import { $t } from 'src/locale'
 import { component } from 'src/store'
+import type { IComponentItemProps } from 'src/types'
 
 @Component({
   standalone: true,
   imports: [CommonModule],
   selector: 'app-offwork',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export class OffWorkComponent {
   @Input() data!: IComponentItemProps
@@ -26,7 +26,7 @@ export class OffWorkComponent {
   constructor() {
     document.addEventListener(
       'visibilitychange',
-      this.visibilitychange.bind(this),
+      this.visibilitychange.bind(this)
     )
   }
 

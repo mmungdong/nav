@@ -2,8 +2,8 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { ComponentType } from 'src/types'
 import { $t } from 'src/locale'
+import { ComponentType } from 'src/types'
 
 export const componentTitleMap: Record<string, string> = {
   [ComponentType.Calendar]: $t('_calendar'),
@@ -13,5 +13,5 @@ export const componentTitleMap: Record<string, string> = {
   [ComponentType.Countdown]: $t('_countdown'),
   [ComponentType.HTML]: 'HTML',
   [ComponentType.Holiday]: $t('_holiday'),
-  [ComponentType.News]: $t('_news'),
+  [ComponentType.News]: $t('_news')
 }

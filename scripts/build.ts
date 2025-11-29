@@ -3,9 +3,13 @@
 // See https://github.com/xjh22222228/nav
 
 import fs from 'fs'
+
 import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc.js'
 import timezone from 'dayjs/plugin/timezone.js'
+import utc from 'dayjs/plugin/utc.js'
+
+import type { INavProps, ISettings } from '../src/types/index'
+
 import {
   writeSEO,
   writeTemplate,
@@ -13,9 +17,9 @@ import {
   PATHS,
   getConfig,
   fileWriteStream,
-  writePWA,
+  writePWA
 } from './utils'
-import type { INavProps, ISettings } from '../src/types/index'
+
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -33,17 +37,17 @@ const handleFileOperation = (operation: () => any): any => {
 }
 
 const db: INavProps[] = handleFileOperation(() =>
-  JSON.parse(fs.readFileSync(PATHS.db, 'utf-8')),
+  JSON.parse(fs.readFileSync(PATHS.db, 'utf-8'))
 )
 const settings: ISettings = handleFileOperation(() =>
-  JSON.parse(fs.readFileSync(PATHS.settings, 'utf-8')),
+  JSON.parse(fs.readFileSync(PATHS.settings, 'utf-8'))
 )
 
 const seoTemplate = writeSEO(db, { settings })
 const html = writeTemplate({
   html: fs.readFileSync(PATHS.html.main, 'utf-8'),
   settings,
-  seoTemplate,
+  seoTemplate
 })
 
 handleFileOperation(() => fs.writeFileSync(PATHS.html.write, html))
@@ -51,10 +55,10 @@ handleFileOperation(() =>
   writePWA(
     {
       ...settings,
-      pwaIcon: '',
+      pwaIcon: ''
     },
-    PATHS.manifestPublic,
-  ),
+    PATHS.manifestPublic
+  )
 )
 
 let errorUrlCount = 0

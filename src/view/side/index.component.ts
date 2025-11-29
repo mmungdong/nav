@@ -2,30 +2,30 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import type { INavProps, INavTwoProp } from 'src/types'
-import { isMobile, isDark } from 'src/utils'
-import { navs } from 'src/store'
-import { settings } from 'src/store'
-import { $t } from 'src/locale'
-import { CommonService } from 'src/services/common'
-import { STORAGE_KEY_MAP } from 'src/constants'
-import { ComponentGroupComponent } from 'src/components/component-group/index.component'
-import { SearchComponent } from 'src/components/search/index.component'
+import { Component } from '@angular/core'
+import { NzIconModule } from 'ng-zorro-antd/icon'
+import { NzLayoutModule } from 'ng-zorro-antd/layout'
+import { NzMenuModule } from 'ng-zorro-antd/menu'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
-import { NzMenuModule } from 'ng-zorro-antd/menu'
+import { ComponentGroupComponent } from 'src/components/component-group/index.component'
+import { STORAGE_KEY_MAP } from 'src/constants'
+import { $t } from 'src/locale'
+import { navs } from 'src/store'
+import type { INavProps, INavTwoProp } from 'src/types'
+import { isMobile, isDark } from 'src/utils'
+import { settings } from 'src/store'
+import { CommonService } from 'src/services/common'
+import { ButtonSearchComponent } from 'src/components/search/button-search.component'
 import { CardComponent } from 'src/components/card/index.component'
 import { NoDataComponent } from 'src/components/no-data/no-data.component'
 import { FooterComponent } from 'src/components/footer/footer.component'
 import { FixbarComponent } from 'src/components/fixbar/index.component'
-import { NzLayoutModule } from 'ng-zorro-antd/layout'
 import { BackgroundSettingComponent } from 'src/components/background-setting/background-setting.component'
 import { ToolbarTitleWebComponent } from 'src/components/toolbar-title/index.component'
 import { WebListComponent } from 'src/components/web-list/index.component'
 import { ClassTabsComponent } from 'src/components/class-tabs/index.component'
-import { NzIconModule } from 'ng-zorro-antd/icon'
 import { LogoComponent } from 'src/components/logo/logo.component'
 import event from 'src/utils/mitt'
 
@@ -48,7 +48,7 @@ function getDefaultCollapsed(): boolean {
     WebListComponent,
     ToolbarTitleWebComponent,
     ComponentGroupComponent,
-    SearchComponent,
+    ButtonSearchComponent,
     NzSpinModule,
     NzToolTipModule,
     CardComponent,
@@ -59,11 +59,11 @@ function getDefaultCollapsed(): boolean {
     BackgroundSettingComponent,
     ClassTabsComponent,
     NzIconModule,
-    LogoComponent,
+    LogoComponent
   ],
   selector: 'app-side',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  styleUrls: ['./index.component.scss']
 })
 export default class SideComponent {
   readonly $t = $t
@@ -113,7 +113,7 @@ export default class SideComponent {
     this.isCollapsed = !this.isCollapsed
     localStorage.setItem(
       STORAGE_KEY_MAP.SIDE_COLLAPSED,
-      String(this.isCollapsed),
+      String(this.isCollapsed)
     )
     setTimeout(() => {
       event.emit('COMPONENT_CHECK_OVER')
