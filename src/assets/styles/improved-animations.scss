@@ -1,0 +1,281 @@
+// 改进的动画和过渡效果样式文件
+
+// 更丝滑的基础过渡动画
+.smooth-transition-all {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.smooth-transition-colors {
+  transition: background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+              border-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+              color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.smooth-transition-transform {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.smooth-transition-opacity {
+  transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.smooth-transition-shadow {
+  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+// 改进的悬停效果
+.smooth-hover-lift {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.smooth-hover-scale {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}
+
+.smooth-hover-glow {
+  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(67, 97, 238, 0.4);
+  }
+}
+
+// 改进的淡入淡出动画
+.smooth-fade-in {
+  animation: smoothFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.smooth-fade-in-up {
+  animation: smoothFadeInUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.smooth-fade-in-down {
+  animation: smoothFadeInDown 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.smooth-fade-in-left {
+  animation: smoothFadeInLeft 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.smooth-fade-in-right {
+  animation: smoothFadeInRight 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+// 改进的关键帧动画
+@keyframes smoothFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes smoothFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes smoothFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes smoothFadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes smoothFadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// 改进的旋转动画
+.smooth-rotate-infinite {
+  animation: smoothRotate360 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
+.smooth-rotate-infinite-slow {
+  animation: smoothRotate360 3s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
+@keyframes smoothRotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 改进的脉冲动画
+.smooth-pulse {
+  animation: smoothPulse 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
+.smooth-pulse-slow {
+  animation: smoothPulse 3s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
+@keyframes smoothPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// 改进的弹性动画
+.smooth-elastic {
+  animation: smoothElastic 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes smoothElastic {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// 改进的页面切换动画
+.smooth-page-transition-enter {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.smooth-page-transition-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.smooth-page-transition-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.smooth-page-transition-exit-active {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+// 改进的卡片悬停动画
+.smooth-card-hover {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// 改进的列表项动画
+.smooth-list-item {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: smoothFadeInUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.smooth-list-item:nth-child(1) { animation-delay: 0.1s; }
+.smooth-list-item:nth-child(2) { animation-delay: 0.2s; }
+.smooth-list-item:nth-child(3) { animation-delay: 0.3s; }
+.smooth-list-item:nth-child(4) { animation-delay: 0.4s; }
+.smooth-list-item:nth-child(5) { animation-delay: 0.5s; }
+.smooth-list-item:nth-child(6) { animation-delay: 0.6s; }
+.smooth-list-item:nth-child(7) { animation-delay: 0.7s; }
+.smooth-list-item:nth-child(8) { animation-delay: 0.8s; }
+.smooth-list-item:nth-child(9) { animation-delay: 0.9s; }
+.smooth-list-item:nth-child(10) { animation-delay: 1.0s; }
+
+// 改进的延迟动画
+.smooth-delay-100 { animation-delay: 0.1s; }
+.smooth-delay-200 { animation-delay: 0.2s; }
+.smooth-delay-300 { animation-delay: 0.3s; }
+.smooth-delay-400 { animation-delay: 0.4s; }
+.smooth-delay-500 { animation-delay: 0.5s; }
+.smooth-delay-600 { animation-delay: 0.6s; }
+.smooth-delay-700 { animation-delay: 0.7s; }
+.smooth-delay-800 { animation-delay: 0.8s; }
+.smooth-delay-900 { animation-delay: 0.9s; }
+.smooth-delay-1000 { animation-delay: 1.0s; }
+
+// 侧边栏动画效果
+.sidebar-slide {
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.sidebar-fade {
+  transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+// 菜单动画效果
+.menu-item-enter {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.menu-item-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.menu-item-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-item-exit-active {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 300ms cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}

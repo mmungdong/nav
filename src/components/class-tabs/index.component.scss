@@ -18,7 +18,7 @@
     height: var(--height);
     background-color: #1890ff !important;
     color: #fff;
-    transition: left 0.15s linear;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     border-radius: 6px;
   }
   .tab {
@@ -29,14 +29,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.1s linear;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
     border-radius: 6px;
     &:hover:not(.active) {
       background-color: rgba(0, 0, 0, 0.055);
+      transform: translateY(-2px);
     }
     &.active {
       color: #fff;
+      transform: scale(1.05);
     }
   }
 }

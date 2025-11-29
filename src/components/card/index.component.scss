@@ -1,9 +1,11 @@
 @media (hover: hover) and (pointer: fine) {
   .example2,
   .original2 {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     &:hover {
       border: 1px solid #78b7fa;
-      transform: translateY(-3px);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
       .title {
         color: #007bff;
       }
@@ -84,10 +86,11 @@
   display: flex;
   flex-direction: column;
   padding-top: 5px;
-  transition: all 0.2s ease-out;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   background-color: #fff;
   &:hover {
-    transform: translate(0, -3px);
+    transform: translate(0, -8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   }
   .rate {
     padding: 0 $padding;
@@ -141,7 +144,7 @@
     0 0px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px -1px rgba(0, 0, 0, 0.1);
   border: 1px solid transparent;
-  transition: all 0.15s linear;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   color: #000;
   display: block;
   &.noDesc {
@@ -172,6 +175,12 @@
     margin: 0;
     font-size: 12px;
   }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid #78b7fa;
+  }
 }
 
 .original2 {
@@ -183,7 +192,7 @@
     0 0px 3px 0 rgba(0, 0, 0, 0.1),
     0 1px 2px -1px rgba(0, 0, 0, 0.1);
   border: 1px solid transparent;
-  transition: all 0.15s linear;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   color: #000;
   display: block;
   .title {
@@ -203,6 +212,12 @@
     width: 0;
     margin-left: 8px;
   }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid #78b7fa;
+  }
 }
 
 // 其他主题下卡片不明显
@@ -217,11 +232,13 @@
   background-color: #fff;
   padding: 8px;
   border-bottom: 1px solid #eee;
-  transition: all 0.15s linear;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   color: #000;
   display: block;
   &:hover {
     background-color: #f2f3f5;
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     .action-btn {
       display: block;
     }
@@ -258,9 +275,10 @@
   background-color: #fff;
   border: 1px solid #eee;
   border-radius: 4px;
-  transition: transform 0.1s linear;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
-    transform: translate(0, -3px);
+    transform: translate(0, -8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   }
   .item-list {
     z-index: 6;
@@ -299,10 +317,16 @@
   background-color: #fff;
   padding-bottom: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   .poster-box {
     position: relative;
     overflow: hidden;
     height: 170px;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   }
   .breadcrumb {
     position: absolute;
@@ -353,9 +377,10 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  transition: all 0.2s ease-out;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
-    transform: translate(0, -3px);
+    transform: translate(0, -8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   }
   .name {
     margin-top: 2px;

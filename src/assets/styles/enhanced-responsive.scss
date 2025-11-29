@@ -1,0 +1,430 @@
+// 增强版响应式设计优化
+
+// 基础断点设置
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1200px;
+$breakpoint-xl: 1440px;
+
+// 增强的移动端优化
+@media (max-width: $breakpoint-sm) {
+  // 平滑过渡动画
+  * {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  // 增强的触摸目标
+  .touch-target-enhanced {
+    min-height: 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  // 增强的卡片布局
+  .enhanced-card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 10px;
+
+    &.two-columns {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  // 增强的导航
+  .enhanced-nav {
+    &-vertical {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    &-horizontal {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px 0;
+      scrollbar-width: thin;
+
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #4361ee, #3f37c9);
+        border-radius: 3px;
+      }
+    }
+  }
+
+  // 增强的按钮
+  .enhanced-btn {
+    &-block {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 16px;
+      border-radius: 12px;
+      font-weight: 500;
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    &-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  // 增强的表单元素
+  .enhanced-form {
+    &-item {
+      margin-bottom: 16px;
+    }
+
+    &-input,
+    &-textarea,
+    &-select {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 2px solid #e2e8f0;
+
+      &:focus {
+        border-color: #4361ee;
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      }
+    }
+  }
+
+  // 增强的图片
+  .enhanced-img {
+    &-responsive {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    &-cover {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  // 增强的文本
+  .enhanced-text {
+    &-heading {
+      font-size: 22px;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    &-subheading {
+      font-size: 17px;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    &-body {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  }
+
+  // 增强的安全区域适配
+  .enhanced-safe-area {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .enhanced-safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .enhanced-safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  // 增强的滚动优化
+  .enhanced-scroll {
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    scrollbar-width: none;
+  }
+
+  // 增强的模态框
+  .enhanced-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &.show {
+      opacity: 1;
+      pointer-events: all;
+
+      .modal-content {
+        transform: translateY(0);
+      }
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-height: 85vh;
+      border-radius: 24px 24px 0 0;
+      padding: 24px;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  // 增强的卡片
+  .enhanced-card {
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  // 增强的列表
+  .enhanced-list {
+    .list-item {
+      padding: 16px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:active {
+        background-color: #f8f9fa;
+      }
+
+      .item-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f5f9;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+
+      .item-content {
+        flex: 1;
+
+        .item-title {
+          font-size: 16px;
+          font-weight: 500;
+          margin-bottom: 6px;
+        }
+
+        .item-desc {
+          font-size: 14px;
+          color: #64748b;
+        }
+      }
+
+      .item-arrow {
+        color: #94a3b8;
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      &:active {
+        .item-arrow {
+          transform: translateX(4px);
+        }
+      }
+    }
+  }
+}
+
+// 平板设备增强优化
+@media (min-width: $breakpoint-sm + 1) and (max-width: $breakpoint-md) {
+  .enhanced {
+    &-padding {
+      padding: 24px;
+    }
+
+    &-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    &-card-grid {
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 24px;
+    }
+
+    &-nav-horizontal {
+      gap: 24px;
+    }
+  }
+}
+
+// 桌面设备增强优化
+@media (min-width: $breakpoint-md + 1) {
+  .enhanced {
+    &-padding {
+      padding: 36px;
+    }
+
+    &-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    &-card-grid {
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 30px;
+    }
+  }
+}
+
+// 大屏幕设备增强优化
+@media (min-width: $breakpoint-xl) {
+  .enhanced {
+    &-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    &-card-grid {
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    }
+  }
+}
+
+// 超小屏幕设备优化
+@media (max-width: $breakpoint-xs) {
+  .enhanced {
+    &-compact {
+      padding: 8px;
+
+      .enhanced-card-grid {
+        gap: 8px;
+      }
+    }
+  }
+}
+
+// 横屏优化
+@media (max-width: $breakpoint-sm) and (orientation: landscape) {
+  .enhanced-landscape {
+    &-hide {
+      display: none !important;
+    }
+
+    &-compact {
+      padding: 8px;
+
+      .enhanced-card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 8px;
+      }
+    }
+  }
+}
+
+// 竖屏优化
+@media (max-width: $breakpoint-sm) and (orientation: portrait) {
+  .enhanced-portrait {
+    &-expanded {
+      .enhanced-card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+  }
+}
+
+// 深色模式下的增强优化
+@media (prefers-color-scheme: dark) and (max-width: $breakpoint-sm) {
+  .enhanced {
+    &-modal {
+      background: rgba(0, 0, 0, 0.7);
+
+      .modal-content {
+        background: #1e293b;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    &-card {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    &-list {
+      .list-item {
+        border-bottom: 1px solid #334155;
+
+        &:active {
+          background-color: #334155;
+        }
+
+        .item-icon {
+          background: #334155;
+        }
+
+        .item-content {
+          .item-desc {
+            color: #94a3b8;
+          }
+        }
+
+        .item-arrow {
+          color: #64748b;
+        }
+      }
+    }
+  }
+}
