@@ -118,12 +118,9 @@
         class="mask"
         (click)="toggleSidebar(false)"
       ></div>
-      <app-background-setting
-        *ngIf="backgroundImage"
-        [backgroundImage]="backgroundImage"
+      <!-- 使用Tailwind CSS样式的背景组件 -->
+      <app-tailwind-background
         [height]="commonService.settings().sideThemeHeight"
-        [editable]="isEditMode"
-        (backgroundChange)="onBackgroundChange($event)"
       />
       <app-button-search />
       <component-group />

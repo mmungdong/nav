@@ -22,6 +22,48 @@
     background-position: center;
     background-repeat: no-repeat;
     transition: background-image 0.3s ease;
+
+    // 添加美观的渐变叠加层和视觉效果
+    position: relative;
+
+    // 渐变叠加层，增加视觉深度
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(125, 125, 255, 0.1) 0%, rgba(190, 125, 255, 0.1) 50%, rgba(125, 190, 255, 0.1) 100%);
+      border-radius: 0.5rem; /* rounded-lg */
+      pointer-events: none;
+    }
+
+    // 添加轻微的阴影效果
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+    // 添加圆角
+    border-radius: 0.5rem; /* rounded-lg */
+
+    // 添加模糊效果以增强视觉层次
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      backdrop-filter: blur(2px);
+      border-radius: 0.5rem;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    // 确保内容在模糊层之上
+    * {
+      position: relative;
+      z-index: 2;
+    }
   }
 
   .background-controls {

@@ -1,0 +1,63 @@
+.background-setting {
+  &.short {
+    height: 200px;
+  }
+
+  &.tall {
+    height: 400px;
+  }
+
+  .background-image {
+    // 简洁的径向渐变 - 优化的浅色主题
+    background: radial-gradient(
+      ellipse at center,
+      rgba(239, 246, 255, 0.9) 0%,
+      rgba(224, 231, 255, 0.7) 100%
+    );
+  }
+}
+
+// 暗色主题适配 - 简约版
+.dark {
+  .background-setting {
+    .background-image {
+      background: radial-gradient(
+        ellipse at center,
+        rgba(30, 41, 59, 0.8) 0%,
+        rgba(15, 23, 42, 0.6) 100%
+      );
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .background-setting {
+    height: 10rem; /* h-40 equivalent */
+    margin-bottom: 1rem; /* mb-4 equivalent */
+
+    &.short {
+      height: 9rem; /* h-36 equivalent */
+    }
+
+    &.tall {
+      height: 15rem; /* h-60 equivalent */
+    }
+  }
+}
+
+// 超小屏幕适配
+@media (max-width: 480px) {
+  .background-setting {
+    height: 8rem;
+    margin-bottom: 0.75rem;
+
+    &.short {
+      height: 7rem;
+    }
+
+    &.tall {
+      height: 12rem;
+    }
+  }
+}

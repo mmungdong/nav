@@ -22,7 +22,7 @@ import { CardComponent } from 'src/components/card/index.component'
 import { NoDataComponent } from 'src/components/no-data/no-data.component'
 import { FooterComponent } from 'src/components/footer/footer.component'
 import { FixbarComponent } from 'src/components/fixbar/index.component'
-import { BackgroundSettingComponent } from 'src/components/background-setting/background-setting.component'
+import { TailwindBackgroundComponent } from 'src/components/background-setting/tailwind-background.component'
 import { ToolbarTitleWebComponent } from 'src/components/toolbar-title/index.component'
 import { WebListComponent } from 'src/components/web-list/index.component'
 import { ClassTabsComponent } from 'src/components/class-tabs/index.component'
@@ -56,7 +56,7 @@ function getDefaultCollapsed(): boolean {
     FooterComponent,
     FixbarComponent,
     NzLayoutModule,
-    BackgroundSettingComponent,
+    TailwindBackgroundComponent,
     ClassTabsComponent,
     NzIconModule,
     LogoComponent
@@ -72,16 +72,9 @@ export default class SideComponent {
   isCollapsed = getDefaultCollapsed()
   openSidebar = false
   menuOpenId = 0
-  backgroundImage: string = ''
-  isEditMode: boolean = false
 
   constructor(public commonService: CommonService) {
     this.menuOpenId = this.navs[commonService.oneIndex]?.id || 0
-
-    // 初始化背景图片（如果有设置的话）
-    if (settings().sideThemeImages && settings().sideThemeImages.length > 0) {
-      this.backgroundImage = settings().sideThemeImages[0].src || ''
-    }
 
     event.on('EVENT_DARK', (isDark: unknown) => {
       this.isDark = isDark as boolean
@@ -123,11 +116,5 @@ export default class SideComponent {
   onClickNav(item: INavTwoProp) {
     this.commonService.handleClickClass(item.id)
     this.toggleSidebar(false)
-  }
-
-  onBackgroundChange(backgroundImage: string): void {
-    this.backgroundImage = backgroundImage
-    // 这里可以添加保存背景图片的逻辑
-    console.log('Background image changed:', backgroundImage)
   }
 }
