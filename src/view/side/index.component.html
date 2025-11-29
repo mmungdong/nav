@@ -106,22 +106,6 @@
                 [name]="el.title"
               />
               <span class="ellipsis">{{ el.title }}</span>
-
-              <div
-                *ngIf="
-                  commonService.oneIndex === pageIdx &&
-                  commonService.twoIndex === idIdx
-                "
-                (click)="commonService.onCollapseAll($event)"
-                class="collapse-wrapper"
-              >
-                <i
-                  *ngIf="!isCollapsed"
-                  class="iconfont iconweibiaoti25 collapseIcon"
-                  [class.active]="commonService.collapsed"
-                >
-                </i>
-              </div>
             </li>
           </ul>
         </li>
@@ -173,7 +157,6 @@
                 />
 
                 <div
-                  [class.hidden]="item['collapsed']"
                   [ngClass]="{
                     'grid gap-x-4 gap-y-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4':
                       commonService.settings().sideCardStyle !== 'icon',
@@ -212,7 +195,4 @@
   </nz-layout>
 </nz-layout>
 
-<app-fixbar
-  (onCollapse)="commonService.onCollapseAll($event)"
-  [collapsed]="commonService.collapsed"
-/>
+<app-fixbar [showCollapse]="false" />

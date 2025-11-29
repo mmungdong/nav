@@ -85,18 +85,19 @@ export function setNavs(navs: INavProps[]): Promise<any> {
 }
 
 export function toggleCollapseAll(navs: INavProps[]): boolean {
+  // Disable collapse functionality - always keep content expanded
   const { id } = queryString()
   const { oneIndex, twoIndex } = getClassById(id)
-  const collapsed = !navs[oneIndex].nav[twoIndex].collapsed
-  navs[oneIndex].nav[twoIndex].collapsed = collapsed
+  // Always set collapsed to false to keep all content expanded
+  navs[oneIndex].nav[twoIndex].collapsed = false
   navs[oneIndex].nav[twoIndex].nav.map((item) => {
-    item.collapsed = collapsed
+    item.collapsed = false
     return item
   })
   if (!isSelfDevelop) {
     setNavs(navs)
   }
-  return collapsed
+  return false // Always return false to indicate content is expanded
 }
 
 export async function deleteWebByIds(

@@ -5,14 +5,7 @@
 >
   <div
     class="cursor-pointer whitespace-nowrap ellipsis pr-4 flex items-center"
-    (click)="onCollapse.emit()"
   >
-    <i
-      class="iconfont iconjiantouarrow483 down-arrow"
-      [class.active]="dataSource.collapsed"
-    >
-    </i>
-
     <i
       class="iconfont iconyinru text-neutral-400"
       *ngIf="isLogin && dataSource.rId"

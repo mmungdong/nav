@@ -100,18 +100,13 @@ export class CommonService {
   }
 
   get collapsed() {
-    try {
-      return !!this.navs()[this.oneIndex].nav[this.twoIndex].collapsed
-    } catch {
-      return false
-    }
+    return false; // Always return false to keep all content expanded
   }
 
   onCollapse = (item: INavThreeProp) => {
-    item.collapsed = !item.collapsed
-    if (!isSelfDevelop) {
-      setNavs(this.navs())
-    }
+    // Disable collapse functionality - always keep content expanded
+    item.collapsed = false;
+    // No need to save state since we're keeping everything expanded
   }
 
   getOverIndex(selector: string) {
