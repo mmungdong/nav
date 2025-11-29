@@ -23,7 +23,7 @@ import { CardComponent } from 'src/components/card/index.component'
 import { NoDataComponent } from 'src/components/no-data/no-data.component'
 import { FooterComponent } from 'src/components/footer/footer.component'
 import { FixbarComponent } from 'src/components/fixbar/index.component'
-import { SwiperComponent } from 'src/components/swiper/index.component'
+import { BackgroundSettingComponent } from 'src/components/background-setting/background-setting.component'
 import { SafeHtmlPipe } from 'src/pipe/safeHtml.pipe'
 import { ToolbarTitleWebComponent } from 'src/components/toolbar-title/index.component'
 import { ClassTabsComponent } from 'src/components/class-tabs/index.component'
@@ -44,7 +44,7 @@ import type { INavProps } from 'src/types'
     NoDataComponent,
     FooterComponent,
     FixbarComponent,
-    SwiperComponent,
+    BackgroundSettingComponent,
     SafeHtmlPipe,
     ClassTabsComponent,
     PhoneClassComponent,
@@ -58,8 +58,15 @@ export default class SimComponent {
   @ViewChildren('item') itemsRef!: QueryList<ElementRef>
 
   readonly description: string = compilerTemplate(settings().simThemeDesc)
+  backgroundImage: string = ''
+  isEditMode: boolean = false
 
-  constructor(public commonService: CommonService) {}
+  constructor(public commonService: CommonService) {
+    // 初始化背景图片（如果有设置的话）
+    if (settings().simThemeImages && settings().simThemeImages.length > 0) {
+      this.backgroundImage = settings().simThemeImages[0].src || ''
+    }
+  }
 
   ngOnDestroy() {
     this.commonService.setOverIndex()
@@ -88,5 +95,11 @@ export default class SimComponent {
     if (!this.isEllipsis) {
       scrollIntoViewLeft(this.parentRef.nativeElement, e.target)
     }
+  }
+
+  onBackgroundChange(backgroundImage: string): void {
+    this.backgroundImage = backgroundImage
+    // 这里可以添加保存背景图片的逻辑
+    console.log('Background image changed:', backgroundImage)
   }
 }

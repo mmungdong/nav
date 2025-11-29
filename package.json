@@ -5,6 +5,10 @@
   "homepage": "https://github.com/xjh22222228/nav",
   "scripts": {
     "format": "prettier --write \"**/*.{ts,cjs,mjs}\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:src": "eslint src/",
+    "lint:src:fix": "eslint src/ --fix",
     "start": "npm run init && ng serve --host 0.0.0.0 --port=7001 --live-reload=false",
     "start:reload": "npm run init && ng serve --host 0.0.0.0 --port=7001",
     "init": "tsx ./scripts/start.ts",

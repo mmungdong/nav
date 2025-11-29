@@ -1,0 +1,37 @@
+<div
+  class="background-setting"
+  [ngClass]="getHeightClass()"
+  (mouseenter)="showControls = true"
+  (mouseleave)="showControls = false"
+>
+  <div
+    class="background-image"
+    [ngStyle]="{ 'background-image': 'url(' + backgroundImage + ')' }"
+  ></div>
+
+  <div class="background-controls" *ngIf="showControls && editable">
+    <div class="control-btn" (click)="triggerFileInput()" title="更换背景图片">
+      <i class="iconfont iconchange"></i>
+    </div>
+    <div class="control-btn" (click)="removeBackground()" title="移除背景图片" *ngIf="backgroundImage">
+      <i class="iconfont icondelete"></i>
+    </div>
+  </div>
+
+  <div class="upload-overlay" [class.visible]="showUploadOverlay">
+    <div class="upload-content">
+      <div class="upload-icon">
+        <i class="iconfont iconimage"></i>
+      </div>
+      <div class="upload-text">点击上传背景图片</div>
+      <button class="upload-btn" (click)="triggerFileInput()">选择图片</button>
+    </div>
+  </div>
+
+  <input
+    type="file"
+    #fileInput
+    (change)="onFileSelected($event)"
+    accept="image/*"
+  >
+</div>

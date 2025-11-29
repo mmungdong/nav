@@ -1,0 +1,189 @@
+// 现代化搜索组件样式
+.search-modern {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0;
+
+  .search-container {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .search-box {
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      .search-input-wrapper {
+        flex: 1;
+        position: relative;
+
+        .search-input {
+          width: 100%;
+          padding: 16px 20px 16px 50px;
+          font-size: 16px;
+          border: 2px solid #e9ecef;
+          border-radius: 50px;
+          background: #ffffff;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+          &:focus {
+            outline: none;
+            border-color: #4361ee;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
+          }
+        }
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 20px;
+        color: #6c757d;
+        font-size: 20px;
+        z-index: 2;
+      }
+
+      .search-button {
+        margin-left: 15px;
+        padding: 16px 30px;
+        background: linear-gradient(135deg, #4361ee, #3f37c9);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+
+    .search-engines {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 100%;
+
+      .engine-item {
+        padding: 10px 20px;
+        background: #f8f9fa;
+        border-radius: 50px;
+        font-size: 14px;
+        color: #495057;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid #e9ecef;
+
+        &:hover {
+          background: #e9ecef;
+          transform: translateY(-2px);
+        }
+
+        &.active {
+          background: linear-gradient(135deg, #4361ee, #3f37c9);
+          color: white;
+          border-color: #4361ee;
+          box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+      }
+    }
+  }
+}
+
+// 暗色主题适配
+.dark {
+  .search-modern {
+    .search-container {
+      .search-box {
+        .search-input-wrapper {
+          .search-input {
+            background: #212529;
+            border-color: #343a40;
+            color: #f8f9fa;
+
+            &:focus {
+              border-color: #4361ee;
+              box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            }
+          }
+        }
+
+        .search-icon {
+          color: #adb5bd;
+        }
+      }
+
+      .search-engines {
+        .engine-item {
+          background: #343a40;
+          border-color: #495057;
+          color: #f8f9fa;
+
+          &:hover {
+            background: #495057;
+          }
+
+          &.active {
+            background: linear-gradient(135deg, #4361ee, #3f37c9);
+            border-color: #4361ee;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .search-modern {
+    padding: 20px 0;
+
+    .search-container {
+      padding: 0 15px;
+
+      .search-box {
+        flex-direction: column;
+
+        .search-input-wrapper {
+          width: 100%;
+
+          .search-input {
+            padding: 14px 20px 14px 50px;
+            font-size: 16px;
+          }
+        }
+
+        .search-button {
+          margin: 15px 0 0 0;
+          padding: 14px 25px;
+          width: 100%;
+        }
+      }
+
+      .search-engines {
+        .engine-item {
+          padding: 8px 16px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

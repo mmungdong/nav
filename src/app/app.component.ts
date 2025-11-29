@@ -2,32 +2,37 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 import {
   Router,
   ActivatedRoute,
   NavigationEnd,
-  RouterOutlet,
+  RouterOutlet
 } from '@angular/router'
-import { queryString, setLocation, isMobile, getDefaultTheme } from '../utils'
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker'
 import { en_US, NzI18nService, zh_CN } from 'ng-zorro-antd/i18n'
-import { getLocale } from 'src/locale'
-import { settings } from 'src/store'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalService } from 'ng-zorro-antd/modal'
+import { NzNotificationService } from 'ng-zorro-antd/notification'
+import { NzSpinModule } from 'ng-zorro-antd/spin'
+import { filter } from 'rxjs/operators'
 import {
   verifyToken,
   authorName,
   getContentes,
-  getUserCollectCount,
+  getUserCollectCount
 } from 'src/api'
+import { getLocale } from 'src/locale'
+
+import { settings } from 'src/store'
+import { queryString, setLocation, isMobile, getDefaultTheme } from '../utils'
 import { getToken, userLogout, isLogin, getPermissions } from 'src/utils/user'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import { NzNotificationService } from 'ng-zorro-antd/notification'
-import { NzSpinModule } from 'ng-zorro-antd/spin'
-import { NzModalService } from 'ng-zorro-antd/modal'
 import { getNavs } from 'src/utils/web'
 import { isSelfDevelop } from 'src/utils/utils'
+
 import { routes } from './app.routes'
+
 import { MoveWebComponent } from 'src/components/move-web/index.component'
 import { CreateWebComponent } from 'src/components/create-web/index.component'
 import { IconGitComponent } from 'src/components/icon-git/icon-git.component'
@@ -36,8 +41,6 @@ import { $t } from 'src/locale'
 import { getAuthCode } from 'src/utils/user'
 import { DeleteModalComponent } from 'src/components/delete-modal/index.component'
 import event from 'src/utils/mitt'
-import { SwUpdate, VersionReadyEvent } from '@angular/service-worker'
-import { filter } from 'rxjs/operators'
 
 @Component({
   standalone: true,
@@ -49,11 +52,11 @@ import { filter } from 'rxjs/operators'
     CommonModule,
     MoveWebComponent,
     CreateWebComponent,
-    DeleteModalComponent,
+    DeleteModalComponent
   ],
   selector: 'app-xiejiahe',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   readonly isLogin: boolean = isLogin
@@ -66,7 +69,7 @@ export class AppComponent {
     private message: NzMessageService,
     private notification: NzNotificationService,
     private modal: NzModalService,
-    private swUpdate: SwUpdate,
+    private swUpdate: SwUpdate
   ) {
     this.registerEvents()
     this.registerKeyboard()
@@ -83,8 +86,8 @@ export class AppComponent {
       this.swUpdate.versionUpdates
         .pipe(
           filter(
-            (evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY',
-          ),
+            (evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'
+          )
         )
         .subscribe((evt) => {
           this.swUpdate.activateUpdate()
@@ -100,7 +103,7 @@ export class AppComponent {
               } catch (error) {
                 this.message.error($t('_updateFailed'))
               }
-            },
+            }
           })
         })
     }
@@ -117,7 +120,7 @@ export class AppComponent {
         props.type,
         props.title,
         props.content,
-        props.config,
+        props.config
       )
     })
 
@@ -150,7 +153,7 @@ export class AppComponent {
           const currentRoutes = this.router.config
           const defaultTheme = getDefaultTheme().toLowerCase()
           const hasDefault = routes.find(
-            (item: any) => item.path === defaultTheme,
+            (item: any) => item.path === defaultTheme
           )
           const isHome = this.router.url.split('?')[0] === '/'
           if (hasDefault) {
@@ -158,8 +161,8 @@ export class AppComponent {
               ...currentRoutes,
               {
                 ...hasDefault,
-                path: '**',
-              },
+                path: '**'
+              }
             ])
           }
           if (isHome && !href.includes('/system')) {
@@ -200,7 +203,7 @@ export class AppComponent {
               settings.update((prev) => {
                 return {
                   ...prev,
-                  email: data.email,
+                  email: data.email
                 }
               })
               event.emit('GITHUB_USER_INFO', data)
@@ -227,8 +230,8 @@ export class AppComponent {
             $t('_colTitle', { count }),
             $t('_collectTip'),
             {
-              nzDuration: 0,
-            },
+              nzDuration: 0
+            }
           )
         }
       })
@@ -273,7 +276,7 @@ export class AppComponent {
       const key = e.key.toLowerCase()
       if (key === createWebKey) {
         event.emit('CREATE_WEB', {
-          isKeyboard: true,
+          isKeyboard: true
         })
       }
     })

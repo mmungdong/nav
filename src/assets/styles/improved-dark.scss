@@ -1,0 +1,423 @@
+// 改进的暗黑模式样式
+.dark-theme {
+  // 基础颜色变量
+  --dark-bg-primary: #121826;
+  --dark-bg-secondary: #1e293b;
+  --dark-bg-tertiary: #334155;
+  --dark-text-primary: #f1f5f9;
+  --dark-text-secondary: #cbd5e1;
+  --dark-text-tertiary: #94a3b8;
+  --dark-border: #475569;
+  --dark-accent-primary: #4361ee;
+  --dark-accent-secondary: #4cc9f0;
+  --dark-accent-success: #06d6a0;
+  --dark-accent-warning: #ffd166;
+  --dark-accent-danger: #ef476f;
+
+  // 全局暗色主题样式
+  background-color: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+
+  // 暗色主题下的通用组件样式
+  .dark {
+    &-container {
+      background-color: var(--dark-bg-primary);
+    }
+
+    // 文本颜色
+    &-text {
+      color: var(--dark-text-primary);
+
+      &-secondary {
+        color: var(--dark-text-secondary);
+      }
+
+      &-tertiary {
+        color: var(--dark-text-tertiary);
+      }
+    }
+
+    // 背景颜色
+    &-bg {
+      &-primary {
+        background-color: var(--dark-bg-primary) !important;
+      }
+
+      &-secondary {
+        background-color: var(--dark-bg-secondary) !important;
+      }
+
+      &-tertiary {
+        background-color: var(--dark-bg-tertiary) !important;
+      }
+    }
+
+    // 边框颜色
+    &-border {
+      border-color: var(--dark-border) !important;
+
+      &-primary {
+        border-color: var(--dark-border) !important;
+      }
+    }
+
+    // 卡片组件
+    &-card {
+      background-color: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+
+      &:hover {
+        border-color: var(--dark-accent-primary) !important;
+        box-shadow: 0 10px 25px rgba(67, 97, 238, 0.2) !important;
+      }
+    }
+
+    // 按钮组件
+    &-btn {
+      &-primary {
+        background: linear-gradient(135deg, var(--dark-accent-primary), #3f37c9) !important;
+        border-color: var(--dark-accent-primary) !important;
+        color: white !important;
+
+        &:hover {
+          background: linear-gradient(135deg, #3f37c9, var(--dark-accent-primary)) !important;
+          box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4) !important;
+        }
+      }
+
+      &-secondary {
+        background-color: var(--dark-bg-tertiary) !important;
+        border-color: var(--dark-border) !important;
+        color: var(--dark-text-secondary) !important;
+
+        &:hover {
+          background-color: var(--dark-bg-primary) !important;
+          border-color: var(--dark-text-tertiary) !important;
+        }
+      }
+    }
+
+    // 输入框组件
+    &-input {
+      background-color: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+
+      &:focus {
+        border-color: var(--dark-accent-primary) !important;
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2) !important;
+      }
+
+      &::placeholder {
+        color: var(--dark-text-tertiary) !important;
+      }
+    }
+
+    // 导航组件
+    &-nav {
+      background-color: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+
+      &-item {
+        color: var(--dark-text-secondary) !important;
+
+        &:hover {
+          background-color: var(--dark-bg-tertiary) !important;
+          color: var(--dark-text-primary) !important;
+        }
+
+        &.active {
+          background: linear-gradient(135deg, var(--dark-accent-primary), #3f37c9) !important;
+          color: white !important;
+        }
+      }
+    }
+
+    // 标签组件
+    &-tag {
+      background-color: var(--dark-bg-tertiary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-secondary) !important;
+
+      &:hover {
+        background-color: var(--dark-bg-primary) !important;
+        border-color: var(--dark-text-tertiary) !important;
+      }
+
+      &.active {
+        background: linear-gradient(135deg, var(--dark-accent-primary), #3f37c9) !important;
+        border-color: var(--dark-accent-primary) !important;
+        color: white !important;
+      }
+    }
+
+    // 表格组件
+    &-table {
+      background-color: var(--dark-bg-secondary) !important;
+      color: var(--dark-text-primary) !important;
+
+      th {
+        background-color: var(--dark-bg-tertiary) !important;
+        border-color: var(--dark-border) !important;
+      }
+
+      td {
+        border-color: var(--dark-border) !important;
+      }
+
+      tr:hover {
+        background-color: var(--dark-bg-primary) !important;
+      }
+    }
+
+    // 滚动条样式
+    &-scrollbar {
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: var(--dark-bg-primary);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--dark-bg-tertiary);
+        border-radius: 4px;
+
+        &:hover {
+          background: var(--dark-border);
+        }
+      }
+    }
+
+    // 链接样式
+    &-link {
+      color: var(--dark-accent-secondary) !important;
+
+      &:hover {
+        color: var(--dark-accent-primary) !important;
+      }
+    }
+
+    // 加载动画
+    &-loading {
+      .path {
+        stroke: var(--dark-accent-primary) !important;
+      }
+    }
+
+    // 模态框
+    &-modal {
+      background-color: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+
+      &-header {
+        border-color: var(--dark-border) !important;
+      }
+
+      &-footer {
+        border-color: var(--dark-border) !important;
+      }
+    }
+
+    // 下拉菜单
+    &-dropdown {
+      background-color: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.3) !important;
+
+      &-item {
+        color: var(--dark-text-secondary) !important;
+
+        &:hover {
+          background-color: var(--dark-bg-tertiary) !important;
+          color: var(--dark-text-primary) !important;
+        }
+      }
+    }
+
+    // 通知消息
+    &-notification {
+      background-color: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+      box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.3) !important;
+
+      &-success {
+        border-left-color: var(--dark-accent-success) !important;
+      }
+
+      &-warning {
+        border-left-color: var(--dark-accent-warning) !important;
+      }
+
+      &-error {
+        border-left-color: var(--dark-accent-danger) !important;
+      }
+    }
+
+    // 进度条
+    &-progress {
+      background-color: var(--dark-bg-tertiary) !important;
+
+      &-fill {
+        background: linear-gradient(90deg, var(--dark-accent-primary), var(--dark-accent-secondary)) !important;
+      }
+    }
+
+    // 分割线
+    &-divider {
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-tertiary) !important;
+    }
+
+    // 代码块
+    &-code {
+      background-color: var(--dark-bg-tertiary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-accent-secondary) !important;
+    }
+
+    // 引用块
+    &-blockquote {
+      border-left-color: var(--dark-accent-primary) !important;
+      background-color: rgba(67, 97, 238, 0.1) !important;
+      color: var(--dark-text-secondary) !important;
+    }
+
+    // 表单元素
+    &-form {
+      &-label {
+        color: var(--dark-text-secondary) !important;
+      }
+
+      &-control {
+        background-color: var(--dark-bg-secondary) !important;
+        border-color: var(--dark-border) !important;
+        color: var(--dark-text-primary) !important;
+
+        &:focus {
+          border-color: var(--dark-accent-primary) !important;
+          box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2) !important;
+        }
+      }
+
+      &-select {
+        background-color: var(--dark-bg-secondary) !important;
+        border-color: var(--dark-border) !important;
+        color: var(--dark-text-primary) !important;
+
+        &:focus {
+          border-color: var(--dark-accent-primary) !important;
+          box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2) !important;
+        }
+
+        &-option {
+          background-color: var(--dark-bg-secondary) !important;
+          color: var(--dark-text-primary) !important;
+
+          &:hover {
+            background-color: var(--dark-bg-tertiary) !important;
+          }
+        }
+      }
+    }
+
+    // 复选框和单选框
+    &-checkbox,
+    &-radio {
+      &-input {
+        &:checked {
+          background-color: var(--dark-accent-primary) !important;
+          border-color: var(--dark-accent-primary) !important;
+        }
+      }
+
+      &-label {
+        color: var(--dark-text-secondary) !important;
+      }
+    }
+
+    // 开关
+    &-switch {
+      background-color: var(--dark-bg-tertiary) !important;
+      border-color: var(--dark-border) !important;
+
+      &.active {
+        background: linear-gradient(135deg, var(--dark-accent-primary), #3f37c9) !important;
+        border-color: var(--dark-accent-primary) !important;
+      }
+
+      &-handle {
+        background-color: var(--dark-text-primary) !important;
+      }
+    }
+
+    // 时间选择器
+    &-timepicker,
+    &-datepicker {
+      background-color: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+
+      &:focus {
+        border-color: var(--dark-accent-primary) !important;
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2) !important;
+      }
+
+      &-panel {
+        background-color: var(--dark-bg-secondary) !important;
+        border-color: var(--dark-border) !important;
+        box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.3) !important;
+      }
+
+      &-cell {
+        color: var(--dark-text-secondary) !important;
+
+        &:hover {
+          background-color: var(--dark-bg-tertiary) !important;
+          color: var(--dark-text-primary) !important;
+        }
+
+        &.selected {
+          background: linear-gradient(135deg, var(--dark-accent-primary), #3f37c9) !important;
+          color: white !important;
+        }
+
+        &.disabled {
+          color: var(--dark-text-tertiary) !important;
+        }
+      }
+    }
+  }
+
+  // 悬停效果增强
+  @media (any-hover: hover) {
+    .dark-hover {
+      &:hover {
+        background-color: var(--dark-bg-tertiary) !important;
+      }
+    }
+
+    .dark-hover-text {
+      &:hover {
+        color: var(--dark-text-primary) !important;
+      }
+    }
+
+    .dark-hover-border {
+      &:hover {
+        border-color: var(--dark-accent-primary) !important;
+      }
+    }
+  }
+}
+
+// 平滑过渡动画
+.dark-theme,
+.dark {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}

@@ -134,11 +134,12 @@
         class="mask"
         (click)="toggleSidebar(false)"
       ></div>
-      <app-swiper
-        *ngIf="commonService.settings().sideThemeImages.length > 0"
-        [images]="commonService.settings().sideThemeImages"
-        [autoplay]="commonService.settings().sideThemeAutoplay"
+      <app-background-setting
+        *ngIf="backgroundImage"
+        [backgroundImage]="backgroundImage"
         [height]="commonService.settings().sideThemeHeight"
+        [editable]="isEditMode"
+        (backgroundChange)="onBackgroundChange($event)"
       />
       <app-search />
       <component-group />
