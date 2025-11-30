@@ -43,8 +43,6 @@
             let idx = index;
             trackBy: trackByItemWeb
           "
-          nz-tooltip
-          [nzTooltipTitle]="item['__name__'] || item['name']"
           class="dock-item"
           [attr.data-index]="idx"
           (click)="jumpService.goUrl($event, item['url'])"
@@ -57,6 +55,11 @@
             [size]="0"
             [radius]="10"
           />
+          <i
+            class="quote iconfont iconyinru text-neutral-400"
+            *ngIf="item.rId"
+            title=""
+          ></i>
         </div>
       </span>
     </div>

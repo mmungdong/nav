@@ -1,5 +1,6 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
+
 @use './assets/styles/dark.scss' as *;
 @use './assets/styles/improved-dark.scss' as *;
 @use './assets/styles/nprogress.css' as *;
@@ -21,7 +22,7 @@
   font-display: swap;
 }
 .family {
-  font-family: text, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+  font-family: 'Inter', text, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 

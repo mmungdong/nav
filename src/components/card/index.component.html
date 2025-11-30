@@ -21,8 +21,12 @@
         *ngIf="isLogin && dataSource.ok === false"
       ></span>
       <i
-        class="quote iconfont iconyinru text-neutral-400"
+        class="quote iconfont iconyinru text-neutral-400 dark:text-neutral-300"
         *ngIf="isLogin && dataSource.rId"
+        title=""
+        nz-tooltip
+        [nzTooltipTitle]="null"
+        [nzTooltipTrigger]="null"
       ></i>
 
       <div

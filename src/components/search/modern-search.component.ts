@@ -117,9 +117,9 @@ export class ModernSearchComponent {
   }
 
   selectEngineAndFocus(engine: ISearchItemProps, index: number) {
-    this.currentEngine = engine;
-    setDefaultSearchEngine(engine);
-    this.inputFocus();
+    this.currentEngine = engine
+    setDefaultSearchEngine(engine)
+    this.inputFocus()
   }
 
   triggerSearch() {

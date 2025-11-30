@@ -13,20 +13,17 @@ import {
 } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms'
-import { isLogin, getPermissions } from 'src/utils/user'
-import { NzModalModule } from 'ng-zorro-antd/modal'
-import { NzFormModule } from 'ng-zorro-antd/form'
-import { NzInputModule } from 'ng-zorro-antd/input'
-import { NzSwitchModule } from 'ng-zorro-antd/switch'
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox'
-import { NzRateModule } from 'ng-zorro-antd/rate'
-import { LogoComponent } from 'src/components/logo/logo.component'
-import { UploadImageComponent } from 'src/components/upload-image/index.component'
-import { NzIconModule } from 'ng-zorro-antd/icon'
 import { NzButtonModule } from 'ng-zorro-antd/button'
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox'
+import { NzFormModule } from 'ng-zorro-antd/form'
+import { NzIconModule } from 'ng-zorro-antd/icon'
+import { NzInputModule } from 'ng-zorro-antd/input'
 import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzModalModule } from 'ng-zorro-antd/modal'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
+import { NzRateModule } from 'ng-zorro-antd/rate'
 import { NzSelectModule } from 'ng-zorro-antd/select'
+import { NzSwitchModule } from 'ng-zorro-antd/switch'
 import {
   saveUserCollect,
   getWebInfo,
@@ -34,8 +31,10 @@ import {
   getScreenshot,
   createImageFile,
   getImageRepo,
-  getCDN,
+  getCDN
 } from 'src/api'
+import { LogoComponent } from 'src/components/logo/logo.component'
+import { UploadImageComponent } from 'src/components/upload-image/index.component'
 import { SELF_SYMBOL, DEFAULT_SORT_INDEX } from 'src/constants/symbol'
 import { $t } from 'src/locale'
 import { JumpService } from 'src/services/jump'
@@ -49,6 +48,7 @@ import {
   transformSafeHTML,
   transformUnSafeHTML
 } from 'src/utils/pureUtils'
+import { isLogin, getPermissions } from 'src/utils/user'
 import { getTempId, isSelfDevelop } from 'src/utils/utils'
 import { updateByWeb, pushDataByAny } from 'src/utils/web'
 

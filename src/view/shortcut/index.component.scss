@@ -94,6 +94,7 @@
     }
     .dock-item {
       cursor: pointer;
+      position: relative;
     }
     ::ng-deep {
       .icon {
@@ -102,6 +103,13 @@
       .common-icon {
         width: var(--iconWidth, 50px);
         height: var(--iconWidth, 50px);
+      }
+      .dock-item .quote {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        font-size: 14px;
+        pointer-events: none; // 禁用悬停效果，防止出现提示框
       }
     }
   }

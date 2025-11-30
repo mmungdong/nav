@@ -33,15 +33,15 @@ import { $t } from 'src/locale'
 import { settings } from 'src/store'
 import event from 'src/utils/mitt'
 import { getToken, userLogout, isLogin, getPermissions } from 'src/utils/user'
+import { getAuthCode } from 'src/utils/user'
+import { isSelfDevelop } from 'src/utils/utils'
 import { getNavs } from 'src/utils/web'
 
 import { queryString, setLocation, isMobile, getDefaultTheme } from '../utils'
 
-import { isSelfDevelop } from 'src/utils/utils'
 
 import { routes } from './app.routes'
 
-import { getAuthCode } from 'src/utils/user'
 
 @Component({
   standalone: true,

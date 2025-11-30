@@ -19,21 +19,18 @@ export class LogoComponent {
   @Input() size: number = 35
   @Input() radius: number = 3
 
-  backgroundColor: string = '#1890ff'
   firstLetter: string = ''
   isError: boolean = false
 
   constructor() {}
 
   ngOnInit() {
-    if (!this.src) {
-      this.generateColor()
-      this.getFirstLetter()
-    }
+    // 不在初始化时设置firstLetter，只在需要显示首字母时设置
+    // SVG图标应该是默认显示的
   }
 
   private generateColor() {
-    this.backgroundColor = `linear-gradient(45deg, #fff, ${randomColor()} 41%)`
+    // 不再使用backgroundColor属性
   }
 
   private getFirstLetter() {
@@ -44,7 +41,7 @@ export class LogoComponent {
 
   onError() {
     this.isError = true
-    this.generateColor()
-    this.getFirstLetter()
+    // 只在确实需要显示首字母时才设置
+    // this.getFirstLetter()
   }
 }

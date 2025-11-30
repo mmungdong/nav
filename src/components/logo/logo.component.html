@@ -7,10 +7,32 @@
     minWidth: size + 'px',
     minHeight: size + 'px',
     borderRadius: radius + 'px',
-    background: backgroundColor
+    backgroundColor: 'transparent'
   }"
 >
-  {{ firstLetter }}
+  <svg
+    *ngIf="!firstLetter"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 100 100"
+    [ngStyle]="{
+      width: size === 0 ? '35px' : size + 'px',
+      height: size === 0 ? '35px' : size + 'px'
+    }"
+  >
+    <defs>
+      <linearGradient id="defaultGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#4361ee;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#3a0ca3;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <circle cx="50" cy="50" r="45" fill="url(#defaultGradient)" />
+    <path d="M30,35 L70,35 L70,65 L50,50 L30,65 Z" fill="white" />
+  </svg>
+  <span *ngIf="firstLetter" [ngStyle]="{
+    fontSize: size/2 + 'px',
+    color: '#fff',
+    fontWeight: '500'
+  }">{{ firstLetter }}</span>
 </div>
 
 <ng-template #img>
@@ -40,9 +62,31 @@
       minWidth: size + 'px',
       minHeight: size + 'px',
       borderRadius: radius + 'px',
-      background: backgroundColor
+      backgroundColor: 'transparent'
     }"
   >
-    {{ firstLetter }}
+    <svg
+      *ngIf="!firstLetter"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      [ngStyle]="{
+        width: size === 0 ? '35px' : size + 'px',
+        height: size === 0 ? '35px' : size + 'px'
+      }"
+    >
+      <defs>
+        <linearGradient id="defaultGradientError" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#4361ee;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#3a0ca3;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="45" fill="url(#defaultGradientError)" />
+      <path d="M30,35 L70,35 L70,65 L50,50 L30,65 Z" fill="white" />
+    </svg>
+    <span *ngIf="firstLetter" [ngStyle]="{
+      fontSize: size/2 + 'px',
+      color: '#fff',
+      fontWeight: '500'
+    }">{{ firstLetter }}</span>
   </div>
 </ng-template>

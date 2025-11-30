@@ -100,12 +100,12 @@ export class CommonService {
   }
 
   get collapsed() {
-    return false; // Always return false to keep all content expanded
+    return false // Always return false to keep all content expanded
   }
 
   onCollapse = (item: INavThreeProp) => {
     // Disable collapse functionality - always keep content expanded
-    item.collapsed = false;
+    item.collapsed = false
     // No need to save state since we're keeping everything expanded
   }
 

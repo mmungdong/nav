@@ -19,12 +19,25 @@
 ## 字体规范
 
 ### 字体家族
+项目现在使用Inter字体作为首选字体，它是一种专为数字媒体设计的现代无衬线字体，具有优秀的可读性和美观性。
+
 ```scss
 .family {
-  font-family: 'text', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+  font-family: 'Inter', text, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 ```
+
+### 字体粗细
+- Thin: 100
+- Extra Light: 200
+- Light: 300
+- Regular: 400 (默认)
+- Medium: 500
+- Semi Bold: 600
+- Bold: 700
+- Extra Bold: 800
+- Black: 900
 
 ### 字体大小
 - 标题1: 32px
