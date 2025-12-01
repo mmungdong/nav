@@ -396,17 +396,26 @@ export function getTextContent(value: string = ''): string {
 
 export function matchCurrentList(): INavThreeProp[] {
   const { id } = queryString()
-  const { oneIndex, twoIndex } = getClassById(id)
+  const { oneIndex, twoIndex, threeIndex } = getClassById(id)
   let data: INavThreeProp[] = []
   const navsData = navs()
 
   try {
+    // 直接返回匹配的三级分类下的网站数据
     if (
       navsData[oneIndex] &&
-      navsData[oneIndex]?.nav?.length > 0 &&
-      (isLogin || !navsData[oneIndex].nav[twoIndex].ownVisible)
+      navsData[oneIndex]?.nav?.[twoIndex] &&
+      navsData[oneIndex].nav[twoIndex]?.nav?.[threeIndex] &&
+      (isLogin || !navsData[oneIndex].nav[twoIndex].nav[threeIndex].ownVisible)
     ) {
-      data = navsData[oneIndex].nav[twoIndex].nav
+      // 创建一个符合INavThreeProp类型的对象
+      const navItem: INavThreeProp = {
+        id: navsData[oneIndex].nav[twoIndex].nav[threeIndex].id,
+        title: navsData[oneIndex].nav[twoIndex].nav[threeIndex].title,
+        icon: navsData[oneIndex].nav[twoIndex].nav[threeIndex].icon,
+        nav: navsData[oneIndex].nav[twoIndex].nav[threeIndex].nav || []
+      };
+      data = [navItem];
     } else {
       data = []
     }
@@ -499,23 +508,12 @@ export function getClassById(id: unknown, initValue = 0, isWebId = false) {
   const breadcrumb: string[] = []
   const navsData = navs()
 
+  // 新的逻辑：只处理三级分类
   outerLoop: for (let i = 0; i < navsData.length; i++) {
     const item = navsData[i]
-    if (item.id === id) {
-      oneIndex = i
-      breadcrumb.push(item.title)
-      break
-    }
     if (Array.isArray(item.nav)) {
       for (let j = 0; j < item.nav.length; j++) {
         const twoItem = item.nav[j]
-        if (twoItem.id === id) {
-          parentId = item.id
-          oneIndex = i
-          twoIndex = j
-          breadcrumb.push(item.title, twoItem.title)
-          break outerLoop
-        }
         if (Array.isArray(twoItem.nav)) {
           for (let k = 0; k < twoItem.nav.length; k++) {
             const threeItem = twoItem.nav[k]

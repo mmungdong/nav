@@ -23,7 +23,7 @@ import { WebListComponent } from 'src/components/web-list/index.component'
 import { STORAGE_KEY_MAP } from 'src/constants'
 import { $t } from 'src/locale'
 import { navs } from 'src/store'
-import type { INavProps, INavTwoProp } from 'src/types'
+import type { INavProps, INavThreeProp } from 'src/types'
 import { isMobile, isDark } from 'src/utils'
 import { settings } from 'src/store'
 import { CommonService } from 'src/services/common'
@@ -71,11 +71,8 @@ export default class SideComponent {
   navs: INavProps[] = navs()
   isCollapsed = getDefaultCollapsed()
   openSidebar = false
-  menuOpenId = 0
 
   constructor(public commonService: CommonService) {
-    this.menuOpenId = this.navs[commonService.oneIndex]?.id || 0
-
     event.on('EVENT_DARK', (isDark: unknown) => {
       this.isDark = isDark as boolean
     })
@@ -87,10 +84,6 @@ export default class SideComponent {
           this.commonService.settings().logo
       : this.commonService.settings().logo ||
           this.commonService.settings().darkLogo
-  }
-
-  openMenu(item: INavProps) {
-    this.menuOpenId = item.id
   }
 
   toggleSidebar(openSidebar?: boolean) {
@@ -113,7 +106,7 @@ export default class SideComponent {
     }, 300)
   }
 
-  onClickNav(item: INavTwoProp) {
+  onClickNav(item: INavThreeProp) {
     this.commonService.handleClickClass(item.id)
     this.toggleSidebar(false)
   }

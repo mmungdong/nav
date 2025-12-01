@@ -3,7 +3,7 @@
 // See https://github.com/xjh22222228/nav
 
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, computed } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { saveAs } from 'file-saver'
 import { NzButtonModule } from 'ng-zorro-antd/button'
@@ -35,7 +35,7 @@ import {
 import { $t } from 'src/locale'
 import { CommonService } from 'src/services/common'
 import { navs, settings, search, tagList, internal, component } from 'src/store'
-import type { INavTwoProp, INavThreeProp, IWebProps } from 'src/types'
+import type { INavProps, INavThreeProp, IWebProps } from 'src/types'
 import event from 'src/utils/mitt'
 import { cleanWebAttrs } from 'src/utils/pureUtils'
 import { isLogin, removeWebsite } from 'src/utils/user'
@@ -88,6 +88,24 @@ export default class WebpComponent {
   setOfCheckedId = new Set<number>()
   errorWebs: IWebProps[] = []
 
+  // 获取扁平化的三级分类数据
+  flattenedThirdLevelData = computed(() => {
+    const result: INavThreeProp[] = [];
+    const navsData = this.navs();
+
+    for (const firstLevel of navsData) {
+      if (firstLevel.nav) {
+        for (const secondLevel of firstLevel.nav) {
+          if (secondLevel.nav) {
+            result.push(...secondLevel.nav);
+          }
+        }
+      }
+    }
+
+    return result;
+  });
+
   constructor(
     private modal: NzModalService,
     private notification: NzNotificationService,
@@ -111,15 +129,15 @@ export default class WebpComponent {
 
   get threeIndex() {
     try {
-      return this.threeTableData.findIndex(
-        (item) => item.id === this.threeSelect
-      )
+      // 在扁平化的三级分类中查找
+      const flattenedData = this.flattenedThirdLevelData();
+      return flattenedData.findIndex((item) => item.id === this.threeSelect)
     } catch {
       return -1
     }
   }
 
-  get twoTableData(): INavTwoProp[] {
+  get twoTableData(): any[] {
     try {
       return this.navs().find((item) => item.id === this.oneSelect)?.nav || []
     } catch {
@@ -129,9 +147,8 @@ export default class WebpComponent {
 
   get threeTableData(): INavThreeProp[] {
     try {
-      return (
-        this.twoTableData.find((item) => item.id === this.twoSelect)?.nav || []
-      )
+      // 直接返回扁平化的三级分类数据
+      return this.flattenedThirdLevelData()
     } catch {
       return []
     }
@@ -470,47 +487,161 @@ export default class WebpComponent {
     }
   }
 
-  // 上移三级
-  moveThreeUp(index: number): void {
-    try {
-      if (index === 0) {
-        return
-      }
-      const current = this.navs()[this.oneIndex].nav[this.twoIndex].nav[index]
-      const prevData =
-        this.navs()[this.oneIndex].nav[this.twoIndex].nav[index - 1]
+  // 上移三级分类（扁平化结构）
+  moveThirdLevelUp(index: number): void {
+    if (index === 0) {
+      return;
+    }
 
-      this.navs.update((prev) => {
-        prev[this.oneIndex].nav[this.twoIndex].nav[index - 1] = current
-        prev[this.oneIndex].nav[this.twoIndex].nav[index] = prevData
-        setNavs(prev)
-        return prev
-      })
+    // 获取当前的三级分类结构
+    const flattenedData = this.flattenedThirdLevelData();
+    const current = flattenedData[index];
+    const prev = flattenedData[index - 1];
+
+    // 找到这两个分类在原始结构中的位置并交换
+    const navsData = [...this.navs()];
+    let foundCurrent = false;
+    let foundPrev = false;
+
+    for (const firstLevel of navsData) {
+      if (firstLevel.nav) {
+        for (const secondLevel of firstLevel.nav) {
+          if (secondLevel.nav) {
+          }
+        }
+      }
+    }
+
+    // 实现交换逻辑
+    try {
+      const navsData = this.navs();
+      let currentIndex = -1;
+      let prevIndex = -1;
+      let currentParentIndex = -1;
+      let prevParentIndex = -1;
+      let currentSecondLevelIndex = -1;
+      let prevSecondLevelIndex = -1;
+
+      // 查找当前项和前一项的位置
+      outerLoop: for (let i = 0; i < navsData.length; i++) {
+        const firstLevel = navsData[i];
+        if (firstLevel.nav) {
+          for (let j = 0; j < firstLevel.nav.length; j++) {
+            const secondLevel = firstLevel.nav[j];
+            if (secondLevel.nav) {
+              for (let k = 0; k < secondLevel.nav.length; k++) {
+                const thirdLevel = secondLevel.nav[k];
+                if (thirdLevel.id === current.id) {
+                  currentIndex = k;
+                  currentParentIndex = i;
+                  currentSecondLevelIndex = j;
+                  if (currentIndex > 0) {
+                    // 与同一父级的前一个交换
+                    navsData[i].nav[j].nav[k] = secondLevel.nav[k - 1];
+                    navsData[i].nav[j].nav[k - 1] = current;
+                    this.navs.set(navsData);
+                    setNavs(navsData);
+                    return;
+                  } else if (j > 0 && firstLevel.nav[j - 1].nav.length > 0) {
+                    // 与前一个二级分类的最后一个交换
+                    const prevSecondLevelLastIndex = firstLevel.nav[j - 1].nav.length - 1;
+                    const temp = navsData[i].nav[j - 1].nav[prevSecondLevelLastIndex];
+                    navsData[i].nav[j - 1].nav[prevSecondLevelLastIndex] = current;
+                    navsData[i].nav[j].nav[k] = temp;
+                    this.navs.set(navsData);
+                    setNavs(navsData);
+                    return;
+                  } else if (i > 0) {
+                    // 查找前一个一级分类的最后一个二级分类的最后一个三级分类
+                    const prevFirstLevelIndex = i - 1;
+                    const prevFirstLevel = navsData[prevFirstLevelIndex];
+                    if (prevFirstLevel.nav && prevFirstLevel.nav.length > 0) {
+                      const prevSecondLevelIndex = prevFirstLevel.nav.length - 1;
+                      const prevSecondLevel = prevFirstLevel.nav[prevSecondLevelIndex];
+                      if (prevSecondLevel.nav && prevSecondLevel.nav.length > 0) {
+                        const prevThirdLevelIndex = prevSecondLevel.nav.length - 1;
+                        const temp = prevSecondLevel.nav[prevThirdLevelIndex];
+                        navsData[prevFirstLevelIndex].nav[prevSecondLevelIndex].nav[prevThirdLevelIndex] = current;
+                        navsData[i].nav[j].nav[k] = temp;
+                        this.navs.set(navsData);
+                        setNavs(navsData);
+                        return;
+                      }
+                    }
+                  }
+                  break outerLoop;
+                }
+              }
+            }
+          }
+        }
+      }
     } catch (error: any) {
-      this.notification.error($t('_error'), error.message)
+      this.notification.error($t('_error'), error.message);
     }
   }
 
-  // 下移三级
-  moveThreeDown(index: number): void {
-    try {
-      if (
-        index ===
-        this.navs()[this.oneIndex].nav[this.twoIndex].nav.length - 1
-      ) {
-        return
-      }
-      const current = this.navs()[this.oneIndex].nav[this.twoIndex].nav[index]
-      const next = this.navs()[this.oneIndex].nav[this.twoIndex].nav[index + 1]
+  // 下移三级分类（扁平化结构）
+  moveThirdLevelDown(index: number): void {
+    const flattenedData = this.flattenedThirdLevelData();
+    if (index === flattenedData.length - 1) {
+      return;
+    }
 
-      this.navs.update((prev) => {
-        prev[this.oneIndex].nav[this.twoIndex].nav[index + 1] = current
-        prev[this.oneIndex].nav[this.twoIndex].nav[index] = next
-        setNavs(prev)
-        return prev
-      })
+    try {
+      const navsData = this.navs();
+      const current = flattenedData[index];
+
+      // 查找当前项的位置
+      outerLoop: for (let i = 0; i < navsData.length; i++) {
+        const firstLevel = navsData[i];
+        if (firstLevel.nav) {
+          for (let j = 0; j < firstLevel.nav.length; j++) {
+            const secondLevel = firstLevel.nav[j];
+            if (secondLevel.nav) {
+              for (let k = 0; k < secondLevel.nav.length; k++) {
+                const thirdLevel = secondLevel.nav[k];
+                if (thirdLevel.id === current.id) {
+                  if (k < secondLevel.nav.length - 1) {
+                    // 与同一父级的下一个交换
+                    navsData[i].nav[j].nav[k] = secondLevel.nav[k + 1];
+                    navsData[i].nav[j].nav[k + 1] = current;
+                    this.navs.set(navsData);
+                    setNavs(navsData);
+                    return;
+                  } else if (j < firstLevel.nav.length - 1 && firstLevel.nav[j + 1].nav.length > 0) {
+                    // 与下一个二级分类的第一个交换
+                    const temp = navsData[i].nav[j + 1].nav[0];
+                    navsData[i].nav[j + 1].nav[0] = current;
+                    navsData[i].nav[j].nav[k] = temp;
+                    this.navs.set(navsData);
+                    setNavs(navsData);
+                    return;
+                  } else if (i < navsData.length - 1) {
+                    // 查找下一个一级分类的第一个二级分类的第一个三级分类
+                    const nextFirstLevelIndex = i + 1;
+                    const nextFirstLevel = navsData[nextFirstLevelIndex];
+                    if (nextFirstLevel.nav && nextFirstLevel.nav.length > 0) {
+                      const nextSecondLevel = nextFirstLevel.nav[0];
+                      if (nextSecondLevel.nav && nextSecondLevel.nav.length > 0) {
+                        const temp = nextSecondLevel.nav[0];
+                        navsData[nextFirstLevelIndex].nav[0].nav[0] = current;
+                        navsData[i].nav[j].nav[k] = temp;
+                        this.navs.set(navsData);
+                        setNavs(navsData);
+                        return;
+                      }
+                    }
+                  }
+                  break outerLoop;
+                }
+              }
+            }
+          }
+        }
+      }
     } catch (error: any) {
-      this.notification.error($t('_error'), error.message)
+      this.notification.error($t('_error'), error.message);
     }
   }
 
@@ -594,20 +725,8 @@ export default class WebpComponent {
   }
 
   openCreateClass(): any {
-    if (this.tabActive === 0) {
-      event.emit('EDIT_CLASS_OPEN')
-    }
-    // 检测是否有选择
-    if (this.tabActive === 1 && this.oneSelect === -1) {
-      return this.message.error($t('_sel1'))
-    }
-    if (this.tabActive === 2 && this.twoSelect === -1) {
-      return this.message.error($t('_sel2'))
-    }
-    const ids = [-1, this.oneSelect, this.twoSelect]
-    event.emit('EDIT_CLASS_OPEN', {
-      id: ids[this.tabActive]
-    })
+    // 直接创建三级分类
+    event.emit('EDIT_CLASS_OPEN')
   }
 
   openEditClass(data: any) {

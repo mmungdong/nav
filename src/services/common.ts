@@ -5,7 +5,7 @@
 import { Injectable, computed } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { navs, settings } from 'src/store'
-import type { INavThreeProp } from 'src/types'
+import type { INavThreeProp, INavProps, IWebProps } from 'src/types'
 import {
   queryString,
   fuzzySearch,
@@ -32,8 +32,29 @@ export class CommonService {
   oneIndex = 0
   sliceMax = 0
   selectedThreeIndex = 0 // 第三级菜单选中
+  selectedThirdIndex = 0 // 选中的三级分类索引
   searchKeyword = ''
   overIndex = Number.MAX_SAFE_INTEGER
+
+  // 获取所有三级分类的扁平化列表
+  thirdLevelNavs = computed(() => {
+    const result: INavThreeProp[] = [];
+    const navsData = this.navs();
+
+    for (const firstLevel of navsData) {
+      if (firstLevel.nav) {
+        for (const secondLevel of firstLevel.nav) {
+          if (secondLevel.nav) {
+            for (const thirdLevel of secondLevel.nav) {
+              result.push(thirdLevel);
+            }
+          }
+        }
+      }
+    }
+
+    return result;
+  });
 
   constructor(
     private router: Router,

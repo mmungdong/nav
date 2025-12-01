@@ -119,19 +119,41 @@ export class EditClassComponent {
         const ok = updateByClass(id, params)
         ok && this.message.success($t('_modifySuccess'))
       } else {
+        // 创建三级分类
         params['id'] = getTempId()
         params['nav'] = []
 
-        const { oneIndex, twoIndex } = getClassById(id, -1)
-        if (oneIndex !== -1 || twoIndex !== -1) {
-          const ok = pushDataByAny(id, params)
+        // 默认添加到第一个二级分类下，如果没有则创建一个
+        const navsData = navs()
+        if (navsData.length > 0 && navsData[0].nav.length > 0) {
+          // 添加到第一个二级分类下
+          const parentId = navsData[0].nav[0].id
+          const ok = pushDataByAny(parentId, params)
+          ok && this.message.success($t('_addSuccess'))
+        } else if (navsData.length > 0) {
+          // 如果没有二级分类，则添加到第一个一级分类下
+          const parentId = navsData[0].id
+          const ok = pushDataByAny(parentId, params)
           ok && this.message.success($t('_addSuccess'))
         } else {
+          // 如果没有任何分类，则创建一个新的一级分类结构
           navs.update((prev) => {
-            prev.push(params as any)
+            const newFirstLevel = {
+              id: getTempId(),
+              title: '默认分类',
+              icon: '',
+              nav: [{
+                id: getTempId(),
+                title: '默认二级分类',
+                icon: '',
+                nav: [params as any]
+              }]
+            }
+            prev.push(newFirstLevel)
             setNavs(prev)
             return prev
           })
+          this.message.success($t('_addSuccess'))
         }
       }
     } catch (error: any) {
