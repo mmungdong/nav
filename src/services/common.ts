@@ -113,11 +113,11 @@ export class CommonService {
     toggleCollapseAll(this.navs())
   }
 
-  trackByItem(a: any, item: any) {
-    return item.title
+  trackByItem(index: number, item: any) {
+    return item.id || item.title
   }
 
-  trackByItemWeb(a: any, item: any) {
+  trackByItemWeb(index: number, item: any) {
     return item.id
   }
 

@@ -3,7 +3,7 @@
     padding-right: 12px !important;
     padding-left: 10px !important;
   }
-  .sider-compnent {
+  .sider-component {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -16,11 +16,12 @@
 .layout {
   min-height: 100vh;
   &.showSidebar {
-    .sider-compnent {
+    .sider-component {
       transform: translateX(0) !important;
     }
   }
   .inner-layout {
+    transition: background-color 0.3s ease;
     .content {
       margin-bottom: 2rem;
       padding: 10px 70px 0 15px;
@@ -48,10 +49,12 @@
     margin-bottom: 2rem;
     padding: 1.5rem;
     border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(245, 245, 245, 0.6) 100%);
+    background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
     &.highlight {
       animation: highlightAnimation 2s ease;
@@ -62,6 +65,21 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
     }
+  }
+
+  .dark-bg .category-container {
+    background: rgba(30, 30, 30, 0.8);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .dark-bg .category-container:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .dark-bg .sider-component {
+    transition: background-color 0.3s ease;
   }
 
   .category-cards {
@@ -151,6 +169,7 @@
   text-align: center;
   line-height: 70px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   img {
     max-height: 50px;
   }
@@ -167,7 +186,7 @@
   }
 }
 
-.sider-compnent {
+.sider-component {
   z-index: 32;
   position: sticky;
   top: 0;
@@ -175,7 +194,7 @@
   height: 100vh;
   background-color: #fff;
   width: 220px;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease;
   ::ng-deep {
     .ant-layout-sider-children {
       display: flex;

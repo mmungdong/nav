@@ -6,7 +6,7 @@
   />
   <nz-layout>
     <nz-sider
-      class="sider-compnent"
+      class="sider-component"
       nzCollapsible
       [(nzCollapsed)]="isCollapsed"
       [nzTrigger]="null"
@@ -27,8 +27,9 @@
       </div>
 
       <div
-        class="logo dark-bg dark-border-color2 pointer-events-none md:pointer-events-auto"
-        (click)="handleCollapsed()"
+        class="logo"
+        [class.dark-bg]="isDark"
+        [class.dark-border-color2]="isDark"
       >
         <ng-content *ngIf="logoImage; else noLogo">
           <img
@@ -52,7 +53,8 @@
       <ul
         nz-menu
         nzMode="inline"
-        class="sider dark-bg select-none auto-scrollbar"
+        class="sider select-none auto-scrollbar"
+        [class.dark-bg]="isDark"
       >
         <!-- 只显示三级分类 -->
         <li
@@ -78,7 +80,7 @@
       </ul>
     </nz-sider>
 
-    <nz-layout class="inner-layout dark-bg">
+    <nz-layout class="inner-layout" [class.dark-bg]="isDark">
       <div
         *ngIf="openSidebar"
         class="mask"

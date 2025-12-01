@@ -413,7 +413,9 @@ export function matchCurrentList(): INavThreeProp[] {
         id: navsData[oneIndex].nav[twoIndex].nav[threeIndex].id,
         title: navsData[oneIndex].nav[twoIndex].nav[threeIndex].title,
         icon: navsData[oneIndex].nav[twoIndex].nav[threeIndex].icon,
-        nav: navsData[oneIndex].nav[twoIndex].nav[threeIndex].nav || []
+        nav: navsData[oneIndex].nav[twoIndex].nav[threeIndex].nav || [],
+        collapsed: navsData[oneIndex].nav[twoIndex].nav[threeIndex].collapsed,
+        ownVisible: navsData[oneIndex].nav[twoIndex].nav[threeIndex].ownVisible
       };
       data = [navItem];
     } else {

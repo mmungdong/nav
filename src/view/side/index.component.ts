@@ -11,7 +11,6 @@ import { NzSpinModule } from 'ng-zorro-antd/spin'
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip'
 import { TailwindBackgroundComponent } from 'src/components/background-setting/tailwind-background.component'
 import { CardComponent } from 'src/components/card/index.component'
-import { ClassTabsComponent } from 'src/components/class-tabs/index.component'
 import { ComponentGroupComponent } from 'src/components/component-group/index.component'
 import { FixbarComponent } from 'src/components/fixbar/index.component'
 import { FooterComponent } from 'src/components/footer/footer.component'
@@ -57,7 +56,6 @@ function getDefaultCollapsed(): boolean {
     FixbarComponent,
     NzLayoutModule,
     TailwindBackgroundComponent,
-    ClassTabsComponent,
     NzIconModule,
     LogoComponent
   ],
