@@ -300,30 +300,10 @@
 
       <!-- icon style -->
       <div
-        class="card-container icon2 ellipsis dark-white"
+        class="card-container icon2 ellipsis dark-bg-gary dark-white dark-border-color"
         *ngSwitchCase="'icon'"
         (click)="jumpService.goUrl($event, dataSource.url)"
-        [nzTooltipTitle]="titleTemplate"
-        nzTooltipPlacement="bottom"
-        nz-tooltip
       >
-        <ng-template #titleTemplate let-thing>
-          <p>{{ dataSource.__name__ || dataSource.name }}</p>
-          {{ dataSource.__desc__ || dataSource.desc }}
-          <tag-list
-            [data]="dataSource.tags"
-            *ngIf="
-              dataSource.tags?.length ||
-              isLogin ||
-              permissions.edit ||
-              permissions.del
-            "
-            [action]="true"
-            (onDelete)="confirmDel()"
-            (onEdit)="openEditWebMoal()"
-            (onMove)="openMoveWebModal()"
-          />
-        </ng-template>
         <app-logo
           [src]="dataSource.icon"
           [name]="dataSource.__name__ || dataSource.name"

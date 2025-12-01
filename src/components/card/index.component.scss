@@ -488,3 +488,21 @@
     text-overflow: ellipsis;
   }
 }
+
+// 暗色主题适配
+.dark-container {
+  .icon2 {
+    background-color: #21262d;
+    border-color: #30363d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      border-color: rgba(67, 97, 238, 0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .name {
+      color: #fff;
+    }
+  }
+}
