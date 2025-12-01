@@ -34,6 +34,7 @@ export class CommonService {
   selectedThreeIndex = 0 // 第三级菜单选中
   selectedThirdIndex = 0 // 选中的三级分类索引
   searchKeyword = ''
+  currentSelectedThirdId: number | null = null // 当前选中的三级分类ID
   overIndex = Number.MAX_SAFE_INTEGER
 
   // 获取所有三级分类的扁平化列表

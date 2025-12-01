@@ -62,7 +62,7 @@
             let idx = index;
             trackBy: commonService.trackByItem
           "
-          [nzSelected]="commonService.selectedThirdIndex === idx"
+          [nzSelected]="commonService.currentSelectedThirdId === thirdLevelItem.id"
           (click)="onClickNav(thirdLevelItem)"
         >
           <app-logo
@@ -95,51 +95,36 @@
       </div>
 
       <nz-content class="content" id="content">
-        <div
-          class="sticky top-0 left-0 z-10"
-          *ngIf="commonService.currentList.length > 1"
-        >
-          <app-class-tabs [data]="commonService.currentList" />
-        </div>
+        <!-- 展示所有三级分类及其子卡片 -->
         <div class="box">
-          <div *ngIf="commonService.currentList.length > 0; else noData">
-            <div
-              *ngFor="
-                let item of commonService.currentList.slice(
-                  0,
-                  commonService.sliceMax
-                );
-                let i = index;
-                trackBy: commonService.trackByItem
-              "
-            >
-              <div class="nav-wrapper">
-                <app-toolbar-title
-                  [dataSource]="item"
-                  (onCollapse)="commonService.onCollapse(item)"
-                />
+          <div *ngFor="let item of commonService.thirdLevelNavs(); let i = index; trackBy: commonService.trackByItem">
+            <div class="nav-wrapper category-container" [id]="'nav-category-' + item.id">
+              <app-toolbar-title
+                [dataSource]="item"
+                (onCollapse)="commonService.onCollapse(item)"
+              />
 
-                <div
-                  [ngClass]="{
-                    'grid gap-x-4 gap-y-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4':
-                      commonService.settings().sideCardStyle !== 'icon',
-                    'flex flex-wrap gap-x-6 gap-y-4':
-                      commonService.settings().sideCardStyle === 'icon',
-                    '2xl:grid-cols-6':
-                      commonService.settings().sideCardStyle === 'original' ||
-                      commonService.settings().sideCardStyle === 'example',
-                  }"
-                >
-                  <app-card
-                    *ngFor="
-                      let el of item.nav;
-                      trackBy: commonService.trackByItemWeb
-                    "
-                    [cardStyle]="commonService.settings().sideCardStyle"
-                    [dataSource]="el"
-                    class="column-border"
-                  />
-                </div>
+              <div
+                [ngClass]="{
+                  'grid gap-x-4 gap-y-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4':
+                    commonService.settings().sideCardStyle !== 'icon',
+                  'flex flex-wrap gap-x-6 gap-y-4':
+                    commonService.settings().sideCardStyle === 'icon',
+                  '2xl:grid-cols-6':
+                    commonService.settings().sideCardStyle === 'original' ||
+                    commonService.settings().sideCardStyle === 'example',
+                }"
+                class="category-cards"
+              >
+                <app-card
+                  *ngFor="
+                    let el of item.nav;
+                    trackBy: commonService.trackByItemWeb
+                  "
+                  [cardStyle]="commonService.settings().sideCardStyle"
+                  [dataSource]="el"
+                  class="column-border"
+                />
               </div>
             </div>
           </div>

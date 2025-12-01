@@ -107,7 +107,19 @@ export default class SideComponent {
   }
 
   onClickNav(item: INavThreeProp) {
-    this.commonService.handleClickClass(item.id)
+    // 设置当前选中的三级分类ID
+    this.commonService.currentSelectedThirdId = item.id;
+
+    // 定位到指定的三级分类，而不是过滤
+    const element = document.getElementById(`nav-category-${item.id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // 添加临时的高亮效果
+      element.classList.add('highlight');
+      setTimeout(() => {
+        element.classList.remove('highlight');
+      }, 2000);
+    }
     this.toggleSidebar(false)
   }
 }
