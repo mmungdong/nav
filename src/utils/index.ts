@@ -416,8 +416,8 @@ export function matchCurrentList(): INavThreeProp[] {
         nav: navsData[oneIndex].nav[twoIndex].nav[threeIndex].nav || [],
         collapsed: navsData[oneIndex].nav[twoIndex].nav[threeIndex].collapsed,
         ownVisible: navsData[oneIndex].nav[twoIndex].nav[threeIndex].ownVisible
-      };
-      data = [navItem];
+      }
+      data = [navItem]
     } else {
       data = []
     }

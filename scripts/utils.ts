@@ -440,7 +440,12 @@ export function writeTemplate({
   <meta name="keywords" content="${settings.keywords}" id="xjh_2" />
   <meta property="og:image" content="${settings.favicon}">
   <link rel="icon" href="${settings.favicon}" />
-  <link rel ="apple-touch-icon" href="${settings.favicon}" />
+  <link rel="apple-touch-icon" href="${settings.favicon}" />
+  <!-- Preload critical resources -->
+  <link rel="preload" href="styles-LKZMDMT7.css" as="style">
+  <link rel="preload" href="main-YLDCFJCI.js" as="script">
+  <link rel="preload" href="polyfills-SC4UBBZS.js" as="script">
+  <!-- Bundle non-critical JavaScript chunks -->
   ${prefetchLinks}
 `.trim()
 

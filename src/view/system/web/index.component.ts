@@ -90,21 +90,21 @@ export default class WebpComponent {
 
   // 获取扁平化的三级分类数据
   flattenedThirdLevelData = computed(() => {
-    const result: INavThreeProp[] = [];
-    const navsData = this.navs();
+    const result: INavThreeProp[] = []
+    const navsData = this.navs()
 
     for (const firstLevel of navsData) {
       if (firstLevel.nav) {
         for (const secondLevel of firstLevel.nav) {
           if (secondLevel.nav) {
-            result.push(...secondLevel.nav);
+            result.push(...secondLevel.nav)
           }
         }
       }
     }
 
-    return result;
-  });
+    return result
+  })
 
   constructor(
     private modal: NzModalService,
@@ -130,7 +130,7 @@ export default class WebpComponent {
   get threeIndex() {
     try {
       // 在扁平化的三级分类中查找
-      const flattenedData = this.flattenedThirdLevelData();
+      const flattenedData = this.flattenedThirdLevelData()
       return flattenedData.findIndex((item) => item.id === this.threeSelect)
     } catch {
       return -1
@@ -490,18 +490,18 @@ export default class WebpComponent {
   // 上移三级分类（扁平化结构）
   moveThirdLevelUp(index: number): void {
     if (index === 0) {
-      return;
+      return
     }
 
     // 获取当前的三级分类结构
-    const flattenedData = this.flattenedThirdLevelData();
-    const current = flattenedData[index];
-    const prev = flattenedData[index - 1];
+    const flattenedData = this.flattenedThirdLevelData()
+    const current = flattenedData[index]
+    const prev = flattenedData[index - 1]
 
     // 找到这两个分类在原始结构中的位置并交换
-    const navsData = [...this.navs()];
-    let foundCurrent = false;
-    let foundPrev = false;
+    const navsData = [...this.navs()]
+    let foundCurrent = false
+    let foundPrev = false
 
     for (const firstLevel of navsData) {
       if (firstLevel.nav) {
@@ -514,62 +514,62 @@ export default class WebpComponent {
 
     // 实现交换逻辑
     try {
-      const navsData = this.navs();
-      let currentIndex = -1;
-      let prevIndex = -1;
-      let currentParentIndex = -1;
-      let prevParentIndex = -1;
-      let currentSecondLevelIndex = -1;
-      let prevSecondLevelIndex = -1;
+      const navsData = this.navs()
+      let currentIndex = -1
+      let prevIndex = -1
+      let currentParentIndex = -1
+      let prevParentIndex = -1
+      let currentSecondLevelIndex = -1
+      let prevSecondLevelIndex = -1
 
       // 查找当前项和前一项的位置
       outerLoop: for (let i = 0; i < navsData.length; i++) {
-        const firstLevel = navsData[i];
+        const firstLevel = navsData[i]
         if (firstLevel.nav) {
           for (let j = 0; j < firstLevel.nav.length; j++) {
-            const secondLevel = firstLevel.nav[j];
+            const secondLevel = firstLevel.nav[j]
             if (secondLevel.nav) {
               for (let k = 0; k < secondLevel.nav.length; k++) {
-                const thirdLevel = secondLevel.nav[k];
+                const thirdLevel = secondLevel.nav[k]
                 if (thirdLevel.id === current.id) {
-                  currentIndex = k;
-                  currentParentIndex = i;
-                  currentSecondLevelIndex = j;
+                  currentIndex = k
+                  currentParentIndex = i
+                  currentSecondLevelIndex = j
                   if (currentIndex > 0) {
                     // 与同一父级的前一个交换
-                    navsData[i].nav[j].nav[k] = secondLevel.nav[k - 1];
-                    navsData[i].nav[j].nav[k - 1] = current;
-                    this.navs.set(navsData);
-                    setNavs(navsData);
-                    return;
+                    navsData[i].nav[j].nav[k] = secondLevel.nav[k - 1]
+                    navsData[i].nav[j].nav[k - 1] = current
+                    this.navs.set(navsData)
+                    setNavs(navsData)
+                    return
                   } else if (j > 0 && firstLevel.nav[j - 1].nav.length > 0) {
                     // 与前一个二级分类的最后一个交换
-                    const prevSecondLevelLastIndex = firstLevel.nav[j - 1].nav.length - 1;
-                    const temp = navsData[i].nav[j - 1].nav[prevSecondLevelLastIndex];
-                    navsData[i].nav[j - 1].nav[prevSecondLevelLastIndex] = current;
-                    navsData[i].nav[j].nav[k] = temp;
-                    this.navs.set(navsData);
-                    setNavs(navsData);
-                    return;
+                    const prevSecondLevelLastIndex = firstLevel.nav[j - 1].nav.length - 1
+                    const temp = navsData[i].nav[j - 1].nav[prevSecondLevelLastIndex]
+                    navsData[i].nav[j - 1].nav[prevSecondLevelLastIndex] = current
+                    navsData[i].nav[j].nav[k] = temp
+                    this.navs.set(navsData)
+                    setNavs(navsData)
+                    return
                   } else if (i > 0) {
                     // 查找前一个一级分类的最后一个二级分类的最后一个三级分类
-                    const prevFirstLevelIndex = i - 1;
-                    const prevFirstLevel = navsData[prevFirstLevelIndex];
+                    const prevFirstLevelIndex = i - 1
+                    const prevFirstLevel = navsData[prevFirstLevelIndex]
                     if (prevFirstLevel.nav && prevFirstLevel.nav.length > 0) {
-                      const prevSecondLevelIndex = prevFirstLevel.nav.length - 1;
-                      const prevSecondLevel = prevFirstLevel.nav[prevSecondLevelIndex];
+                      const prevSecondLevelIndex = prevFirstLevel.nav.length - 1
+                      const prevSecondLevel = prevFirstLevel.nav[prevSecondLevelIndex]
                       if (prevSecondLevel.nav && prevSecondLevel.nav.length > 0) {
-                        const prevThirdLevelIndex = prevSecondLevel.nav.length - 1;
-                        const temp = prevSecondLevel.nav[prevThirdLevelIndex];
-                        navsData[prevFirstLevelIndex].nav[prevSecondLevelIndex].nav[prevThirdLevelIndex] = current;
-                        navsData[i].nav[j].nav[k] = temp;
-                        this.navs.set(navsData);
-                        setNavs(navsData);
-                        return;
+                        const prevThirdLevelIndex = prevSecondLevel.nav.length - 1
+                        const temp = prevSecondLevel.nav[prevThirdLevelIndex]
+                        navsData[prevFirstLevelIndex].nav[prevSecondLevelIndex].nav[prevThirdLevelIndex] = current
+                        navsData[i].nav[j].nav[k] = temp
+                        this.navs.set(navsData)
+                        setNavs(navsData)
+                        return
                       }
                     }
                   }
-                  break outerLoop;
+                  break outerLoop
                 }
               }
             }
@@ -577,63 +577,63 @@ export default class WebpComponent {
         }
       }
     } catch (error: any) {
-      this.notification.error($t('_error'), error.message);
+      this.notification.error($t('_error'), error.message)
     }
   }
 
   // 下移三级分类（扁平化结构）
   moveThirdLevelDown(index: number): void {
-    const flattenedData = this.flattenedThirdLevelData();
+    const flattenedData = this.flattenedThirdLevelData()
     if (index === flattenedData.length - 1) {
-      return;
+      return
     }
 
     try {
-      const navsData = this.navs();
-      const current = flattenedData[index];
+      const navsData = this.navs()
+      const current = flattenedData[index]
 
       // 查找当前项的位置
       outerLoop: for (let i = 0; i < navsData.length; i++) {
-        const firstLevel = navsData[i];
+        const firstLevel = navsData[i]
         if (firstLevel.nav) {
           for (let j = 0; j < firstLevel.nav.length; j++) {
-            const secondLevel = firstLevel.nav[j];
+            const secondLevel = firstLevel.nav[j]
             if (secondLevel.nav) {
               for (let k = 0; k < secondLevel.nav.length; k++) {
-                const thirdLevel = secondLevel.nav[k];
+                const thirdLevel = secondLevel.nav[k]
                 if (thirdLevel.id === current.id) {
                   if (k < secondLevel.nav.length - 1) {
                     // 与同一父级的下一个交换
-                    navsData[i].nav[j].nav[k] = secondLevel.nav[k + 1];
-                    navsData[i].nav[j].nav[k + 1] = current;
-                    this.navs.set(navsData);
-                    setNavs(navsData);
-                    return;
+                    navsData[i].nav[j].nav[k] = secondLevel.nav[k + 1]
+                    navsData[i].nav[j].nav[k + 1] = current
+                    this.navs.set(navsData)
+                    setNavs(navsData)
+                    return
                   } else if (j < firstLevel.nav.length - 1 && firstLevel.nav[j + 1].nav.length > 0) {
                     // 与下一个二级分类的第一个交换
-                    const temp = navsData[i].nav[j + 1].nav[0];
-                    navsData[i].nav[j + 1].nav[0] = current;
-                    navsData[i].nav[j].nav[k] = temp;
-                    this.navs.set(navsData);
-                    setNavs(navsData);
-                    return;
+                    const temp = navsData[i].nav[j + 1].nav[0]
+                    navsData[i].nav[j + 1].nav[0] = current
+                    navsData[i].nav[j].nav[k] = temp
+                    this.navs.set(navsData)
+                    setNavs(navsData)
+                    return
                   } else if (i < navsData.length - 1) {
                     // 查找下一个一级分类的第一个二级分类的第一个三级分类
-                    const nextFirstLevelIndex = i + 1;
-                    const nextFirstLevel = navsData[nextFirstLevelIndex];
+                    const nextFirstLevelIndex = i + 1
+                    const nextFirstLevel = navsData[nextFirstLevelIndex]
                     if (nextFirstLevel.nav && nextFirstLevel.nav.length > 0) {
-                      const nextSecondLevel = nextFirstLevel.nav[0];
+                      const nextSecondLevel = nextFirstLevel.nav[0]
                       if (nextSecondLevel.nav && nextSecondLevel.nav.length > 0) {
-                        const temp = nextSecondLevel.nav[0];
-                        navsData[nextFirstLevelIndex].nav[0].nav[0] = current;
-                        navsData[i].nav[j].nav[k] = temp;
-                        this.navs.set(navsData);
-                        setNavs(navsData);
-                        return;
+                        const temp = nextSecondLevel.nav[0]
+                        navsData[nextFirstLevelIndex].nav[0].nav[0] = current
+                        navsData[i].nav[j].nav[k] = temp
+                        this.navs.set(navsData)
+                        setNavs(navsData)
+                        return
                       }
                     }
                   }
-                  break outerLoop;
+                  break outerLoop
                 }
               }
             }
@@ -641,7 +641,7 @@ export default class WebpComponent {
         }
       }
     } catch (error: any) {
-      this.notification.error($t('_error'), error.message);
+      this.notification.error($t('_error'), error.message)
     }
   }
 

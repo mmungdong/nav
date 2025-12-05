@@ -21,11 +21,11 @@ import { ToolbarTitleWebComponent } from 'src/components/toolbar-title/index.com
 import { WebListComponent } from 'src/components/web-list/index.component'
 import { STORAGE_KEY_MAP } from 'src/constants'
 import { $t } from 'src/locale'
+import { CommonService } from 'src/services/common'
 import { navs } from 'src/store'
+import { settings } from 'src/store'
 import type { INavProps, INavThreeProp } from 'src/types'
 import { isMobile, isDark } from 'src/utils'
-import { settings } from 'src/store'
-import { CommonService } from 'src/services/common'
 import event from 'src/utils/mitt'
 
 function getDefaultCollapsed(): boolean {
@@ -106,17 +106,17 @@ export default class SideComponent {
 
   onClickNav(item: INavThreeProp) {
     // 设置当前选中的三级分类ID
-    this.commonService.currentSelectedThirdId = item.id;
+    this.commonService.currentSelectedThirdId = item.id
 
     // 定位到指定的三级分类，而不是过滤
-    const element = document.getElementById(`nav-category-${item.id}`);
+    const element = document.getElementById(`nav-category-${item.id}`)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
       // 添加临时的高亮效果
-      element.classList.add('highlight');
+      element.classList.add('highlight')
       setTimeout(() => {
-        element.classList.remove('highlight');
-      }, 2000);
+        element.classList.remove('highlight')
+      }, 2000)
     }
     this.toggleSidebar(false)
   }

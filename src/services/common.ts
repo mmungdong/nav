@@ -39,23 +39,23 @@ export class CommonService {
 
   // 获取所有三级分类的扁平化列表
   thirdLevelNavs = computed(() => {
-    const result: INavThreeProp[] = [];
-    const navsData = this.navs();
+    const result: INavThreeProp[] = []
+    const navsData = this.navs()
 
     for (const firstLevel of navsData) {
       if (firstLevel.nav) {
         for (const secondLevel of firstLevel.nav) {
           if (secondLevel.nav) {
             for (const thirdLevel of secondLevel.nav) {
-              result.push(thirdLevel);
+              result.push(thirdLevel)
             }
           }
         }
       }
     }
 
-    return result;
-  });
+    return result
+  })
 
   constructor(
     private router: Router,
