@@ -2,6 +2,7 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop'
 import { CommonModule } from '@angular/common'
 import { Component, computed } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -35,7 +36,7 @@ import {
 import { $t } from 'src/locale'
 import { CommonService } from 'src/services/common'
 import { navs, settings, search, tagList, internal, component } from 'src/store'
-import type { INavProps, INavThreeProp, IWebProps } from 'src/types'
+import type { INavThreeProp, IWebProps } from 'src/types'
 import event from 'src/utils/mitt'
 import { cleanWebAttrs } from 'src/utils/pureUtils'
 import { isLogin, removeWebsite } from 'src/utils/user'
@@ -63,7 +64,8 @@ import config from '../../../../nav.config.json'
     NzModalModule,
     NzFormModule,
     NzSwitchModule,
-    TagListComponent
+    TagListComponent,
+    CdkDrag
   ],
   selector: 'app-web',
   templateUrl: './index.component.html',
@@ -168,6 +170,35 @@ export default class WebpComponent {
     }
   }
 
+  getEmptyCategories(selectAll: boolean = false) {
+    const emptyCategories: INavThreeProp[] = []
+    const flattenedData = this.flattenedThirdLevelData()
+
+    for (const category of flattenedData) {
+      if (!category.nav || category.nav.length === 0) {
+        emptyCategories.push(category)
+      }
+    }
+
+    if (emptyCategories.length <= 0) {
+      this.message.success('没有空目录!')
+    } else {
+      this.message.warning(`检测出 ${emptyCategories.length} 个空目录`)
+
+      // 如果selectAll为true，则自动选中所有空目录
+      if (selectAll) {
+        this.setOfCheckedId.clear()
+        emptyCategories.forEach(category => {
+          this.setOfCheckedId.add(category.id)
+        })
+        this.checkedAll = false // 不是全部选中，只是选中了空目录
+        this.message.success(`已选中 ${emptyCategories.length} 个空目录`)
+      }
+    }
+
+    return emptyCategories
+  }
+
   getErrorWebs() {
     this.oneSelect = -1
     this.twoSelect = -1
@@ -219,6 +250,14 @@ export default class WebpComponent {
     } else {
       this.setOfCheckedId.delete(id)
     }
+  }
+
+  onBatchMove() {
+    // 批量移动分类功能
+    event.emit('MOVE_WEB', {
+      ids: [...this.setOfCheckedId],
+      level: 3 // 表示三级分类
+    })
   }
 
   async onBatchDelete() {
@@ -493,36 +532,12 @@ export default class WebpComponent {
       return
     }
 
-    // 获取当前的三级分类结构
-    const flattenedData = this.flattenedThirdLevelData()
-    const current = flattenedData[index]
-    const prev = flattenedData[index - 1]
-
-    // 找到这两个分类在原始结构中的位置并交换
-    const navsData = [...this.navs()]
-    let foundCurrent = false
-    let foundPrev = false
-
-    for (const firstLevel of navsData) {
-      if (firstLevel.nav) {
-        for (const secondLevel of firstLevel.nav) {
-          if (secondLevel.nav) {
-          }
-        }
-      }
-    }
-
-    // 实现交换逻辑
     try {
       const navsData = this.navs()
-      let currentIndex = -1
-      let prevIndex = -1
-      let currentParentIndex = -1
-      let prevParentIndex = -1
-      let currentSecondLevelIndex = -1
-      let prevSecondLevelIndex = -1
+      const flattenedData = this.flattenedThirdLevelData()
+      const current = flattenedData[index]
 
-      // 查找当前项和前一项的位置
+      // 查找当前项的位置并与其前一项交换
       outerLoop: for (let i = 0; i < navsData.length; i++) {
         const firstLevel = navsData[i]
         if (firstLevel.nav) {
@@ -532,14 +547,11 @@ export default class WebpComponent {
               for (let k = 0; k < secondLevel.nav.length; k++) {
                 const thirdLevel = secondLevel.nav[k]
                 if (thirdLevel.id === current.id) {
-                  currentIndex = k
-                  currentParentIndex = i
-                  currentSecondLevelIndex = j
-                  if (currentIndex > 0) {
+                  if (k > 0) {
                     // 与同一父级的前一个交换
                     navsData[i].nav[j].nav[k] = secondLevel.nav[k - 1]
                     navsData[i].nav[j].nav[k - 1] = current
-                    this.navs.set(navsData)
+                    this.navs.set([...navsData])
                     setNavs(navsData)
                     return
                   } else if (j > 0 && firstLevel.nav[j - 1].nav.length > 0) {
@@ -548,7 +560,7 @@ export default class WebpComponent {
                     const temp = navsData[i].nav[j - 1].nav[prevSecondLevelLastIndex]
                     navsData[i].nav[j - 1].nav[prevSecondLevelLastIndex] = current
                     navsData[i].nav[j].nav[k] = temp
-                    this.navs.set(navsData)
+                    this.navs.set([...navsData])
                     setNavs(navsData)
                     return
                   } else if (i > 0) {
@@ -563,7 +575,7 @@ export default class WebpComponent {
                         const temp = prevSecondLevel.nav[prevThirdLevelIndex]
                         navsData[prevFirstLevelIndex].nav[prevSecondLevelIndex].nav[prevThirdLevelIndex] = current
                         navsData[i].nav[j].nav[k] = temp
-                        this.navs.set(navsData)
+                        this.navs.set([...navsData])
                         setNavs(navsData)
                         return
                       }
@@ -592,7 +604,7 @@ export default class WebpComponent {
       const navsData = this.navs()
       const current = flattenedData[index]
 
-      // 查找当前项的位置
+      // 查找当前项的位置并与其下一项交换
       outerLoop: for (let i = 0; i < navsData.length; i++) {
         const firstLevel = navsData[i]
         if (firstLevel.nav) {
@@ -606,7 +618,7 @@ export default class WebpComponent {
                     // 与同一父级的下一个交换
                     navsData[i].nav[j].nav[k] = secondLevel.nav[k + 1]
                     navsData[i].nav[j].nav[k + 1] = current
-                    this.navs.set(navsData)
+                    this.navs.set([...navsData])
                     setNavs(navsData)
                     return
                   } else if (j < firstLevel.nav.length - 1 && firstLevel.nav[j + 1].nav.length > 0) {
@@ -614,7 +626,7 @@ export default class WebpComponent {
                     const temp = navsData[i].nav[j + 1].nav[0]
                     navsData[i].nav[j + 1].nav[0] = current
                     navsData[i].nav[j].nav[k] = temp
-                    this.navs.set(navsData)
+                    this.navs.set([...navsData])
                     setNavs(navsData)
                     return
                   } else if (i < navsData.length - 1) {
@@ -627,7 +639,7 @@ export default class WebpComponent {
                         const temp = nextSecondLevel.nav[0]
                         navsData[nextFirstLevelIndex].nav[0].nav[0] = current
                         navsData[i].nav[j].nav[k] = temp
-                        this.navs.set(navsData)
+                        this.navs.set([...navsData])
                         setNavs(navsData)
                         return
                       }
@@ -722,6 +734,55 @@ export default class WebpComponent {
   hanldeThreeSelect(id: number) {
     this.threeSelect = id
     this.onTabChange()
+  }
+
+  onDragDrop(event: any) {
+    const dragEvent: CdkDragDrop<INavThreeProp[], INavThreeProp[]> = event;
+    // 获取当前的导航数据
+    const navsData = this.navs()
+
+    // 创建一个映射来跟踪每个三级分类的位置
+    const categoryMap = new Map<number, { firstIndex: number, secondIndex: number, thirdIndex: number }>()
+
+    // 遍历所有导航数据，建立位置映射
+    for (let i = 0; i < navsData.length; i++) {
+      const firstLevel = navsData[i]
+      if (firstLevel.nav) {
+        for (let j = 0; j < firstLevel.nav.length; j++) {
+          const secondLevel = firstLevel.nav[j]
+          if (secondLevel.nav) {
+            for (let k = 0; k < secondLevel.nav.length; k++) {
+              const thirdLevel = secondLevel.nav[k]
+              categoryMap.set(thirdLevel.id, { firstIndex: i, secondIndex: j, thirdIndex: k })
+            }
+          }
+        }
+      }
+    }
+
+    // 获取被拖拽的两个项目的ID
+    const previousItem = this.flattenedThirdLevelData()[event.previousIndex]
+    const currentItem = this.flattenedThirdLevelData()[event.currentIndex]
+
+    if (previousItem && currentItem) {
+      // 获取它们在原始结构中的位置
+      const previousPos = categoryMap.get(previousItem.id)
+      const currentPos = categoryMap.get(currentItem.id)
+
+      if (previousPos && currentPos) {
+        // 交换两个项目的位置
+        this.navs.update((prev) => {
+          const temp = prev[previousPos.firstIndex].nav[previousPos.secondIndex].nav[previousPos.thirdIndex]
+          prev[previousPos.firstIndex].nav[previousPos.secondIndex].nav[previousPos.thirdIndex] =
+            prev[currentPos.firstIndex].nav[currentPos.secondIndex].nav[currentPos.thirdIndex]
+          prev[currentPos.firstIndex].nav[currentPos.secondIndex].nav[currentPos.thirdIndex] = temp
+          return [...prev]
+        })
+
+        // 保存更改
+        setNavs(this.navs())
+      }
+    }
   }
 
   openCreateClass(): any {

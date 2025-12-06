@@ -2,6 +2,7 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
+import { CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
@@ -27,7 +28,8 @@ import type { ITagPropValues } from 'src/types'
     NzInputModule,
     NzTableModule,
     NzPopconfirmModule,
-    NzSwitchModule
+    NzSwitchModule,
+    CdkDrag
   ],
   providers: [NzModalService, NzMessageService],
   selector: 'system-tag',
@@ -36,9 +38,11 @@ import type { ITagPropValues } from 'src/types'
 })
 export default class SystemTagComponent {
   readonly $t = $t
-  tagList: ITagPropValues[] = tagList()
+  tagList: ITagPropValues[] = tagList().map(tag => ({ ...tag, ['checked']: false }))
   submitting: boolean = false
   incrementId = Math.max(...tagList().map((item) => Number(item.id))) + 1
+  allChecked = false
+  selectedTagIds = new Set<number>()
 
   constructor(
     private message: NzMessageService,
@@ -85,7 +89,8 @@ export default class SystemTagComponent {
       name: '',
       color: '#f50000',
       desc: '',
-      isInner: false
+      isInner: false,
+      ['checked']: false
     })
   }
 
@@ -114,22 +119,23 @@ export default class SystemTagComponent {
       return
     }
     const tagList = [...this.tagList].map((item) => {
-      item.sort ||= ''
-      if (typeof item.sort === 'string') {
-        item.sort = item.sort.trim()
+      // 移除checked属性，因为它不应该被保存
+      const { ['checked']: checkedValue, ...cleanItem } = item
+
+      cleanItem.sort ||= ''
+      if (typeof cleanItem.sort === 'string') {
+        cleanItem.sort = cleanItem.sort.trim()
       }
-      if (item.sort === '') {
-        delete item.sort
+      if (cleanItem.sort === '') {
+        delete cleanItem.sort
       }
-      if (Number.isNaN(Number(item.sort))) {
-        delete item.sort
+      if (Number.isNaN(Number(cleanItem.sort))) {
+        delete cleanItem.sort
       }
-      if (item.sort != null) {
-        item.sort = Number(item.sort)
+      if (cleanItem.sort != null) {
+        cleanItem.sort = Number(cleanItem.sort)
       }
-      return {
-        ...item
-      }
+      return cleanItem
     })
     this.modal.info({
       nzTitle: $t('_syncDataOut'),
@@ -150,6 +156,51 @@ export default class SystemTagComponent {
           })
       }
     })
+  }
+
+  onAllChecked(checked: boolean) {
+    this.tagList = this.tagList.map(tag => ({
+      ...tag,
+      ['checked']: checked
+    }))
+    this.selectedTagIds.clear()
+    if (checked) {
+      this.tagList.forEach(tag => this.selectedTagIds.add(tag.id))
+    }
+    this.allChecked = checked
+  }
+
+  onItemChecked(tag: ITagPropValues, checked: boolean) {
+    tag['checked'] = checked
+    if (checked) {
+      this.selectedTagIds.add(tag.id)
+    } else {
+      this.selectedTagIds.delete(tag.id)
+    }
+    // 更新全选状态
+    this.allChecked = this.tagList.every(t => t['checked'])
+  }
+
+  onBatchDelete() {
+    if (this.selectedTagIds.size <= 0) {
+      return
+    }
+
+    this.modal.confirm({
+      nzTitle: $t('_confirmDel'),
+      nzContent: `确定要删除选中的 ${this.selectedTagIds.size} 个标签吗？`,
+      nzOnOk: () => {
+        this.tagList = this.tagList.filter(tag => !this.selectedTagIds.has(tag.id))
+        this.selectedTagIds.clear()
+        this.allChecked = false
+        this.message.success($t('_delSuccess'))
+      }
+    })
+  }
+
+  onDragDrop(event: any) {
+    const dragEvent: CdkDragDrop<ITagPropValues[], ITagPropValues[]> = event;
+    moveItemInArray(this.tagList, dragEvent.previousIndex, dragEvent.currentIndex)
   }
 
   trackByItem(i: number, item: any) {

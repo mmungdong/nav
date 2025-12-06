@@ -37,7 +37,7 @@ export class CommonService {
   currentSelectedThirdId: number | null = null // 当前选中的三级分类ID
   overIndex = Number.MAX_SAFE_INTEGER
 
-  // 获取所有三级分类的扁平化列表
+  // 获取所有三级分类的扁平化列表（过滤掉空目录）
   thirdLevelNavs = computed(() => {
     const result: INavThreeProp[] = []
     const navsData = this.navs()
@@ -47,7 +47,10 @@ export class CommonService {
         for (const secondLevel of firstLevel.nav) {
           if (secondLevel.nav) {
             for (const thirdLevel of secondLevel.nav) {
-              result.push(thirdLevel)
+              // 过滤掉空目录（没有网站的分类）
+              if (thirdLevel.nav && thirdLevel.nav.length > 0) {
+                result.push(thirdLevel)
+              }
             }
           }
         }

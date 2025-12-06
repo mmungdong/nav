@@ -18,8 +18,8 @@ import {
   IWebTag
 } from '../types'
 
-import { isLogin } from './user'
 import { preloadCriticalResources, prefetchResources, lazyLoadImages, preloadImportantImages } from './preload'
+import { isLogin } from './user'
 
 export {
   preloadCriticalResources,

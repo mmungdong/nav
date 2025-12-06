@@ -17,6 +17,7 @@ const zhCN: Record<string, any> = {
   _del: '删除',
   _apply: '申请收录',
   _batchDel: '批量删除',
+  _batchMove: '批量移动',
   _confirmDel: '您确定要删除吗？',
   _default: '综合',
   _title: '标题',
@@ -271,6 +272,8 @@ const zhCN: Record<string, any> = {
   _errCountTip:
     '上次检测出 {count} 个网站链接失效，具体到管理网站查看，如需再次检测状态直接点保存触发事件即可。',
   _getErrorWeb: '检索异常网站',
+  _getEmptyCategory: '检索空目录',
+  _selectAllEmptyCategory: '全选空目录',
   _categoryName: '分类名称',
   _dayIs: '今天是',
   _rest: '休',

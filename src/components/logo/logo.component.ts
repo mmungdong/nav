@@ -3,8 +3,9 @@
 // See https://github.com/xjh22222228/nav
 import { CommonModule } from '@angular/common'
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
-import { SkeletonComponent } from '../skeleton/index.component'
 import { randomColor, getTextContent } from 'src/utils'
+
+import { SkeletonComponent } from '../skeleton/index.component'
 
 @Component({
   standalone: true,

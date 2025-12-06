@@ -86,18 +86,18 @@ export class AppComponent {
 
   private setupPreload() {
     // 预加载关键CSS资源
-    const criticalStyles: string[] = [];
+    const criticalStyles: string[] = []
 
     // 预获取非关键资源
-    const prefetchResourcesList: string[] = [];
+    const prefetchResourcesList: string[] = []
 
     // 执行预加载
     if (criticalStyles.length > 0) {
-      preloadCriticalResources(criticalStyles);
+      preloadCriticalResources(criticalStyles)
     }
 
     if (prefetchResourcesList.length > 0) {
-      prefetchResources(prefetchResourcesList);
+      prefetchResources(prefetchResourcesList)
     }
   }
 
@@ -120,7 +120,7 @@ export class AppComponent {
               try {
                 await this.swUpdate.activateUpdate()
                 window.location.reload()
-              } catch (error) {
+              } catch (error: any) {
                 this.message.error($t('_updateFailed'))
               }
             }

@@ -1,24 +1,40 @@
-<button
-  nz-button
-  (click)="handleAdd()"
-  [nzLoading]="submitting"
-  class="add-btn"
->
-  {{ $t('_addRow') }}
-</button>
+<div class="mb-4">
+  <button
+    nz-button
+    (click)="handleAdd()"
+    [nzLoading]="submitting"
+    class="add-btn"
+  >
+    {{ $t('_addRow') }}
+  </button>
 
-<button
-  nz-button
-  nzType="primary"
-  (click)="handleSubmit()"
-  [nzLoading]="submitting"
->
-  {{ $t('_save') }}
-</button>
+  <button
+    nz-button
+    nzType="primary"
+    (click)="handleSubmit()"
+    [nzLoading]="submitting"
+    class="ml-2.5"
+  >
+    {{ $t('_save') }}
+  </button>
 
-<nz-table #basicTable [nzData]="tagList" [nzShowPagination]="false">
+  <button
+    nz-button
+    nzDanger
+    (click)="onBatchDelete()"
+    [disabled]="selectedTagIds.size <= 0"
+    class="ml-2.5"
+  >
+    {{ $t('_batchDel') }}
+  </button>
+</div>
+
+<nz-table #basicTable [nzData]="tagList" [nzShowPagination]="false" cdkDropList (cdkDropListDropped)="onDragDrop($event)">
   <thead>
     <tr>
+      <th class="min-w-[50px]">
+        <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="onAllChecked($event)"></label>
+      </th>
       <th class="min-w-[80px]">{{ $t('_noPublic') }}</th>
       <th class="min-w-[150px]">{{ $t('_tagName') }}</th>
       <th class="min-w-[160px]">{{ $t('_color') }}</th>
@@ -28,7 +44,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of tagList; index as idx; trackBy: trackByItem">
+    <tr *ngFor="let data of tagList; index as idx; trackBy: trackByItem" cdkDrag cdkDragLockAxis="y">
+      <td>
+        <label nz-checkbox [(ngModel)]="data['checked']" (ngModelChange)="onItemChecked(data, $event)"></label>
+      </td>
       <td>
         <nz-switch [(ngModel)]="data.noOpen"></nz-switch>
       </td>

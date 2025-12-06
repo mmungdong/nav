@@ -60,12 +60,23 @@
       >
         {{ $t('_batchDel') }}
       </button>
+      <button
+        (click)="onBatchMove()"
+        nz-button
+        nzType="primary"
+        style="margin-left: 10px"
+        [disabled]="setOfCheckedId.size <= 0"
+      >
+        {{ $t('_batchMove') }}
+      </button>
 
       <nz-table
         #rowSelectionTable
         #basicTable
         [nzData]="flattenedThirdLevelData()"
         [nzShowPagination]="false"
+        cdkDropList
+        (cdkDropListDropped)="onDragDrop($event)"
         style="margin-top: 15px"
       >
         <thead>
@@ -84,7 +95,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of flattenedThirdLevelData(); let idx = index">
+          <tr *ngFor="let data of flattenedThirdLevelData(); let idx = index" cdkDrag cdkDragLockAxis="y">
             <td
               [nzChecked]="setOfCheckedId.has(data.id)"
               (nzCheckedChange)="onItemChecked(data.id, $event)"
@@ -162,6 +173,22 @@
         (click)="getErrorWebs()"
       >
         {{ $t('_getErrorWeb') }}
+      </button>
+      <button
+        class="!ml-2.5"
+        nz-button
+        nzType="primary"
+        (click)="getEmptyCategories()"
+      >
+        {{ $t('_getEmptyCategory') }}
+      </button>
+      <button
+        class="!ml-2.5"
+        nz-button
+        nzType="primary"
+        (click)="getEmptyCategories(true)"
+      >
+        {{ $t('_selectAllEmptyCategory') }}
       </button>
 
       <nz-table

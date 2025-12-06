@@ -8,12 +8,12 @@
  */
 export function preloadCriticalResources(urls: string[]): void {
   urls.forEach(url => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = getResourceType(url);
-    link.href = url;
-    document.head.appendChild(link);
-  });
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = getResourceType(url)
+    link.href = url
+    document.head.appendChild(link)
+  })
 }
 
 /**
@@ -22,11 +22,11 @@ export function preloadCriticalResources(urls: string[]): void {
  */
 export function prefetchResources(urls: string[]): void {
   urls.forEach(url => {
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.href = url;
-    document.head.appendChild(link);
-  });
+    const link = document.createElement('link')
+    link.rel = 'prefetch'
+    link.href = url
+    document.head.appendChild(link)
+  })
 }
 
 /**
@@ -36,15 +36,15 @@ export function prefetchResources(urls: string[]): void {
  */
 function getResourceType(url: string): string {
   if (url.endsWith('.css')) {
-    return 'style';
+    return 'style'
   } else if (url.endsWith('.js')) {
-    return 'script';
+    return 'script'
   } else if (/\.(jpe?g|png|gif|webp|svg)$/.test(url)) {
-    return 'image';
+    return 'image'
   } else if (url.endsWith('.woff') || url.endsWith('.woff2') || url.endsWith('.ttf')) {
-    return 'font';
+    return 'font'
   } else {
-    return 'fetch';
+    return 'fetch'
   }
 }
 
@@ -57,26 +57,26 @@ export function lazyLoadImages(imgElements: HTMLImageElement[]): void {
     const imageObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const img = entry.target as HTMLImageElement;
-          img.src = img.dataset['src'] || '';
-          img.classList.remove('lazy');
-          observer.unobserve(img);
+          const img = entry.target as HTMLImageElement
+          img.src = img.dataset['src'] || ''
+          img.classList.remove('lazy')
+          observer.unobserve(img)
         }
-      });
-    });
+      })
+    })
 
     imgElements.forEach(img => {
       if (img.dataset['src']) {
-        imageObserver.observe(img);
+        imageObserver.observe(img)
       }
-    });
+    })
   } else {
     // 降级处理：直接加载所有图片
     imgElements.forEach(img => {
       if (img.dataset['src']) {
-        img.src = img.dataset['src'];
+        img.src = img.dataset['src']
       }
-    });
+    })
   }
 }
 
@@ -86,7 +86,7 @@ export function lazyLoadImages(imgElements: HTMLImageElement[]): void {
  */
 export function preloadImportantImages(urls: string[]): void {
   urls.forEach(url => {
-    const img = new Image();
-    img.src = url;
-  });
+    const img = new Image()
+    img.src = url
+  })
 }

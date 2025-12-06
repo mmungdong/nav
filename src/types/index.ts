@@ -87,8 +87,15 @@ export interface IHtmlProps {
   bgColor: string
 }
 
+export interface IHolidayItem {
+  id: number
+  name: string
+  date: string
+  isHoliday: boolean
+}
+
 export interface IHolidayProps {
-  items: any[]
+  items: IHolidayItem[]
 }
 
 export interface IComponentItemProps
