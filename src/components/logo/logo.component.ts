@@ -3,11 +3,12 @@
 // See https://github.com/xjh22222228/nav
 import { CommonModule } from '@angular/common'
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
+import { SkeletonComponent } from '../skeleton/index.component'
 import { randomColor, getTextContent } from 'src/utils'
 
 @Component({
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SkeletonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-logo',
   templateUrl: './logo.component.html',
@@ -21,6 +22,7 @@ export class LogoComponent {
 
   firstLetter: string = ''
   isError: boolean = false
+  isLoading: boolean = true
 
   constructor() {}
 
@@ -39,8 +41,13 @@ export class LogoComponent {
     }
   }
 
+  onLoad() {
+    this.isLoading = false
+  }
+
   onError() {
     this.isError = true
+    this.isLoading = false
     // 只在确实需要显示首字母时才设置
     // this.getFirstLetter()
   }

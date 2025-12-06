@@ -260,12 +260,21 @@
             <app-breadcrumb [data]="dataSource" />
           </div>
 
+          <!-- 骨架屏占位符 -->
+          <app-skeleton
+            *ngIf="!dataSource.img && !dataSource.icon"
+            [width]="'100%'"
+            [height]="'100%'"
+            [borderRadius]="'12px'"
+            class="poster-skeleton"
+          ></app-skeleton>
+
           <img
             class="poster-img"
             [src]="dataSource.img || dataSource.icon"
             draggable="false"
             loading="lazy"
-            *ngIf="!isError"
+            *ngIf="!isError && (dataSource.img || dataSource.icon)"
             (error)="isError = true"
           />
 

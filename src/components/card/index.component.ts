@@ -15,6 +15,7 @@ import { saveUserCollect } from 'src/api'
 import { BreadcrumbComponent } from 'src/components/breadcrumb/index.component'
 import { LogoComponent } from 'src/components/logo/logo.component'
 import { SearchType } from 'src/components/search/index'
+import { SkeletonComponent } from 'src/components/skeleton/index.component'
 import { TagListComponent } from 'src/components/tag-list/index.component'
 import { CODE_SYMBOL } from 'src/constants/symbol'
 import { $t, isZhCN } from 'src/locale'
@@ -43,7 +44,8 @@ import { setNavs } from 'src/utils/web'
     NzIconModule,
     NzPopconfirmModule,
     SafeHtmlPipe,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    SkeletonComponent
   ],
   selector: 'app-card',
   templateUrl: './index.component.html',

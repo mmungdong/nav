@@ -19,6 +19,14 @@ import {
 } from '../types'
 
 import { isLogin } from './user'
+import { preloadCriticalResources, prefetchResources, lazyLoadImages, preloadImportantImages } from './preload'
+
+export {
+  preloadCriticalResources,
+  prefetchResources,
+  lazyLoadImages,
+  preloadImportantImages
+}
 
 export function randomInt(max: number) {
   return Math.floor(Math.random() * max)

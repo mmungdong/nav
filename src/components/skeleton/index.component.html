@@ -1,0 +1,16 @@
+<div
+  class="skeleton"
+  [ngClass]="{
+    'skeleton-text': variant === 'text',
+    'skeleton-circular': variant === 'circular',
+    'skeleton-rectangular': variant === 'rectangular',
+    'skeleton-pulse': animation === 'pulse',
+    'skeleton-wave': animation === 'wave'
+  }"
+  [ngStyle]="{
+    width: typeof width === 'number' ? width + 'px' : width,
+    height: typeof height === 'number' ? height + 'px' : height,
+    borderRadius: variant === 'circular' ? '50%' : borderRadius
+  }"
+>
+</div>

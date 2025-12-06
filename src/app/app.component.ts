@@ -38,6 +38,7 @@ import { isSelfDevelop } from 'src/utils/utils'
 import { getNavs } from 'src/utils/web'
 
 import { queryString, setLocation, isMobile, getDefaultTheme } from '../utils'
+import { preloadCriticalResources, prefetchResources } from '../utils/preload'
 
 
 import { routes } from './app.routes'
@@ -80,6 +81,28 @@ export class AppComponent {
       }
     })
     this.setupSwUpdate()
+    this.setupPreload()
+  }
+
+  private setupPreload() {
+    // 预加载关键CSS资源
+    const criticalStyles: string[] = [
+      // 在这里添加关键CSS资源的路径
+    ];
+
+    // 预获取非关键资源
+    const prefetchResourcesList: string[] = [
+      // 在这里添加需要预获取的资源路径
+    ];
+
+    // 执行预加载
+    if (criticalStyles.length > 0) {
+      preloadCriticalResources(criticalStyles);
+    }
+
+    if (prefetchResourcesList.length > 0) {
+      prefetchResources(prefetchResourcesList);
+    }
   }
 
   private setupSwUpdate() {

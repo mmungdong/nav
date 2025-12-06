@@ -36,6 +36,22 @@
 </div>
 
 <ng-template #img>
+  <!-- 骨架屏占位符 -->
+  <app-skeleton
+    *ngIf="isLoading && !isError"
+    [width]="size"
+    [height]="size"
+    [borderRadius]="radius + 'px'"
+    class="skeleton-placeholder"
+    [ngStyle]="{
+      width: size === 0 ? '' : size + 'px',
+      height: size === 0 ? '' : size + 'px',
+      minWidth: size + 'px',
+      minHeight: size + 'px',
+      borderRadius: radius + 'px'
+    }"
+  ></app-skeleton>
+
   <img
     *ngIf="!isError"
     [src]="src"
@@ -50,6 +66,7 @@
     draggable="false"
     loading="lazy"
     [alt]="firstLetter"
+    (load)="onLoad()"
     (error)="onError()"
   />
 
