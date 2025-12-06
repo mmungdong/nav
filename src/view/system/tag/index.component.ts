@@ -2,7 +2,6 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
@@ -28,8 +27,7 @@ import type { ITagPropValues } from 'src/types'
     NzInputModule,
     NzTableModule,
     NzPopconfirmModule,
-    NzSwitchModule,
-    CdkDrag
+    NzSwitchModule
   ],
   providers: [NzModalService, NzMessageService],
   selector: 'system-tag',
@@ -198,10 +196,6 @@ export default class SystemTagComponent {
     })
   }
 
-  onDragDrop(event: any) {
-    const dragEvent: CdkDragDrop<ITagPropValues[], ITagPropValues[]> = event;
-    moveItemInArray(this.tagList, dragEvent.previousIndex, dragEvent.currentIndex)
-  }
 
   trackByItem(i: number, item: any) {
     return item.id

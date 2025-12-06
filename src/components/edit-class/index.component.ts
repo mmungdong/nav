@@ -156,6 +156,9 @@ export class EditClassComponent {
           this.message.success($t('_addSuccess'))
         }
       }
+
+      // 刷新列表
+      event.emit('WEB_REFRESH')
     } catch (error: any) {
       this.message.error(error.message)
     } finally {

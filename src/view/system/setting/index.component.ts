@@ -68,8 +68,7 @@ const extraForm: Record<string, any> = {
     NzCheckboxModule,
     NzPopconfirmModule,
     UploadImageComponent,
-    UploadFileComponent,
-    CardComponent
+    UploadFileComponent
   ],
   selector: 'system-setting',
   templateUrl: './index.component.html',
@@ -121,13 +120,8 @@ export default class SystemSettingComponent {
     private notification: NzNotificationService,
     private message: NzMessageService
   ) {
-    const themeMap: Record<ThemeType, number> = {
-      Light: 0,
-      Super: 1,
-      Sim: 2,
-      Side: 3,
-      Shortcut: 4,
-      App: 5
+    const themeMap: Partial<Record<ThemeType, number>> = {
+      Side: 0
     }
     this.tabActive = themeMap[this.settings.theme] || 0
 

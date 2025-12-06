@@ -1,25 +1,5 @@
 <div class="fixbar" [class.openFixbar]="open">
-  <div
-    class="common-show wrapper dark-bg dark-border-color dark-action-hover"
-    nz-dropdown
-    [nzDropdownMenu]="menu"
-    nzPlacement="topLeft"
-    *ngIf="settings.showThemeToggle"
-  >
-    <img src="assets/img/theme.svg" />
-  </div>
-  <nz-dropdown-menu #menu="nzDropdownMenu">
-    <ul nz-menu nzSelectable>
-      <li
-        nz-menu-item
-        *ngFor="let themeItem of themeList"
-        (click)="toggleTheme(themeItem)"
-      >
-        {{ themeItem.name }}
-      </li>
-    </ul>
-  </nz-dropdown-menu>
-
+  
   <div
     class="common-show wrapper dark-bg dark-border-color dark-action-hover"
     (click)="handleSync()"

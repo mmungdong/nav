@@ -50,32 +50,6 @@ export class FixbarComponent {
   entering = false
   checking = false
   open = localStorage.getItem(STORAGE_KEY_MAP.FIXBAR_OPEN) === 'true'
-  themeList = [
-    {
-      name: $t('_switchTo') + ' Super',
-      url: '/super'
-    },
-    {
-      name: $t('_switchTo') + ' Light',
-      url: '/light'
-    },
-    {
-      name: $t('_switchTo') + ' Sim',
-      url: '/sim'
-    },
-    {
-      name: $t('_switchTo') + ' Side',
-      url: '/side'
-    },
-    {
-      name: $t('_switchTo') + ' Shortcut',
-      url: '/shortcut'
-    },
-    {
-      name: $t('_switchTo') + ' App',
-      url: '/app'
-    }
-  ]
 
   constructor(
     private message: NzMessageService,
@@ -86,36 +60,9 @@ export class FixbarComponent {
       addDark()
     }
 
-    const url = this.router.url.split('?')[0]
-    const defaultTheme = this.settings.theme?.toLowerCase?.()
-    this.themeList = this.themeList
-      .map((item) => {
-        if (item.url === '/' + defaultTheme) {
-          item.url = '/'
-        }
-        return item
-      })
-      .filter((t) => {
-        if (
-          url === '/' &&
-          url + this.settings.theme?.toLowerCase?.() === t.url
-        ) {
-          return false
-        }
-        if (
-          t.url === '/' &&
-          url === t.url + this.settings.theme?.toLowerCase?.()
-        ) {
-          return false
-        }
-        return t.url !== url
-      })
 
     if (!isLogin) {
-      const isShowFace =
-        [this.settings.showLanguage, this.settings.showThemeToggle].filter(
-          Boolean
-        ).length === 0
+      const isShowFace = !this.settings.showLanguage
       if (isShowFace) {
         this.open = true
         this.isShowFace = false
@@ -146,14 +93,6 @@ export class FixbarComponent {
     }
   }
 
-  toggleTheme(theme: any) {
-    this.router.navigate([theme.url], {
-      queryParams: {
-        _: Date.now()
-      },
-      queryParamsHandling: 'merge'
-    })
-  }
 
   goTop() {
     const config: ScrollToOptions = {

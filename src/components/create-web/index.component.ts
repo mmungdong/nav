@@ -453,6 +453,8 @@ export class CreateWebComponent {
         const ok = updateByWeb(this.detail.id, payload as IWebProps)
         if (ok) {
           this.message.success($t('_modifySuccess'))
+          // 刷新列表
+          event.emit('WEB_REFRESH')
         } else {
           this.message.error('Update failed')
         }
@@ -478,6 +480,8 @@ export class CreateWebComponent {
           const ok = pushDataByAny(this.parentId, payload)
           if (ok) {
             this.message.success($t('_addSuccess'))
+            // 刷新列表
+            event.emit('WEB_REFRESH')
             if (this.isMove) {
               event.emit('MOVE_WEB', {
                 data: [payload]

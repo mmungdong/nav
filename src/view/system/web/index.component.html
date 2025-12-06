@@ -75,8 +75,6 @@
         #basicTable
         [nzData]="flattenedThirdLevelData()"
         [nzShowPagination]="false"
-        cdkDropList
-        (cdkDropListDropped)="onDragDrop($event)"
         style="margin-top: 15px"
       >
         <thead>
@@ -95,7 +93,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of flattenedThirdLevelData(); let idx = index" cdkDrag cdkDragLockAxis="y">
+          <tr *ngFor="let data of flattenedThirdLevelData(); let idx = index">
             <td
               [nzChecked]="setOfCheckedId.has(data.id)"
               (nzCheckedChange)="onItemChecked(data.id, $event)"

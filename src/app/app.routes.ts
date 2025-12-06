@@ -1,45 +1,15 @@
 import { Routes } from '@angular/router'
-import { getDefaultTheme } from 'src/utils'
-import { isSelfDevelop } from 'src/utils/utils'
-import LightComponent from 'src/view/light/index.component'
-import MobileComponent from 'src/view/mobile/index.component'
-import ShortcutComponent from 'src/view/shortcut/index.component'
 import SideComponent from 'src/view/side/index.component'
-import SimComponent from 'src/view/sim/index.component'
-import SuperComponent from 'src/view/super/index.component'
 
 export const routes: Routes = [
   {
-    path: 'sim',
-    component: SimComponent,
-    data: {}
-  },
-  {
-    path: 'super',
-    component: SuperComponent,
+    path: '',
+    component: SideComponent,
     data: {}
   },
   {
     path: 'side',
     component: SideComponent,
-    data: {}
-  },
-  {
-    path: 'shortcut',
-    component: ShortcutComponent,
-    data: {}
-  },
-
-  {
-    path: 'light',
-    component: LightComponent,
-    data: {
-      data: {}
-    }
-  },
-  {
-    path: 'app',
-    component: MobileComponent,
     data: {}
   },
   {
@@ -97,22 +67,9 @@ export const routes: Routes = [
         redirectTo: '/system/web'
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: '/side'
   }
 ]
-
-// 自有部署异步
-if (!isSelfDevelop) {
-  const defaultTheme = getDefaultTheme().toLowerCase()
-  const hasDefault = routes.find((item) => item.path === defaultTheme)
-  if (hasDefault) {
-    routes.push({
-      ...hasDefault,
-      path: '**'
-    })
-  } else {
-    routes.push({
-      path: '**',
-      redirectTo: '/' + defaultTheme
-    })
-  }
-}

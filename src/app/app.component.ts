@@ -37,7 +37,7 @@ import { getAuthCode } from 'src/utils/user'
 import { isSelfDevelop } from 'src/utils/utils'
 import { getNavs } from 'src/utils/web'
 
-import { queryString, setLocation, isMobile, getDefaultTheme } from '../utils'
+import { setLocation } from '../utils'
 import { preloadCriticalResources, prefetchResources } from '../utils/preload'
 
 
@@ -150,9 +150,7 @@ export class AppComponent {
   }
 
   private updateDocumentTitle() {
-    const url = this.router.url.split('?')[0].slice(1)
-    const theme = (url === '' ? settings().theme : url).toLowerCase()
-    const title = settings()[`${theme}DocTitle`]
+    const title = settings().sideDocTitle
     document.title = title || window.__TITLE__ || settings().title
   }
 
@@ -171,11 +169,10 @@ export class AppComponent {
       getContentes().then(() => {
         setTimeout(() => {
           const currentRoutes = this.router.config
-          const defaultTheme = getDefaultTheme().toLowerCase()
-          const hasDefault = routes.find(
-            (item: any) => item.path === defaultTheme
-          )
           const isHome = this.router.url.split('?')[0] === '/'
+          const hasDefault = routes.find(
+            (item: any) => item.path === 'side'
+          )
           if (hasDefault) {
             this.router.resetConfig([
               ...currentRoutes,
@@ -186,7 +183,7 @@ export class AppComponent {
             ])
           }
           if (isHome && !href.includes('/system')) {
-            this.router.navigate([defaultTheme])
+            this.router.navigate(['side'])
           }
           this.updateDocumentTitle()
           this.fetchIng = false
@@ -230,8 +227,8 @@ export class AppComponent {
             }
           }
         })
-        .catch((e: any) => {
-          if (e.code !== 'ERR_NETWORK') {
+        .catch((_e: any) => {
+          if (_e.code !== 'ERR_NETWORK') {
             userLogout()
             setTimeout(() => {
               location.reload()
@@ -259,21 +256,9 @@ export class AppComponent {
   }
 
   private goRoute() {
-    // is App
-    const { appTheme } = settings()
-    if (appTheme !== 'Current' && isMobile()) {
-      if (location.href.includes('system')) {
-        return
-      }
-
-      const url = (this.router.url.split('?')[0] || '').toLowerCase()
-      const { id, q } = queryString()
-      const queryParams = { id, q }
-      const path = '/' + String(appTheme).toLowerCase()
-
-      if (!url.includes(path)) {
-        this.router.navigate([path], { queryParams })
-      }
+    // Always use side theme
+    if (location.href.includes('system')) {
+      return
     }
   }
 

@@ -2,7 +2,6 @@
 // Copyright @ 2018-present xiejiahe. All rights reserved.
 // See https://github.com/xjh22222228/nav
 
-import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop'
 import { CommonModule } from '@angular/common'
 import { Component, computed } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -64,8 +63,7 @@ import config from '../../../../nav.config.json'
     NzModalModule,
     NzFormModule,
     NzSwitchModule,
-    TagListComponent,
-    CdkDrag
+    TagListComponent
   ],
   selector: 'app-web',
   templateUrl: './index.component.html',
@@ -292,6 +290,8 @@ export default class WebpComponent {
         isClass: true,
         onComplete: () => {
           this.onTabChange()
+          // 刷新列表
+          event.emit('WEB_REFRESH')
         }
       })
       break
@@ -303,6 +303,8 @@ export default class WebpComponent {
           if (this.errorWebs.length) {
             this.getErrorWebs()
           }
+          // 刷新列表
+          event.emit('WEB_REFRESH')
         },
         onComplete: () => {
           this.onTabChange()
@@ -773,54 +775,6 @@ export default class WebpComponent {
     this.onTabChange()
   }
 
-  onDragDrop(event: any) {
-    const dragEvent: CdkDragDrop<INavThreeProp[], INavThreeProp[]> = event;
-    // 获取当前的导航数据
-    const navsData = this.navs()
-
-    // 创建一个映射来跟踪每个三级分类的位置
-    const categoryMap = new Map<number, { firstIndex: number, secondIndex: number, thirdIndex: number }>()
-
-    // 遍历所有导航数据，建立位置映射
-    for (let i = 0; i < navsData.length; i++) {
-      const firstLevel = navsData[i]
-      if (firstLevel.nav) {
-        for (let j = 0; j < firstLevel.nav.length; j++) {
-          const secondLevel = firstLevel.nav[j]
-          if (secondLevel.nav) {
-            for (let k = 0; k < secondLevel.nav.length; k++) {
-              const thirdLevel = secondLevel.nav[k]
-              categoryMap.set(thirdLevel.id, { firstIndex: i, secondIndex: j, thirdIndex: k })
-            }
-          }
-        }
-      }
-    }
-
-    // 获取被拖拽的两个项目的ID
-    const previousItem = this.flattenedThirdLevelData()[event.previousIndex]
-    const currentItem = this.flattenedThirdLevelData()[event.currentIndex]
-
-    if (previousItem && currentItem) {
-      // 获取它们在原始结构中的位置
-      const previousPos = categoryMap.get(previousItem.id)
-      const currentPos = categoryMap.get(currentItem.id)
-
-      if (previousPos && currentPos) {
-        // 交换两个项目的位置
-        this.navs.update((prev) => {
-          const temp = prev[previousPos.firstIndex].nav[previousPos.secondIndex].nav[previousPos.thirdIndex]
-          prev[previousPos.firstIndex].nav[previousPos.secondIndex].nav[previousPos.thirdIndex] =
-            prev[currentPos.firstIndex].nav[currentPos.secondIndex].nav[currentPos.thirdIndex]
-          prev[currentPos.firstIndex].nav[currentPos.secondIndex].nav[currentPos.thirdIndex] = temp
-          return [...prev]
-        })
-
-        // 保存更改
-        setNavs(this.navs())
-      }
-    }
-  }
 
   openCreateClass(): any {
     // 直接创建三级分类
