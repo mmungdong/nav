@@ -103,6 +103,7 @@
             <div class="nav-wrapper category-container" [id]="'nav-category-' + item.id">
               <app-toolbar-title
                 [dataSource]="item"
+                [showActions]="false"
                 (onCollapse)="commonService.onCollapse(item)"
               />
 

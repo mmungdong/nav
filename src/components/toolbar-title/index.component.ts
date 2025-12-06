@@ -23,6 +23,7 @@ import { isSelfDevelop } from 'src/utils/utils'
 })
 export class ToolbarTitleWebComponent {
   @Input() dataSource!: INavThreeProp
+  @Input() showActions: boolean = true
   @Output() onCollapse = new EventEmitter()
 
   readonly $t = $t

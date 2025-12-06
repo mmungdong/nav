@@ -60,15 +60,6 @@
       >
         {{ $t('_batchDel') }}
       </button>
-      <button
-        (click)="onBatchMove()"
-        nz-button
-        nzType="primary"
-        style="margin-left: 10px"
-        [disabled]="setOfCheckedId.size <= 0"
-      >
-        {{ $t('_batchMove') }}
-      </button>
 
       <nz-table
         #rowSelectionTable
@@ -107,9 +98,6 @@
               }}</a>
               <a (click)="openEditClass(data)" class="ml-2.5">{{
                 $t('_edit')
-              }}</a>
-              <a (click)="openMoveWebModal(data, 3)" class="ml-2.5">{{
-                $t('_move')
               }}</a>
             </td>
             <td>

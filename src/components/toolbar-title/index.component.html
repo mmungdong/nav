@@ -16,7 +16,7 @@
       }}{{ dataSource.nav.length < 10 ? '' : ' x ' + dataSource.nav.length }}
     </span>
 
-    <ng-content *ngIf="dataSource.id !== -1">
+    <ng-content *ngIf="dataSource.id !== -1 && showActions">
       <i
         nz-icon
         nzType="edit"
