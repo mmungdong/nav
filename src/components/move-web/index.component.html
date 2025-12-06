@@ -6,48 +6,17 @@
   (nzOnOk)="hanldeOk()"
 >
   <ng-container *nzModalContent>
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-      <nz-select
-        [ngModel]="oneSelect"
-        nzShowSearch
-        [nzPlaceHolder]="$t('_sel1')"
-        (ngModelChange)="hanldeOneSelect($event)"
-        class="w-full md:w-[160px]"
-      >
-        <nz-option
-          *ngFor="let item of navs()"
-          [nzLabel]="item.title"
-          [nzValue]="item.id"
-        >
-        </nz-option>
-      </nz-select>
-
-      <nz-select
-        [ngModel]="twoSelect"
-        nzShowSearch
-        [nzPlaceHolder]="$t('_sel2')"
-        (ngModelChange)="hanldeTwoSelect($event)"
-        class="w-full md:w-[160px]"
-        *ngIf="level > 2"
-      >
-        <nz-option
-          *ngFor="let item of twoOptions"
-          [nzLabel]="item.title"
-          [nzValue]="item.id"
-        >
-        </nz-option>
-      </nz-select>
-
+    <!-- 添加直接选择三级分类的选项 -->
+    <div class="mb-4">
       <nz-select
         [ngModel]="threeSelect"
         nzShowSearch
         [nzPlaceHolder]="$t('_sel3')"
         (ngModelChange)="hanldeThreeSelect($event)"
-        class="w-full md:w-[160px]"
-        *ngIf="level === 4"
+        class="w-full"
       >
         <nz-option
-          *ngFor="let item of threeOptions"
+          *ngFor="let item of flattenedThirdLevelData()"
           [nzLabel]="item.title"
           [nzValue]="item.id"
         >

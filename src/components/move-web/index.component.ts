@@ -3,7 +3,7 @@
 // See https://github.com/xjh22222228/nav
 
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, computed } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox'
 import { NzMessageService } from 'ng-zorro-antd/message'
@@ -46,6 +46,24 @@ export class MoveWebComponent {
   showModal = false
   level = 4
   id = -1
+
+  // 获取扁平化的三级分类数据
+  flattenedThirdLevelData = computed(() => {
+    const result: INavThreeProp[] = []
+    const navsData = this.navs()
+
+    for (const firstLevel of navsData) {
+      if (firstLevel.nav) {
+        for (const secondLevel of firstLevel.nav) {
+          if (secondLevel.nav) {
+            result.push(...secondLevel.nav)
+          }
+        }
+      }
+    }
+
+    return result
+  })
 
   constructor(private message: NzMessageService) {
     event.on('MOVE_WEB', (props: any) => {
@@ -104,18 +122,28 @@ export class MoveWebComponent {
     try {
       const moveItems: INavTwoProp[] & IWebProps[] & INavThreeProp[] =
         JSON.parse(JSON.stringify(this.moveItems))
+
+      // 对于所有级别的移动操作，现在都只需要选择三级分类
+      if (this.threeSelect == -1) {
+        return this.message.error($t('_sel3'))
+      }
+
+      const { oneIndex, twoIndex, threeIndex } = getClassById(
+        this.threeSelect
+      )
+
       if (this.level === 2) {
-        if (this.oneSelect == -1) {
-          return this.message.error($t('_sel1'))
-        }
-        const { oneIndex } = getClassById(this.oneSelect)
+        // 移动二级分类到指定的三级分类下（实际上是将其下的网站移动到目标三级分类）
         for (const item of moveItems) {
           const id = item.id
-          const has = this.navs()[oneIndex].nav.some((item) => item.id === id)
+          const has = this.navs()[oneIndex].nav[twoIndex].nav[
+            threeIndex
+          ].nav.some((item) => item.id === id)
           if (has) {
             this.message.error($t('_sameExists'))
             return
           }
+
           if (this.isCopy) {
             tempId -= 1
             if (this.isSame) {
@@ -128,25 +156,23 @@ export class MoveWebComponent {
             await deleteClassByIds([item.rId || id], !!item.rId)
           }
           this.navs.update((prev) => {
-            prev[oneIndex].nav.unshift(item)
+            prev[oneIndex].nav[twoIndex].nav[threeIndex].nav.unshift(item)
             return prev
           })
           this.message.success(`"${item.title}" ${$t('_moveSuccess')}`)
         }
       } else if (this.level === 3) {
-        if (this.twoSelect == -1) {
-          return this.message.error($t('_sel2'))
-        }
-        const { oneIndex, twoIndex } = getClassById(this.twoSelect)
+        // 移动三级分类到指定的三级分类下（实际上是将其下的网站移动到目标三级分类）
         for (const item of moveItems) {
           const id = item.id
-          const has = this.navs()[oneIndex].nav[twoIndex].nav.some(
-            (item) => item.id === id
-          )
+          const has = this.navs()[oneIndex].nav[twoIndex].nav[
+            threeIndex
+          ].nav.some((item) => item.id === id)
           if (has) {
             this.message.error($t('_sameExists'))
             return
           }
+
           if (this.isCopy) {
             tempId -= 1
             if (this.isSame) {
@@ -159,18 +185,13 @@ export class MoveWebComponent {
             await deleteClassByIds([item.rId || id], !!item.rId)
           }
           this.navs.update((prev) => {
-            prev[oneIndex].nav[twoIndex].nav.unshift(item)
+            prev[oneIndex].nav[twoIndex].nav[threeIndex].nav.unshift(item)
             return prev
           })
           this.message.success(`"${item.title}" ${$t('_moveSuccess')}`)
         }
       } else if (this.level === 4) {
-        if (this.threeSelect == -1) {
-          return this.message.error($t('_sel3'))
-        }
-        const { oneIndex, twoIndex, threeIndex } = getClassById(
-          this.threeSelect
-        )
+        // 移动网站到指定的三级分类下
         for (const item of moveItems) {
           const id = item.id
           const has = this.navs()[oneIndex].nav[twoIndex].nav[

@@ -139,6 +139,28 @@ export default class WebpComponent {
     }
   }
 
+  // 获取三级分类在原始嵌套结构中的位置信息
+  getThreeLevelPosition() {
+    const navsData = this.navs()
+    for (let i = 0; i < navsData.length; i++) {
+      const firstLevel = navsData[i]
+      if (firstLevel.nav) {
+        for (let j = 0; j < firstLevel.nav.length; j++) {
+          const secondLevel = firstLevel.nav[j]
+          if (secondLevel.nav) {
+            for (let k = 0; k < secondLevel.nav.length; k++) {
+              const thirdLevel = secondLevel.nav[k]
+              if (thirdLevel.id === this.threeSelect) {
+                return { oneIndex: i, twoIndex: j, threeIndex: k }
+              }
+            }
+          }
+        }
+      }
+    }
+    return { oneIndex: -1, twoIndex: -1, threeIndex: -1 }
+  }
+
   get twoTableData(): any[] {
     try {
       return this.navs().find((item) => item.id === this.oneSelect)?.nav || []
@@ -663,19 +685,27 @@ export default class WebpComponent {
       if (index === 0) {
         return
       }
+
+      // 获取三级分类在原始结构中的位置
+      const { oneIndex, twoIndex, threeIndex } = this.getThreeLevelPosition()
+
+      if (oneIndex === -1 || twoIndex === -1 || threeIndex === -1) {
+        return
+      }
+
       const current =
-        this.navs()[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav[
+        this.navs()[oneIndex].nav[twoIndex].nav[threeIndex].nav[
           index
         ]
       const prevData =
-        this.navs()[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav[
+        this.navs()[oneIndex].nav[twoIndex].nav[threeIndex].nav[
           index - 1
         ]
       this.navs.update((prev) => {
-        prev[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav[
+        prev[oneIndex].nav[twoIndex].nav[threeIndex].nav[
           index - 1
         ] = current
-        prev[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav[index] =
+        prev[oneIndex].nav[twoIndex].nav[threeIndex].nav[index] =
           prevData
         setNavs(prev)
         return prev
@@ -688,27 +718,34 @@ export default class WebpComponent {
   // 下移网站
   moveWebDown(index: number): void {
     try {
+      // 获取三级分类在原始结构中的位置
+      const { oneIndex, twoIndex, threeIndex } = this.getThreeLevelPosition()
+
+      if (oneIndex === -1 || twoIndex === -1 || threeIndex === -1) {
+        return
+      }
+
       if (
         index ===
-        this.navs()[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav
+        this.navs()[oneIndex].nav[twoIndex].nav[threeIndex].nav
           .length -
           1
       ) {
         return
       }
       const current =
-        this.navs()[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav[
+        this.navs()[oneIndex].nav[twoIndex].nav[threeIndex].nav[
           index
         ]
       const next =
-        this.navs()[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav[
+        this.navs()[oneIndex].nav[twoIndex].nav[threeIndex].nav[
           index + 1
         ]
       this.navs.update((prev) => {
-        prev[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav[
+        prev[oneIndex].nav[twoIndex].nav[threeIndex].nav[
           index + 1
         ] = current
-        prev[this.oneIndex].nav[this.twoIndex].nav[this.threeIndex].nav[index] =
+        prev[oneIndex].nav[twoIndex].nav[threeIndex].nav[index] =
           next
         setNavs(prev)
         return prev
