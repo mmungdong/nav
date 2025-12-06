@@ -86,14 +86,10 @@ export class AppComponent {
 
   private setupPreload() {
     // 预加载关键CSS资源
-    const criticalStyles: string[] = [
-      // 在这里添加关键CSS资源的路径
-    ];
+    const criticalStyles: string[] = [];
 
     // 预获取非关键资源
-    const prefetchResourcesList: string[] = [
-      // 在这里添加需要预获取的资源路径
-    ];
+    const prefetchResourcesList: string[] = [];
 
     // 执行预加载
     if (criticalStyles.length > 0) {

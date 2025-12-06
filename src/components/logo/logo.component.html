@@ -39,9 +39,6 @@
   <!-- 骨架屏占位符 -->
   <app-skeleton
     *ngIf="isLoading && !isError"
-    [width]="size"
-    [height]="size"
-    [borderRadius]="radius + 'px'"
     class="skeleton-placeholder"
     [ngStyle]="{
       width: size === 0 ? '' : size + 'px',
