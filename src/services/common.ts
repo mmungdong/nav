@@ -72,6 +72,11 @@ export class CommonService {
       this.selectedThreeIndex = threeIndex
       this.searchKeyword = q
 
+      // 从URL参数中恢复当前选中的三级分类ID
+      if (id) {
+        this.currentSelectedThirdId = Number(id)
+      }
+
       if (q) {
         this.currentList = fuzzySearch(this.navs(), q)
       } else {
