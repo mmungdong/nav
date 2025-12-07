@@ -28,6 +28,7 @@ import { DeleteModalComponent } from 'src/components/delete-modal/index.componen
 import { EditClassComponent } from 'src/components/edit-class/index.component'
 import { IconGitComponent } from 'src/components/icon-git/icon-git.component'
 import { MoveWebComponent } from 'src/components/move-web/index.component'
+import { FeedbackComponent } from 'src/components/feedback/feedback.component'
 import { getLocale } from 'src/locale'
 import { $t } from 'src/locale'
 import { settings } from 'src/store'
@@ -54,7 +55,8 @@ import { routes } from './app.routes'
     CommonModule,
     MoveWebComponent,
     CreateWebComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    FeedbackComponent
   ],
   selector: 'app-xiejiahe',
   templateUrl: './app.component.html',

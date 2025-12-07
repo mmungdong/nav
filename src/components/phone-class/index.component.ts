@@ -41,5 +41,14 @@ export class PhoneClassComponent {
   handleClickTwo(e: any, data: INavTwoProp) {
     this.commonService.handleClickClass(data.id)
     scrollIntoViewLeft(this.parentRef.nativeElement, e.target)
+
+    // 添加触摸反馈效果
+    const target = e.target as HTMLElement
+    target.classList.add('touch-active')
+
+    // 移除触摸反馈效果
+    setTimeout(() => {
+      target.classList.remove('touch-active')
+    }, 150)
   }
 }

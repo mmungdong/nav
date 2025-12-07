@@ -7,17 +7,40 @@
   overflow: hidden;
   overflow-x: auto;
   white-space: nowrap;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   .nav-item {
-    padding: 4px 12px;
+    padding: 8px 16px;
     cursor: pointer;
     border-radius: 50px;
     color: #666;
+    transition: all 0.2s ease-in-out;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     &.active {
-      background-color: #1e80ff !important;
+      background: linear-gradient(135deg, #4361ee, #3f37c9);
       color: #fff !important;
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
     }
+
     &:hover {
-      background: rgba(0, 0, 0, 0.03);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &.touch-active {
+      transform: scale(0.95);
+      background: rgba(0, 0, 0, 0.1);
     }
   }
 }

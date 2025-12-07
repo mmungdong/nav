@@ -1,0 +1,27 @@
+<div class="feedback">
+  <div
+    *ngFor="let item of feedbackItems; let i = index"
+    class="feedback-item"
+    [ngClass]="item.type"
+    [class.dismiss]="item.dismissing"
+    (click)="dismiss(item, i)"
+  >
+    <div class="feedback-content">
+      <div class="feedback-icon">
+        <i
+          class="iconfont"
+          [ngClass]="{
+            'iconcheck-circle': item.type === 'success',
+            'iconclose-circle': item.type === 'error',
+            'iconwarning-circle': item.type === 'warning',
+            'iconinfo-circle': item.type === 'info'
+          }"
+        ></i>
+      </div>
+      <div class="feedback-message">{{ item.message }}</div>
+      <div class="feedback-close">
+        <i class="iconfont iconclose"></i>
+      </div>
+    </div>
+  </div>
+</div>

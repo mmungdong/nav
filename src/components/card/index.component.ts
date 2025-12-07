@@ -177,4 +177,25 @@ export class CardComponent {
     const rate = Number(this.dataSource.rate ?? 0)
     return rate > 0 ? `${rate.toFixed(1)}${isZhCN() ? '分' : ''}` : ''
   }
+
+  /**
+   * 处理触摸开始事件
+   * @param event 触摸事件
+   */
+  onTouchStart(event: any): void {
+    const target = event.currentTarget as HTMLElement;
+    target.classList.add('touch-active');
+  }
+
+  /**
+   * 处理触摸结束事件
+   * @param event 触摸事件
+   */
+  onTouchEnd(event: any): void {
+    const target = event.currentTarget as HTMLElement;
+    // 延迟移除active状态，确保用户能看到反馈效果
+    setTimeout(() => {
+      target.classList.remove('touch-active');
+    }, 150);
+  }
 }

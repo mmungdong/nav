@@ -5,12 +5,16 @@
   pointer-events: none;
   border-radius: 6px;
   object-fit: cover;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.2s ease-in-out;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
@@ -21,12 +25,16 @@
   align-items: center;
   font-size: 18px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.2s ease-in-out;
   background-color: transparent !important;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 
   svg {
@@ -35,7 +43,7 @@
 }
 
 .common-icon {
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.2s ease-in-out;
 }
 
 .skeleton-placeholder {

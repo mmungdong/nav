@@ -2,51 +2,63 @@
 
 // 更丝滑的基础过渡动画
 .smooth-transition-all {
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.2s ease-in-out;
 }
 
 .smooth-transition-colors {
-  transition: background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-              border-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-              color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: background-color 0.2s ease-in-out,
+              border-color 0.2s ease-in-out,
+              color 0.2s ease-in-out;
 }
 
 .smooth-transition-transform {
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.2s ease-in-out;
 }
 
 .smooth-transition-opacity {
-  transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: opacity 0.2s ease-in-out;
 }
 
 .smooth-transition-shadow {
-  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 // 改进的悬停效果
 .smooth-hover-lift {
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-              box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.2s ease-in-out,
+              box-shadow 0.2s ease-in-out;
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
 .smooth-hover-scale {
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.2s ease-in-out;
 
   &:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
 .smooth-hover-glow {
-  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: box-shadow 0.2s ease-in-out;
 
   &:hover {
-    box-shadow: 0 0 20px rgba(67, 97, 238, 0.4);
+    box-shadow: 0 0 12px rgba(67, 97, 238, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
@@ -208,11 +220,15 @@
 
 // 改进的卡片悬停动画
 .smooth-card-hover {
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.2s ease-in-out;
 
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 

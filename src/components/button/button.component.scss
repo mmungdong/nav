@@ -1,0 +1,230 @@
+// 按钮组件样式
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+
+  // 基础按钮
+  &.btn-primary {
+    background: #4361ee;
+    color: white;
+
+    &:hover {
+      background: #3a56e0;
+    }
+
+    &:active {
+      background: #354fcc;
+      transform: scale(0.98);
+    }
+
+    &:focus {
+      outline: 2px solid #4361ee;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+  }
+
+  // 次要按钮
+  &.btn-secondary {
+    background: #f1f3f5;
+    color: #212529;
+
+    &:hover {
+      background: #e9ecef;
+    }
+
+    &:active {
+      background: #dee2e6;
+      transform: scale(0.98);
+    }
+
+    &:focus {
+      outline: 2px solid #4361ee;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      background: #e9ecef;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+  }
+
+  // 轮廓按钮
+  &.btn-outline {
+    background: transparent;
+    color: #4361ee;
+    border: 1px solid #4361ee;
+
+    &:hover {
+      background: rgba(67, 97, 238, 0.1);
+    }
+
+    &:active {
+      background: rgba(67, 97, 238, 0.2);
+      transform: scale(0.98);
+    }
+
+    &:focus {
+      outline: 2px solid #4361ee;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      color: #94a3b8;
+      border-color: #94a3b8;
+      cursor: not-allowed;
+    }
+  }
+
+  // 危险按钮
+  &.btn-danger {
+    background: #ef4444;
+    color: white;
+
+    &:hover {
+      background: #dc2626;
+    }
+
+    &:active {
+      background: #b91c1c;
+      transform: scale(0.98);
+    }
+
+    &:focus {
+      outline: 2px solid #ef4444;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      background: #fecaca;
+      cursor: not-allowed;
+    }
+  }
+
+  // 小按钮
+  &.btn-sm {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  // 大按钮
+  &.btn-lg {
+    padding: 16px 24px;
+    font-size: 16px;
+  }
+
+  // 块级按钮
+  &.btn-block {
+    width: 100%;
+    display: flex;
+  }
+
+  // 图标按钮
+  &.btn-icon {
+    padding: 12px;
+    min-width: 44px;
+    min-height: 44px;
+
+    &.btn-sm {
+      padding: 8px;
+      min-width: 36px;
+      min-height: 36px;
+    }
+
+    &.btn-lg {
+      padding: 16px;
+      min-width: 52px;
+      min-height: 52px;
+    }
+  }
+
+  // 圆形按钮
+  &.btn-circle {
+    border-radius: 50%;
+    padding: 12px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  // 加载状态
+  &.btn-loading {
+    position: relative;
+    pointer-events: none;
+    color: transparent;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+// 暗色主题适配
+.dark {
+  .btn {
+    &.btn-secondary {
+      background: #374151;
+      color: #f9fafb;
+
+      &:hover {
+        background: #4b5563;
+      }
+
+      &:active {
+        background: #6b7280;
+      }
+
+      &:disabled {
+        background: #374151;
+        color: #9ca3af;
+      }
+    }
+
+    &.btn-outline {
+      color: #93c5fd;
+      border-color: #93c5fd;
+
+      &:hover {
+        background: rgba(147, 197, 253, 0.1);
+      }
+
+      &:active {
+        background: rgba(147, 197, 253, 0.2);
+      }
+
+      &:disabled {
+        color: #6b7280;
+        border-color: #6b7280;
+      }
+    }
+  }
+}
+
+// 关键帧动画
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -35,7 +35,7 @@
       padding: 12px 20px;
       border-radius: 50px;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s ease-in-out;
       font-weight: 500;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       border: 2px solid transparent;
@@ -47,8 +47,12 @@
         &:hover {
           background: #f8fafc;
           border-color: #cbd5e0;
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           transform: translateY(-2px);
+        }
+
+        &:active {
+          transform: scale(0.98);
         }
 
         .engine-icon {
@@ -73,8 +77,12 @@
 
         &:hover {
           background: linear-gradient(135deg, #3f37c9, #4361ee);
-          box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+          box-shadow: 0 4px 16px rgba(67, 97, 238, 0.4);
           transform: translateY(-2px);
+        }
+
+        &:active {
+          transform: scale(0.98);
         }
 
         .engine-name {
