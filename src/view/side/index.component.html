@@ -66,6 +66,11 @@
           "
           [nzSelected]="commonService.currentSelectedThirdId === thirdLevelItem.id"
           (click)="onClickNav(thirdLevelItem)"
+          [attr.data-nav-id]="thirdLevelItem.id"
+          tabindex="0"
+          (keydown.enter)="onClickNav(thirdLevelItem)"
+          (keydown.space)="onClickNav(thirdLevelItem)"
+          role="menuitem"
         >
           <app-logo
             *ngIf="thirdLevelItem.icon"

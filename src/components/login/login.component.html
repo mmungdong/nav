@@ -7,23 +7,51 @@
 >
   <ng-container *nzModalContent>
     <p>{{ $t('_inputTokenMsg') }}</p>
-    <input
-      nz-input
-      [(ngModel)]="token"
-      autofocus
-      (keyup)="onKey($event)"
-      #input
-      [placeholder]="isSelfDevelop ? 'Password' : 'Token'"
-    />
-    <div class="mt-4" *ngIf="showImgToken">
+    <div class="form-group">
+      <input
+        nz-input
+        [(ngModel)]="token"
+        (ngModelChange)="onTokenChange()"
+        autofocus
+        (keyup)="onKey($event)"
+        #input
+        [placeholder]="isSelfDevelop ? 'Password' : 'Token'"
+        [ngClass]="{
+          'input-error': tokenValidation.isDirty && !tokenValidation.isValid,
+          'input-success': tokenValidation.isDirty && tokenValidation.isValid
+        }"
+      />
+      <div
+        *ngIf="tokenValidation.isDirty && tokenValidation.message"
+        class="validation-message"
+        [ngClass]="{ 'error': !tokenValidation.isValid, 'success': tokenValidation.isValid }"
+      >
+        {{ tokenValidation.message }}
+      </div>
+    </div>
+
+    <div class="form-group mt-4" *ngIf="showImgToken">
       <input
         nz-input
         [(ngModel)]="imageToken"
+        (ngModelChange)="onImageTokenChange()"
         autofocus
         (keyup)="onKey($event)"
         placeholder="Image token"
+        [ngClass]="{
+          'input-error': imageTokenValidation.isDirty && !imageTokenValidation.isValid,
+          'input-success': imageTokenValidation.isDirty && imageTokenValidation.isValid
+        }"
       />
+      <div
+        *ngIf="imageTokenValidation.isDirty && imageTokenValidation.message"
+        class="validation-message"
+        [ngClass]="{ 'error': !imageTokenValidation.isValid, 'success': imageTokenValidation.isValid }"
+      >
+        {{ imageTokenValidation.message }}
+      </div>
     </div>
+
     <p *ngIf="!isSelfDevelop" class="!mt-2">
       {{ $t('_getToken')
       }}<a

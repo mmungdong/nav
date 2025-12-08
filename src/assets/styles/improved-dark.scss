@@ -1,13 +1,13 @@
 // 改进的暗黑模式样式
 .dark-theme {
-  // 基础颜色变量
-  --dark-bg-primary: #121826;
-  --dark-bg-secondary: #1e293b;
-  --dark-bg-tertiary: #334155;
-  --dark-text-primary: #f1f5f9;
-  --dark-text-secondary: #cbd5e1;
-  --dark-text-tertiary: #94a3b8;
-  --dark-border: #475569;
+  // 基础颜色变量 - 增强对比度
+  --dark-bg-primary: #0f141e;
+  --dark-bg-secondary: #1a2436;
+  --dark-bg-tertiary: #2d3c50;
+  --dark-text-primary: #ffffff;
+  --dark-text-secondary: #e2e8f0;
+  --dark-text-tertiary: #cbd5e1;
+  --dark-border: #4a5568;
   --dark-accent-primary: #4361ee;
   --dark-accent-secondary: #4cc9f0;
   --dark-accent-success: #06d6a0;
@@ -24,7 +24,7 @@
       background-color: var(--dark-bg-primary);
     }
 
-    // 文本颜色
+    // 文本颜色 - 增强对比度
     &-text {
       color: var(--dark-text-primary);
 
@@ -98,7 +98,7 @@
       }
     }
 
-    // 输入框组件
+    // 输入框组件 - 增强对比度
     &-input {
       background-color: var(--dark-bg-secondary) !important;
       border-color: var(--dark-border) !important;
@@ -106,7 +106,7 @@
 
       &:focus {
         border-color: var(--dark-accent-primary) !important;
-        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2) !important;
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.3) !important;
       }
 
       &::placeholder {
@@ -114,7 +114,7 @@
       }
     }
 
-    // 导航组件
+    // 导航组件 - 增强对比度
     &-nav {
       background-color: var(--dark-bg-secondary) !important;
       border-color: var(--dark-border) !important;
@@ -125,11 +125,13 @@
         &:hover {
           background-color: var(--dark-bg-tertiary) !important;
           color: var(--dark-text-primary) !important;
+          border-left: 3px solid var(--dark-accent-primary) !important;
         }
 
         &.active {
           background: linear-gradient(135deg, var(--dark-accent-primary), #3f37c9) !important;
           color: white !important;
+          border-left: 3px solid var(--dark-accent-secondary) !important;
         }
       }
     }

@@ -1,0 +1,205 @@
+// 标准动画体系
+// 定义项目中统一使用的动画变量和类
+
+// 标准缓动函数
+$standard-ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+$standard-ease-in: cubic-bezier(0.3, 0, 0.7, 1);
+$standard-ease-out: cubic-bezier(0.3, 1, 0.7, 1);
+
+// 标准动画持续时间
+$duration-fast: 0.15s;
+$duration-normal: 0.3s;
+$duration-slow: 0.45s;
+
+// 标准动画类
+.standard-transition-all {
+  transition: all $duration-normal $standard-ease;
+}
+
+.standard-transition-colors {
+  transition: background-color $duration-normal $standard-ease,
+              border-color $duration-normal $standard-ease,
+              color $duration-normal $standard-ease;
+}
+
+.standard-transition-transform {
+  transition: transform $duration-normal $standard-ease;
+}
+
+.standard-transition-opacity {
+  transition: opacity $duration-normal $standard-ease;
+}
+
+.standard-transition-shadow {
+  transition: box-shadow $duration-normal $standard-ease;
+}
+
+// 标准悬停效果
+.standard-hover-lift {
+  @extend .standard-transition-all;
+  @extend .standard-transition-shadow;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.standard-hover-scale {
+  @extend .standard-transition-transform;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.standard-hover-glow {
+  @extend .standard-transition-shadow;
+
+  &:hover {
+    box-shadow: 0 0 12px rgba(67, 97, 238, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// 标准淡入淡出动画
+.standard-fade-in {
+  animation: standardFadeIn $duration-normal $standard-ease forwards;
+}
+
+.standard-fade-in-up {
+  animation: standardFadeInUp $duration-normal $standard-ease forwards;
+}
+
+.standard-fade-in-down {
+  animation: standardFadeInDown $duration-normal $standard-ease forwards;
+}
+
+.standard-fade-in-left {
+  animation: standardFadeInLeft $duration-normal $standard-ease forwards;
+}
+
+.standard-fade-in-right {
+  animation: standardFadeInRight $duration-normal $standard-ease forwards;
+}
+
+// 标准关键帧动画
+@keyframes standardFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes standardFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes standardFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes standardFadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes standardFadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// 标准旋转动画
+.standard-rotate-infinite {
+  animation: standardRotate360 1.5s $standard-ease infinite;
+}
+
+.standard-rotate-infinite-slow {
+  animation: standardRotate360 3s $standard-ease infinite;
+}
+
+@keyframes standardRotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 标准脉冲动画
+.standard-pulse {
+  animation: standardPulse 2s $standard-ease infinite;
+}
+
+.standard-pulse-slow {
+  animation: standardPulse 3s $standard-ease infinite;
+}
+
+@keyframes standardPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// 标准弹性动画
+.standard-elastic {
+  animation: standardElastic $duration-normal $standard-ease forwards;
+}
+
+@keyframes standardElastic {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

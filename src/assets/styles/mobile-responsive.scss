@@ -1,9 +1,12 @@
-// 移动端响应式设计优化
+// 移动端响应式设计优化 - 增强交互规范
 
 // 基础断点设置
 $breakpoint-mobile: 768px;
 $breakpoint-tablet: 1024px;
 $breakpoint-desktop: 1200px;
+
+// 交互状态断点
+$breakpoint-hover: 1024px;
 
 // 移动端优先的响应式工具类
 .mobile {
@@ -492,6 +495,164 @@ $breakpoint-desktop: 1200px;
     &-tabbar {
       background: rgba(33, 37, 41, 0.95);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// 触摸和鼠标设备的交互差异处理
+@media (hover: hover) {
+  // 支持悬停的设备（通常是鼠标设备）
+  .hover-support {
+    .interactive-element {
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
+
+@media (hover: none) {
+  // 不支持悬停的设备（通常是触摸设备）
+  .no-hover-support {
+    .interactive-element {
+      transition: all 0.1s ease-in-out;
+
+      &:active {
+        transform: scale(0.96);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+// 高精度触摸设备优化
+@media (pointer: fine) {
+  .fine-pointer {
+    .scrollable-area {
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+  }
+}
+
+@media (pointer: coarse) {
+  .coarse-pointer {
+    .scrollable-area {
+      // 在触摸设备上隐藏滚动条
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      // 启用触摸滚动优化
+      -webkit-overflow-scrolling: touch;
+    }
+
+    // 增大触摸目标
+    .touch-target {
+      min-height: 48px;
+      min-width: 48px;
+    }
+  }
+}
+
+// 交互模式媒体查询
+@media (prefers-reduced-motion: reduce) {
+  // 用户偏好减少动画
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  // 高对比度模式
+  .high-contrast {
+    .text {
+      color: #000;
+      background: #fff;
+    }
+
+    .button {
+      border: 2px solid #000;
+      background: #fff;
+      color: #000;
+
+      &:hover,
+      &:focus {
+        background: #000;
+        color: #fff;
+      }
+    }
+  }
+}
+
+// 深色模式下的交互优化
+@media (prefers-color-scheme: dark) {
+  .dark-mode-interaction {
+    .interactive-element {
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &:active {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}
+
+// 手势操作支持
+.gesture-support {
+  .swipeable {
+    touch-action: pan-x pan-y;
+  }
+
+  .pinchable {
+    touch-action: pinch-zoom;
+  }
+
+  .rotatable {
+    touch-action: none;
+  }
+}
+
+// 键盘导航支持
+.keyboard-navigation {
+  .focusable {
+    &:focus {
+      outline: 2px solid #4361ee;
+      outline-offset: 2px;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #4361ee;
+      outline-offset: 2px;
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: none;
     }
   }
 }
