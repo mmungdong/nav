@@ -117,8 +117,8 @@ export default class WebpComponent {
     // 监听WEB_REFRESH事件，刷新列表数据
     event.on('WEB_REFRESH', () => {
       // 触发组件重新渲染
-      this.navs.set([...this.navs()]);
-    });
+      this.navs.set([...this.navs()])
+    })
   }
 
   get oneIndex() {

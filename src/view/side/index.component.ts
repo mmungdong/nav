@@ -69,7 +69,7 @@ export default class SideComponent {
   navs: INavProps[] = navs()
   isCollapsed = getDefaultCollapsed()
   openSidebar = false
-  private currentIndex = 0;
+  private currentIndex = 0
 
   constructor(public commonService: CommonService) {
     event.on('EVENT_DARK', (isDark: unknown) => {
@@ -82,69 +82,69 @@ export default class SideComponent {
   handleKeyboardEvent(event: KeyboardEvent): void {
     // ESC键关闭侧边栏
     if (event.key === 'Escape') {
-      this.closeSidebarWithEscape();
-      return;
+      this.closeSidebarWithEscape()
+      return
     }
 
     // 只在侧边栏打开时处理导航键
     if (!this.openSidebar) {
-      return;
+      return
     }
 
     // 方向键导航
     if (event.key === 'ArrowDown') {
-      this.navigateToNext();
-      event.preventDefault();
+      this.navigateToNext()
+      event.preventDefault()
     } else if (event.key === 'ArrowUp') {
-      this.navigateToPrevious();
-      event.preventDefault();
+      this.navigateToPrevious()
+      event.preventDefault()
     } else if (event.key === 'Enter' || event.key === ' ') {
-      this.selectCurrentItem();
-      event.preventDefault();
+      this.selectCurrentItem()
+      event.preventDefault()
     }
   }
 
   // 关闭侧边栏（通过ESC键）
   closeSidebarWithEscape(): void {
     if (this.openSidebar) {
-      this.toggleSidebar(false);
+      this.toggleSidebar(false)
     }
   }
 
   // 导航到下一个项目
   navigateToNext(): void {
-    const items = this.commonService.thirdLevelNavs();
-    if (items.length === 0) return;
+    const items = this.commonService.thirdLevelNavs()
+    if (items.length === 0) return
 
-    this.currentIndex = (this.currentIndex + 1) % items.length;
-    this.focusCurrentItem();
+    this.currentIndex = (this.currentIndex + 1) % items.length
+    this.focusCurrentItem()
   }
 
   // 导航到上一个项目
   navigateToPrevious(): void {
-    const items = this.commonService.thirdLevelNavs();
-    if (items.length === 0) return;
+    const items = this.commonService.thirdLevelNavs()
+    if (items.length === 0) return
 
-    this.currentIndex = (this.currentIndex - 1 + items.length) % items.length;
-    this.focusCurrentItem();
+    this.currentIndex = (this.currentIndex - 1 + items.length) % items.length
+    this.focusCurrentItem()
   }
 
   // 选择当前项目
   selectCurrentItem(): void {
-    const items = this.commonService.thirdLevelNavs();
-    if (items.length === 0 || this.currentIndex >= items.length) return;
+    const items = this.commonService.thirdLevelNavs()
+    if (items.length === 0 || this.currentIndex >= items.length) return
 
-    this.onClickNav(items[this.currentIndex]);
+    this.onClickNav(items[this.currentIndex])
   }
 
   // 聚焦当前项目
   focusCurrentItem(): void {
-    const items = this.commonService.thirdLevelNavs();
-    if (items.length === 0 || this.currentIndex >= items.length) return;
+    const items = this.commonService.thirdLevelNavs()
+    if (items.length === 0 || this.currentIndex >= items.length) return
 
-    const element = document.querySelector(`[data-nav-id="${items[this.currentIndex].id}"]`);
+    const element = document.querySelector(`[data-nav-id="${items[this.currentIndex].id}"]`)
     if (element) {
-      (element as HTMLElement).focus();
+      (element as HTMLElement).focus()
     }
   }
 
