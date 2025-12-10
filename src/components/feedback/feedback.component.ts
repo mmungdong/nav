@@ -1,6 +1,6 @@
 // 反馈机制组件
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'
+import { Component, OnInit } from '@angular/core'
 
 interface FeedbackItem {
   id: number;
@@ -17,7 +17,7 @@ interface FeedbackItem {
   styleUrls: ['./feedback.component.scss']
 })
 export class FeedbackComponent implements OnInit {
-  feedbackItems: FeedbackItem[] = [];
+  feedbackItems: FeedbackItem[] = []
 
   ngOnInit(): void {
     // 组件初始化
@@ -28,7 +28,7 @@ export class FeedbackComponent implements OnInit {
    * @param message 反馈消息
    */
   showSuccess(message: string): void {
-    this.addFeedback('success', message);
+    this.addFeedback('success', message)
   }
 
   /**
@@ -36,7 +36,7 @@ export class FeedbackComponent implements OnInit {
    * @param message 反馈消息
    */
   showError(message: string): void {
-    this.addFeedback('error', message);
+    this.addFeedback('error', message)
   }
 
   /**
@@ -44,7 +44,7 @@ export class FeedbackComponent implements OnInit {
    * @param message 反馈消息
    */
   showWarning(message: string): void {
-    this.addFeedback('warning', message);
+    this.addFeedback('warning', message)
   }
 
   /**
@@ -52,7 +52,7 @@ export class FeedbackComponent implements OnInit {
    * @param message 反馈消息
    */
   showInfo(message: string): void {
-    this.addFeedback('info', message);
+    this.addFeedback('info', message)
   }
 
   /**
@@ -69,14 +69,14 @@ export class FeedbackComponent implements OnInit {
       type,
       message,
       dismissing: false
-    };
+    }
 
-    this.feedbackItems.push(item);
+    this.feedbackItems.push(item)
 
     // 3秒后自动消失
     setTimeout(() => {
-      this.dismiss(item, this.feedbackItems.indexOf(item));
-    }, 3000);
+      this.dismiss(item, this.feedbackItems.indexOf(item))
+    }, 3000)
   }
 
   /**
@@ -87,12 +87,12 @@ export class FeedbackComponent implements OnInit {
   dismiss(item: FeedbackItem, index: number): void {
     if (index >= 0 && index < this.feedbackItems.length) {
       // 标记为正在关闭
-      item.dismissing = true;
+      item.dismissing = true
 
       // 动画结束后移除
       setTimeout(() => {
-        this.feedbackItems.splice(index, 1);
-      }, 300);
+        this.feedbackItems.splice(index, 1)
+      }, 300)
     }
   }
 }

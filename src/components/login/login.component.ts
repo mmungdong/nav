@@ -91,44 +91,44 @@ export class LoginComponent {
 
   // 验证Token输入
   validateToken(): void {
-    this.tokenValidation.isDirty = true;
-    const token = this.token.trim();
+    this.tokenValidation.isDirty = true
+    const token = this.token.trim()
 
     if (!token) {
-      this.tokenValidation.isValid = false;
-      this.tokenValidation.message = this.$t('_pleaseInputToken');
-      return;
+      this.tokenValidation.isValid = false
+      this.tokenValidation.message = this.$t('_pleaseInputToken')
+      return
     }
 
     if (token.length < 10) {
-      this.tokenValidation.isValid = false;
-      this.tokenValidation.message = this.$t('_tokenTooShort');
-      return;
+      this.tokenValidation.isValid = false
+      this.tokenValidation.message = this.$t('_tokenTooShort')
+      return
     }
 
-    this.tokenValidation.isValid = true;
-    this.tokenValidation.message = '';
+    this.tokenValidation.isValid = true
+    this.tokenValidation.message = ''
   }
 
   // 验证图片Token输入
   validateImageToken(): void {
-    this.imageTokenValidation.isDirty = true;
-    const token = this.imageToken.trim();
+    this.imageTokenValidation.isDirty = true
+    const token = this.imageToken.trim()
 
     if (!token) {
-      this.imageTokenValidation.isValid = false;
-      this.imageTokenValidation.message = 'Please enter the image TOKEN';
-      return;
+      this.imageTokenValidation.isValid = false
+      this.imageTokenValidation.message = 'Please enter the image TOKEN'
+      return
     }
 
     if (token.length < 10) {
-      this.imageTokenValidation.isValid = false;
-      this.imageTokenValidation.message = 'Image token is too short';
-      return;
+      this.imageTokenValidation.isValid = false
+      this.imageTokenValidation.message = 'Image token is too short'
+      return
     }
 
-    this.imageTokenValidation.isValid = true;
-    this.imageTokenValidation.message = '';
+    this.imageTokenValidation.isValid = true
+    this.imageTokenValidation.message = ''
   }
 
   onKey(event: KeyboardEvent): void {
@@ -138,79 +138,79 @@ export class LoginComponent {
   }
 
   onTokenChange(): void {
-    this.validateToken();
+    this.validateToken()
   }
 
   onImageTokenChange(): void {
-    this.validateImageToken();
+    this.validateImageToken()
   }
 
   async login(): Promise<void> {
     // 验证表单
-    this.validateToken();
+    this.validateToken()
     if (this.showImgToken) {
-      this.validateImageToken();
+      this.validateImageToken()
     }
 
     // 检查验证结果
     if (!this.tokenValidation.isValid) {
-      this.message.error(this.tokenValidation.message || $t('_pleaseInputToken'));
-      return;
+      this.message.error(this.tokenValidation.message || $t('_pleaseInputToken'))
+      return
     }
 
     if (this.showImgToken && !this.imageTokenValidation.isValid) {
-      this.message.error(this.imageTokenValidation.message || 'Please enter the image TOKEN');
-      return;
+      this.message.error(this.imageTokenValidation.message || 'Please enter the image TOKEN')
+      return
     }
 
-    const token = this.token.trim();
+    const token = this.token.trim()
 
     if (this.showImgToken) {
-      const imageToken = this.imageToken.trim();
+      const imageToken = this.imageToken.trim()
       try {
-        this.submitting = true;
-        const authorName = config.imageRepoUrl.split('/').at(-2);
-        const res = await verifyToken(imageToken, config.imageRepoUrl);
+        this.submitting = true
+        const authorName = config.imageRepoUrl.split('/').at(-2)
+        const res = await verifyToken(imageToken, config.imageRepoUrl)
         if ((res?.data?.login ?? res?.data?.username) !== authorName) {
-          this.message.error('Image Bad credentials');
-          return;
+          this.message.error('Image Bad credentials')
+          return
         }
-        setImageToken(imageToken);
+        setImageToken(imageToken)
       } catch {
-        this.message.error('Failed to verify image token');
-        return;
+        this.message.error('Failed to verify image token')
+        return
       } finally {
-        this.submitting = false;
+        this.submitting = false
       }
     }
 
-    this.submitting = true;
+    this.submitting = true
 
     try {
-      const res = await verifyToken(token);
+      const res = await verifyToken(token)
       if (
         !isSelfDevelop &&
         (res?.data?.login ?? res?.data?.username) !== authorName
       ) {
-        this.message.error('Bad credentials');
-        throw new Error('Bad credentials');
+        this.message.error('Bad credentials')
+        throw new Error('Bad credentials')
       }
-      setToken(token);
+      setToken(token)
 
       try {
         createBranch('image').finally(() => {
-          this.message.success($t('_tokenVerSuc'));
+          this.message.success($t('_tokenVerSuc'))
           removeWebsite().finally(() => {
-            window.location.reload();
-          });
-        });
+            window.location.reload()
+          })
+        })
       } catch {
-        removeToken();
-        this.submitting = false;
+        removeToken()
+        this.submitting = false
       }
     } catch {
-      this.message.error('Failed to verify token');
-      this.submitting = false;
+      this.message.error('Failed to verify token')
+      this.submitting = false
     }
   }
 }

@@ -183,8 +183,8 @@ export class CardComponent {
    * @param event 触摸事件
    */
   onTouchStart(event: any): void {
-    const target = event.currentTarget as HTMLElement;
-    target.classList.add('touch-active');
+    const target = event.currentTarget as HTMLElement
+    target.classList.add('touch-active')
   }
 
   /**
@@ -192,10 +192,10 @@ export class CardComponent {
    * @param event 触摸事件
    */
   onTouchEnd(event: any): void {
-    const target = event.currentTarget as HTMLElement;
+    const target = event.currentTarget as HTMLElement
     // 延迟移除active状态，确保用户能看到反馈效果
     setTimeout(() => {
-      target.classList.remove('touch-active');
-    }, 150);
+      target.classList.remove('touch-active')
+    }, 150)
   }
 }
